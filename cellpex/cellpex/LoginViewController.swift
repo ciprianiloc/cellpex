@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginViewController.swift
 //  cellpex
 //
 //  Created by Ciprian Iloc on 27/10/2017.
