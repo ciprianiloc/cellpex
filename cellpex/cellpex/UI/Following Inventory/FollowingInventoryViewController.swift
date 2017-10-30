@@ -13,7 +13,7 @@ class FollowingInventoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.title = "Following Inventory"
+        self.addNavigationTitleViewImage(UIImage(named: "login_logo_image")!)
     }
 
     override func didReceiveMemoryWarning() {

@@ -8,6 +8,12 @@
 
 import UIKit
 
+class MessageTableViewCell: UITableViewCell {
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var subjectLabel: UILabel!
+}
+
 class MessagesViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -26,10 +32,14 @@ class MessagesViewController: UIViewController {
 extension MessagesViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 53
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell") as! MessageTableViewCell
+        cell.fromLabel.text = "From:testA"
+        cell.subjectLabel.text = "Re:Re:subjectTest"
+        cell.dateLabel.text = "18, Oct 2017"
+        return cell
     }
 }
