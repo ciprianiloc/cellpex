@@ -1052,6 +1052,12 @@ extension UIViewController {
         navigationItem.rightBarButtonItem = rightButton
     }
     
+    public func addNavigationTitleViewImage(_ titleImage: UIImage) {
+        let navigationTitleView = UIImageView.init(image: titleImage)
+        navigationTitleView.contentMode = .scaleAspectFit
+        navigationItem.titleView = navigationTitleView
+    }
+    
     @objc public func toggleLeft() {
         slideMenuController()?.toggleLeft()
     }

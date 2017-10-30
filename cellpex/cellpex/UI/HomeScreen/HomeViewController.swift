@@ -22,12 +22,7 @@ class HomeViewController: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController = searchController
         self.addLeftBarButtonWithImage(UIImage(named: "hamburger_icon")!)
-
-    }
- 
-    @objc func toggleLeft(sender: UIBarButtonItem) {
-
-        _ = navigationController?.popViewController(animated: true)
+        self.addNavigationTitleViewImage(UIImage(named: "login_logo_image")!)
     }
 
     override func didReceiveMemoryWarning() {

@@ -77,14 +77,17 @@ extension LeftMenuViewController : UITableViewDelegate {
             case .Home:
                 self.slideMenuController()?.closeLeft()
             case .Messages :
+                self.slideMenuController()?.closeLeft()
                 let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
                 let messagesViewController = homeStoryboard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
                 self.slideMenuController()?.navigationController?.pushViewController(messagesViewController, animated: true)
             case .Feedback :
+                self.slideMenuController()?.closeLeft()
                 let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
                 let feedbackViewController = homeStoryboard.instantiateViewController(withIdentifier: "FeedbackViewController") as! FeedbackViewController
                 self.slideMenuController()?.navigationController?.pushViewController(feedbackViewController, animated: true)
             case .FollowingInventory :
+                self.slideMenuController()?.closeLeft()
                 let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
                 let followingInventoryViewController = homeStoryboard.instantiateViewController(withIdentifier: "FollowingInventoryViewController") as! FollowingInventoryViewController
                 self.slideMenuController()?.navigationController?.pushViewController(followingInventoryViewController, animated: true)
