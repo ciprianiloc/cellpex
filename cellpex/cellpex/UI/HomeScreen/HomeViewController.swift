@@ -21,9 +21,9 @@ class HomeViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController = searchController
-        self.navigationItem.hidesBackButton = true
-        let leftBarButton = UIBarButtonItem.init(image: UIImage.init(named: "hamburger_icon"), style: .plain, target: self, action: #selector(HomeViewController.back(sender:)))
-        self.navigationItem.leftBarButtonItem = leftBarButton
+//        self.navigationItem.hidesBackButton = true
+//        let leftBarButton = UIBarButtonItem.init(image: UIImage.init(named: "hamburger_icon"), style: .plain, target: self, action: #selector(HomeViewController.back(sender:)))
+//        self.navigationItem.leftBarButtonItem = leftBarButton
     }
  
     @objc func back(sender: UIBarButtonItem) {
@@ -50,7 +50,8 @@ extension HomeViewController: UICollectionViewDataSource {
         cell.productProvider.text = "servicegsm"
         cell.productSatusLabel.text = "New"
         cell.productPriceLabel.text = "320 USD"
-        cell.productDescriptionLabel.text = "Apple iPhone 6s 32G"
+        cell.productDescriptionLabel.text = "Apple iPhone 6s"
+        cell.productPropertiesLabel.text = "32 GB"
         return cell;
     }
     
@@ -64,8 +65,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let widthPerItem = (UIDevice.current.userInterfaceIdiom == .pad) ?(collectionView.frame.width - 20)/2 : collectionView.frame.width - 10;
-        return CGSize(width: widthPerItem, height: 100)
+        let widthPerItem = (UIDevice.current.userInterfaceIdiom == .pad) ?(collectionView.frame.width - 10)/2 : collectionView.frame.width - 10;
+        return CGSize(width: widthPerItem, height: 109)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

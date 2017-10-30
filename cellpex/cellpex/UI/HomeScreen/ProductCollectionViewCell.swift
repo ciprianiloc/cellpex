@@ -15,4 +15,5 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productPriceLabel: UILabel!
     @IBOutlet weak var productDateLabel: UILabel!
     @IBOutlet weak var productSatusLabel: UILabel!
+    @IBOutlet weak var productPropertiesLabel: UILabel!
 }
