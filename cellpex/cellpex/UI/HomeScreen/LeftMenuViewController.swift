@@ -8,14 +8,6 @@
 
 import UIKit
 
-enum LeftMenu: Int {
-    case Home = 0
-    case FollowingInventory
-    case Messages
-    case Feedback
-    case LogOut
-}
-
 protocol LeftMenuProtocol : class {
     func changeViewController(_ menu: LeftMenu)
 }
@@ -23,7 +15,6 @@ protocol LeftMenuProtocol : class {
 class LeftMenuViewController: UIViewController, LeftMenuProtocol {
 
     @IBOutlet weak var tableView: UITableView!
-    var menus = ["Home", "Following Inventory", "Messages", "Feedback", "Log Out"]
     var mainViewController: UIViewController!
     var swiftViewController: UIViewController!
     var javaViewController: UIViewController!
@@ -58,13 +49,18 @@ class LeftMenuViewController: UIViewController, LeftMenuProtocol {
 extension LeftMenuViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menus.count
+        return LeftMenuModel.numberOfEntriesInMenu
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LeftMenuCell") as! LeftMenuCell
-        cell.menuLabel.text = menus[indexPath.row]
-        return cell
+        if let menu = LeftMenu(rawValue: indexPath.row) {
+            let menuModel = LeftMenuModel(leftMenu: menu)
+            cell.menuLabel.text = menuModel.title
+            cell.menuIcon.image = menuModel.icon
+            return cell
+        }
+        return UITableViewCell()
     }
 }
 
