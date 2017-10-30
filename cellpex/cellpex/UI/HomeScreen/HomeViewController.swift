@@ -21,12 +21,11 @@ class HomeViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController = searchController
-//        self.navigationItem.hidesBackButton = true
-//        let leftBarButton = UIBarButtonItem.init(image: UIImage.init(named: "hamburger_icon"), style: .plain, target: self, action: #selector(HomeViewController.back(sender:)))
-//        self.navigationItem.leftBarButtonItem = leftBarButton
+        let leftButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "hamburger_icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.toggleLeft))
+        navigationItem.leftBarButtonItem = leftButton
     }
  
-    @objc func back(sender: UIBarButtonItem) {
+    @objc func toggleLeft(sender: UIBarButtonItem) {
 
         _ = navigationController?.popViewController(animated: true)
     }
