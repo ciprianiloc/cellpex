@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LeftMenuCell" id="vz8-TU-T4E" customClass="LeftMenuCell" customModule="cellpex" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LeftMenuCell" id="vz8-TU-T4E" customClass="LeftMenuCell" customModule="cellpex" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vz8-TU-T4E" id="3l1-jp-AF8">
@@ -38,8 +38,17 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qRr-07-jwf">
                                                     <rect key="frame" x="70" y="11" width="297" height="22"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                     <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkQ-vf-kgg">
+                                                    <rect key="frame" x="320" y="5" width="45" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="45" id="VcU-L6-Q0e"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                    <color key="textColor" red="0.98039215686274506" green="0.31372549019607843" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -47,8 +56,11 @@
                                                 <constraint firstItem="qRr-07-jwf" firstAttribute="leading" secondItem="fnF-9j-GAX" secondAttribute="trailing" constant="30" id="GAL-aT-XDQ"/>
                                                 <constraint firstItem="fnF-9j-GAX" firstAttribute="centerY" secondItem="3l1-jp-AF8" secondAttribute="centerY" id="Rar-pj-OJB"/>
                                                 <constraint firstItem="qRr-07-jwf" firstAttribute="centerY" secondItem="3l1-jp-AF8" secondAttribute="centerY" id="S2U-JM-PXL"/>
+                                                <constraint firstAttribute="bottom" secondItem="zkQ-vf-kgg" secondAttribute="bottom" constant="5" id="arf-S3-Gac"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="qRr-07-jwf" secondAttribute="trailing" id="bsC-Bk-Dej"/>
+                                                <constraint firstAttribute="trailing" secondItem="zkQ-vf-kgg" secondAttribute="trailing" constant="10" id="h7N-vC-c3t"/>
                                                 <constraint firstItem="qRr-07-jwf" firstAttribute="top" secondItem="3l1-jp-AF8" secondAttribute="topMargin" constant="3" id="ldN-zI-APr"/>
+                                                <constraint firstItem="zkQ-vf-kgg" firstAttribute="top" secondItem="3l1-jp-AF8" secondAttribute="top" constant="5" id="ohI-H5-oo4"/>
                                                 <constraint firstItem="fnF-9j-GAX" firstAttribute="leading" secondItem="3l1-jp-AF8" secondAttribute="leading" constant="10" id="zhh-Ei-R7U"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="qRr-07-jwf" secondAttribute="bottom" constant="3" id="zyK-wd-8UO"/>
                                             </constraints>
@@ -56,6 +68,7 @@
                                         <connections>
                                             <outlet property="menuIcon" destination="fnF-9j-GAX" id="Qr0-JH-YTr"/>
                                             <outlet property="menuLabel" destination="qRr-07-jwf" id="DJ7-cb-Mex"/>
+                                            <outlet property="messageCounterLabel" destination="zkQ-vf-kgg" id="H9w-U2-tQ2"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

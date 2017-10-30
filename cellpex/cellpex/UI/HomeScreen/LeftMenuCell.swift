@@ -10,8 +10,8 @@ import UIKit
 
 class LeftMenuCell: UITableViewCell {
     @IBOutlet weak var menuIcon: UIImageView!
-    
     @IBOutlet weak var menuLabel: UILabel!
+    @IBOutlet weak var messageCounterLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

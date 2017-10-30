@@ -58,6 +58,8 @@ extension LeftMenuViewController : UITableViewDataSource {
             let menuModel = LeftMenuModel(leftMenu: menu)
             cell.menuLabel.text = menuModel.title
             cell.menuIcon.image = menuModel.icon
+            cell.messageCounterLabel.isHidden = (menuModel.hasMessageCounter == false)
+            cell.messageCounterLabel.text = "26"
             return cell
         }
         return UITableViewCell()

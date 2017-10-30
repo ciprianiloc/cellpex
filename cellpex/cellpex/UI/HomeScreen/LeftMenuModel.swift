@@ -23,24 +23,32 @@ struct LeftMenuModel {
     
     var title = ""
     var icon : UIImage?
-    
+    let menuOption : LeftMenu!
+    let hasMessageCounter : Bool!
     init(leftMenu: LeftMenu) {
+        menuOption = leftMenu;
         switch leftMenu {
         case .Home :
             title = "Home"
             icon = UIImage.init(named: "home_icon")
+            hasMessageCounter = false
         case .FollowingInventory :
             title = "Following Inventory"
             icon = UIImage.init(named: "followingInventory_icon")
+            hasMessageCounter = false
         case .Messages :
             title = "Messages"
             icon = UIImage.init(named: "messages_icon")
+            hasMessageCounter = true
         case .Feedback :
             title = "Feedback"
             icon = UIImage.init(named: "feedback_icon")
+            hasMessageCounter = false
         case .LogOut :
             title = "Log Out"
             icon = UIImage.init(named: "logout_icon")
+            hasMessageCounter = false
+
     }
 }
 }
