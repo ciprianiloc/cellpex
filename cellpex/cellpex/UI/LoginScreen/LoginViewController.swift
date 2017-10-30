@@ -26,8 +26,23 @@ class LoginViewController: UIViewController {
     }
     @IBAction func signInButtonAction(_ sender: Any) {
         let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
-        let homeVC = homeStoryboard.instantiateViewController(withIdentifier: "HomeViewController")
-        self.navigationController?.pushViewController(homeVC, animated: true)
+        
+        let mainViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        let leftViewController = homeStoryboard.instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
+        
+        let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
+        
+        UINavigationBar.appearance().tintColor = UIColor.darkGray
+        leftViewController.mainViewController = nvc
+        
+        let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
+        if #available(iOS 11, *) {
+        } else {
+            slideMenuController.automaticallyAdjustsScrollViewInsets = true
+        }
+        slideMenuController.delegate = mainViewController as SlideMenuControllerDelegate
+        self.navigationController?.pushViewController(slideMenuController, animated: true)
+
     }
     
     @IBAction func forgotButtonAction(_ sender: Any) {

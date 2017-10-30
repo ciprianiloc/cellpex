@@ -21,8 +21,8 @@ class HomeViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController = searchController
-        let leftButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "hamburger_icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.toggleLeft))
-        navigationItem.leftBarButtonItem = leftButton
+        self.addLeftBarButtonWithImage(UIImage(named: "hamburger_icon")!)
+
     }
  
     @objc func toggleLeft(sender: UIBarButtonItem) {
@@ -57,7 +57,11 @@ extension HomeViewController: UICollectionViewDataSource {
 }
 
 extension HomeViewController: UICollectionViewDelegate {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
+        let productDetailsViewController = homeStoryboard.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
+        self.navigationController?.pushViewController(productDetailsViewController, animated: true)
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
@@ -71,6 +75,39 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5;
     }
+}
+
+extension HomeViewController: SlideMenuControllerDelegate {
+    func leftWillOpen() {
+        print("SlideMenuControllerDelegate: leftWillOpen")
+    }
     
+    func leftDidOpen() {
+        print("SlideMenuControllerDelegate: leftDidOpen")
+    }
+    
+    func leftWillClose() {
+        print("SlideMenuControllerDelegate: leftWillClose")
+    }
+    
+    func leftDidClose() {
+        print("SlideMenuControllerDelegate: leftDidClose")
+    }
+    
+    func rightWillOpen() {
+        print("SlideMenuControllerDelegate: rightWillOpen")
+    }
+    
+    func rightDidOpen() {
+        print("SlideMenuControllerDelegate: rightDidOpen")
+    }
+    
+    func rightWillClose() {
+        print("SlideMenuControllerDelegate: rightWillClose")
+    }
+    
+    func rightDidClose() {
+        print("SlideMenuControllerDelegate: rightDidClose")
+    }
 }
 
