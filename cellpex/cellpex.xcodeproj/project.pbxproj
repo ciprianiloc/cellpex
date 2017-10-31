@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F634100B1FA8F83800D46222 /* RefreshFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63410091FA8F83800D46222 /* RefreshFooterView.xib */; };
+		F634100C1FA8F83800D46222 /* RefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634100A1FA8F83800D46222 /* RefreshFooterView.swift */; };
 		F636A18A1FA76B4200DCDCFA /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F636A1891FA76B4200DCDCFA /* ProductDetailsViewController.swift */; };
 		F636A18F1FA7778900DCDCFA /* LeftMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F636A18E1FA7778900DCDCFA /* LeftMenuModel.swift */; };
 		F63F91C41FA360C80083A4A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63F91C31FA360C80083A4A8 /* AppDelegate.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F63410091FA8F83800D46222 /* RefreshFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshFooterView.xib; sourceTree = "<group>"; };
+		F634100A1FA8F83800D46222 /* RefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshFooterView.swift; sourceTree = "<group>"; };
 		F636A1891FA76B4200DCDCFA /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		F636A18E1FA7778900DCDCFA /* LeftMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuModel.swift; sourceTree = "<group>"; };
 		F63F91C01FA360C80083A4A8 /* cellpex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cellpex.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +67,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F63410071FA8F7B800D46222 /* SlideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				F6863C741FA733A600A5F6D2 /* ExSlideMenuController.swift */,
+				F6863C691FA717AF00A5F6D2 /* SlideMenuController.swift */,
+				F6863C671FA7163200A5F6D2 /* LeftMenuViewController.swift */,
+				F6863C791FA752DB00A5F6D2 /* LeftMenuCell.swift */,
+				F636A18E1FA7778900DCDCFA /* LeftMenuModel.swift */,
+			);
+			path = SlideMenu;
+			sourceTree = "<group>";
+		};
 		F636A1881FA76B2A00DCDCFA /* ProductDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,18 +150,22 @@
 			path = "Following Inventory";
 			sourceTree = "<group>";
 		};
-		F68E615C1FA8B69C0046E5BC /* BaseClasses */ = {
+		F68E615C1FA8B69C0046E5BC /* CollectionViewBase */ = {
 			isa = PBXGroup;
 			children = (
+				F634100A1FA8F83800D46222 /* RefreshFooterView.swift */,
+				F63410091FA8F83800D46222 /* RefreshFooterView.xib */,
+				F69EECEC1FA4557700F497F1 /* ProductCollectionViewCell.swift */,
 				F68E615D1FA8B6B70046E5BC /* ListOfProductsViewController.swift */,
 			);
-			path = BaseClasses;
+			path = CollectionViewBase;
 			sourceTree = "<group>";
 		};
 		F69EECE51FA3B18700F497F1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				F68E615C1FA8B69C0046E5BC /* BaseClasses */,
+				F63410071FA8F7B800D46222 /* SlideMenu */,
+				F68E615C1FA8B69C0046E5BC /* CollectionViewBase */,
 				F636A1881FA76B2A00DCDCFA /* ProductDetails */,
 				F6863C821FA767CB00A5F6D2 /* Following Inventory */,
 				F6863C7F1FA7678500A5F6D2 /* Feedback */,
@@ -159,13 +179,7 @@
 		F69EECE61FA3B18700F497F1 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
-				F6863C741FA733A600A5F6D2 /* ExSlideMenuController.swift */,
-				F6863C691FA717AF00A5F6D2 /* SlideMenuController.swift */,
 				F69EECE81FA3B1B200F497F1 /* HomeViewController.swift */,
-				F69EECEC1FA4557700F497F1 /* ProductCollectionViewCell.swift */,
-				F6863C671FA7163200A5F6D2 /* LeftMenuViewController.swift */,
-				F6863C791FA752DB00A5F6D2 /* LeftMenuCell.swift */,
-				F636A18E1FA7778900DCDCFA /* LeftMenuModel.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -240,6 +254,7 @@
 				F63F91CE1FA360C80083A4A8 /* LaunchScreen.storyboard in Resources */,
 				F63F91CB1FA360C80083A4A8 /* Assets.xcassets in Resources */,
 				F63F91C91FA360C80083A4A8 /* Main.storyboard in Resources */,
+				F634100B1FA8F83800D46222 /* RefreshFooterView.xib in Resources */,
 				F69EECEB1FA3B1DA00F497F1 /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +272,7 @@
 				F63F91C61FA360C80083A4A8 /* LoginViewController.swift in Sources */,
 				F6863C7A1FA752DB00A5F6D2 /* LeftMenuCell.swift in Sources */,
 				F63F91C41FA360C80083A4A8 /* AppDelegate.swift in Sources */,
+				F634100C1FA8F83800D46222 /* RefreshFooterView.swift in Sources */,
 				F6863C751FA733A600A5F6D2 /* ExSlideMenuController.swift in Sources */,
 				F636A18F1FA7778900DCDCFA /* LeftMenuModel.swift in Sources */,
 				F69EECED1FA4557700F497F1 /* ProductCollectionViewCell.swift in Sources */,

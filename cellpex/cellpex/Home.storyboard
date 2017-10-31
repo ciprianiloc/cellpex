@@ -525,6 +525,7 @@
                         <viewLayoutGuide key="safeArea" id="X2H-g5-RNo"/>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="c7A-C1-cer" id="4kH-jP-JCb"/>
                         <outlet property="filterLabel" destination="k8B-PV-sFP" id="TzT-cs-Ioy"/>
                         <outlet property="unreadMessagesLabel" destination="Cik-zN-rEA" id="fVm-tA-seM"/>
                     </connections>
@@ -707,6 +708,7 @@
                         <viewLayoutGuide key="safeArea" id="I2A-EU-eI2"/>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="opP-mW-ZZp" id="eF9-Ct-aoL"/>
                         <outlet property="filterLabel" destination="Mhv-dX-HMw" id="e7c-Gr-2br"/>
                         <outlet property="unreadMessagesLabel" destination="QVZ-Lx-2gA" id="zVh-pJ-Yw8"/>
                     </connections>
