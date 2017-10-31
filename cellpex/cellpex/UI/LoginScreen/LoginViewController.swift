@@ -11,13 +11,19 @@ import SafariServices
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var forgotButton: UIButton!
+    
+    @IBOutlet weak var registerButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         forgotButton.layer.borderWidth = 1.0
         forgotButton.layer.borderColor = UIColor.lightGray.cgColor
-
-        // Do any additional setup after loading the view, typically from a nib.
+        registerButton.backgroundColor = UIColor(named: "button_enable_color")
+        updateLoginButtonState()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateLoginButtonState), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -64,5 +70,15 @@ class LoginViewController: UIViewController {
             self.present(svc, animated: true, completion: nil)
         }
     }
+    
+    @objc private func updateLoginButtonState() {
+        let isLoginEnable = (usernameTextField.text?.isEmpty == false && passwordTextField.text?.isEmpty == false)
+        self.loginButton.isEnabled = isLoginEnable
+        let loginButtonCollorName = isLoginEnable ? "button_enable_color" : "button_disabled_color"
+        self.loginButton.backgroundColor = UIColor(named: loginButtonCollorName)
+    }
 }
 
+extension LoginViewController : UITextFieldDelegate {
+
+}

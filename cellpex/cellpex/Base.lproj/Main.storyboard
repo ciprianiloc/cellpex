@@ -31,6 +31,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="4z1-4K-kIB"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aZV-DR-L8j">
                                 <rect key="frame" x="10" y="251" width="355" height="30"/>
@@ -123,6 +126,10 @@
                     <navigationItem key="navigationItem" id="v0L-jr-6f8"/>
                     <connections>
                         <outlet property="forgotButton" destination="Ifn-UI-rBm" id="3v4-gw-TVd"/>
+                        <outlet property="loginButton" destination="Ecl-pB-NCh" id="Rwg-2b-mE4"/>
+                        <outlet property="passwordTextField" destination="aZV-DR-L8j" id="rwF-Lp-jaC"/>
+                        <outlet property="registerButton" destination="fHL-Sv-dn4" id="HT2-gf-jup"/>
+                        <outlet property="usernameTextField" destination="XU8-rT-ST8" id="14S-eG-N0V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
