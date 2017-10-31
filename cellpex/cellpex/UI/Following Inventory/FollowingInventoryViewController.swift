@@ -8,18 +8,14 @@
 
 import UIKit
 
-class FollowingInventoryViewController: UIViewController {
-
+class FollowingInventoryViewController: ListOfProductsViewController {
+    @IBOutlet weak var filterLabel: UILabel!
+    @IBOutlet weak var unreadMessagesLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.addNavigationTitleViewImage(UIImage(named: "login_logo_image")!)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+        filterLabel.text = "Following Inv"
+        unreadMessagesLabel.text = "Unread messages 8"
+    }    
 
 }
