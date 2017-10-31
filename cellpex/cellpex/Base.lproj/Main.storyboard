@@ -35,7 +35,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="4z1-4K-kIB"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aZV-DR-L8j">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aZV-DR-L8j" customClass="PaddedTextField" customModule="cellpex" customModuleProvider="target">
                                 <rect key="frame" x="10" y="251" width="355" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ufs-Nw-lLL"/>

@@ -11,7 +11,7 @@ import SafariServices
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordTextField: PaddedTextField!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var forgotButton: UIButton!
