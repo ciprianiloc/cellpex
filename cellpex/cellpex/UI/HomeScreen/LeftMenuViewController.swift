@@ -14,6 +14,9 @@ protocol LeftMenuProtocol : class {
 
 class LeftMenuViewController: UIViewController, LeftMenuProtocol {
 
+    @IBOutlet weak var userLogo: UIImageView!
+    @IBOutlet weak var companyLabel: UILabel!
+    @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var mainViewController: UIViewController!
     var swiftViewController: UIViewController!
@@ -29,7 +32,8 @@ class LeftMenuViewController: UIViewController, LeftMenuProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        userLabel.text = "user name (0)"
+        companyLabel.text = "TestText"
     }
     
     override func viewDidAppear(_ animated: Bool) {
