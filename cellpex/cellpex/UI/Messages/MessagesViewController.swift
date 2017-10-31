@@ -15,7 +15,7 @@ class MessageTableViewCell: UITableViewCell {
 }
 
 class MessagesViewController: UIViewController {
-
+    @IBOutlet weak var messageSelector: UISegmentedControl!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -27,12 +27,15 @@ class MessagesViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func selectorValueHasChanged(_ sender: Any) {
+        
+    }
 }
 
 extension MessagesViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 53
+        return 56
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -42,4 +45,16 @@ extension MessagesViewController : UITableViewDataSource {
         cell.dateLabel.text = "18, Oct 2017"
         return cell
     }
+
+}
+
+extension MessagesViewController : UITableViewDelegate {
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        return headerView
+//    }
+//    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 40
+//    }
 }

@@ -67,14 +67,6 @@
                                 <state key="normal" title="Forgot?">
                                     <color key="titleColor" red="0.094117647058823528" green="0.27450980392156865" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                        <color key="value" red="0.79989070595854916" green="0.79989070595854916" blue="0.79989070595854916" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="forgotButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NSI-MG-M9j"/>
                                 </connections>
@@ -129,6 +121,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="v0L-jr-6f8"/>
+                    <connections>
+                        <outlet property="forgotButton" destination="Ifn-UI-rBm" id="3v4-gw-TVd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -100,9 +100,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ntr-JT-sOF">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="w2f-Wg-a6i">
+                                <rect key="frame" x="20" y="20" width="335" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Kb5-U9-o0S"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Inbox"/>
+                                    <segment title="Send"/>
+                                </segments>
+                                <connections>
+                                    <action selector="selectorValueHasChanged:" destination="Rcf-TX-6Et" eventType="valueChanged" id="3a6-rm-fhJ"/>
+                                </connections>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ntr-JT-sOF">
+                                <rect key="frame" x="0.0" y="55" width="375" height="612"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MessageTableViewCell" rowHeight="56" id="XIC-Je-J4y" customClass="MessageTableViewCell" customModule="cellpex" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="56"/>
@@ -130,8 +144,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subject" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4n8-5V-6iF" userLabel="subject">
-                                                    <rect key="frame" x="10" y="38.5" width="355" height="12.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="subject" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4n8-5V-6iF" userLabel="subject">
+                                                    <rect key="frame" x="18" y="38.5" width="347" height="12.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -143,7 +157,7 @@
                                                 <constraint firstItem="UkT-xu-qtg" firstAttribute="top" secondItem="GVO-JA-a7D" secondAttribute="topMargin" constant="5" id="TnB-aO-RPg"/>
                                                 <constraint firstAttribute="bottom" secondItem="4n8-5V-6iF" secondAttribute="bottom" constant="5" id="UAo-Nb-eji"/>
                                                 <constraint firstAttribute="trailing" secondItem="4n8-5V-6iF" secondAttribute="trailing" constant="10" id="Voi-he-C6L"/>
-                                                <constraint firstItem="4n8-5V-6iF" firstAttribute="leading" secondItem="GVO-JA-a7D" secondAttribute="leading" constant="10" id="ZNr-WK-g4I"/>
+                                                <constraint firstItem="4n8-5V-6iF" firstAttribute="leading" secondItem="GVO-JA-a7D" secondAttribute="leadingMargin" constant="10" id="ZNr-WK-g4I"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="dMl-Ap-eA0" secondAttribute="trailing" constant="10" id="mPE-XV-tS5"/>
                                                 <constraint firstItem="UkT-xu-qtg" firstAttribute="centerY" secondItem="dMl-Ap-eA0" secondAttribute="centerY" id="uZq-vY-6E3"/>
                                                 <constraint firstItem="UkT-xu-qtg" firstAttribute="leading" secondItem="GVO-JA-a7D" secondAttribute="leadingMargin" constant="10" id="wRU-EF-l6j"/>
@@ -166,11 +180,17 @@
                         <constraints>
                             <constraint firstItem="ntr-JT-sOF" firstAttribute="leading" secondItem="ado-EN-dsI" secondAttribute="leading" id="4md-3z-yjd"/>
                             <constraint firstItem="ado-EN-dsI" firstAttribute="trailing" secondItem="ntr-JT-sOF" secondAttribute="trailing" id="8of-xV-zSh"/>
-                            <constraint firstItem="ntr-JT-sOF" firstAttribute="top" secondItem="ado-EN-dsI" secondAttribute="top" id="t9X-7e-bAg"/>
+                            <constraint firstItem="w2f-Wg-a6i" firstAttribute="leading" secondItem="ado-EN-dsI" secondAttribute="leading" constant="20" id="bHo-XE-IwF"/>
+                            <constraint firstItem="w2f-Wg-a6i" firstAttribute="top" secondItem="ado-EN-dsI" secondAttribute="top" id="oDN-vD-avK"/>
+                            <constraint firstItem="ntr-JT-sOF" firstAttribute="top" secondItem="w2f-Wg-a6i" secondAttribute="bottom" constant="5" id="t9X-7e-bAg"/>
+                            <constraint firstItem="ado-EN-dsI" firstAttribute="trailing" secondItem="w2f-Wg-a6i" secondAttribute="trailing" constant="20" id="ufh-mE-HBU"/>
                             <constraint firstItem="ado-EN-dsI" firstAttribute="bottom" secondItem="ntr-JT-sOF" secondAttribute="bottom" id="w8A-gR-6IJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ado-EN-dsI"/>
                     </view>
+                    <connections>
+                        <outlet property="messageSelector" destination="w2f-Wg-a6i" id="Y2H-ri-jOE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1b-IR-IfH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

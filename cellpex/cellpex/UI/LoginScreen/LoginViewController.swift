@@ -11,8 +11,12 @@ import SafariServices
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var forgotButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        forgotButton.layer.borderWidth = 1.0
+        forgotButton.layer.borderColor = UIColor.lightGray.cgColor
+
         // Do any additional setup after loading the view, typically from a nib.
     }
 
