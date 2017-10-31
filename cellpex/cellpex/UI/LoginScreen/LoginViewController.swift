@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotButtonAction(_ sender: Any) {
-        let forgotURL = "https://www.cellpex.com/index.php?fuseaction=site.forgot"
+        let forgotURL = URLConstant.forgotPassURL
         if let url = URL(string: forgotURL) {
             let svc = SFSafariViewController(url: url)
             self.present(svc, animated: true, completion: nil)
@@ -58,7 +58,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func registerButtonAction(_ sender: Any) {
-        let registerURL = "https://www.cellpex.com/index.php?fuseaction=site.register"
+        let registerURL = URLConstant.registrationURL
         if let url = URL(string: registerURL) {
             let svc = SFSafariViewController(url: url)
             self.present(svc, animated: true, completion: nil)

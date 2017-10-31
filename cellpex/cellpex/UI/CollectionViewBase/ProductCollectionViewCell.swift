@@ -11,9 +11,15 @@ import UIKit
 class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var productDescriptionLabel: UILabel!
-    @IBOutlet weak var productProvider: UILabel!
+    @IBOutlet weak var productRedirectButton: UIButton!
     @IBOutlet weak var productPriceLabel: UILabel!
     @IBOutlet weak var productDateLabel: UILabel!
     @IBOutlet weak var productSatusLabel: UILabel!
     @IBOutlet weak var productPropertiesLabel: UILabel!
+    var productRedirectAction: ButtonTappedAction?
+    
+    @IBAction func productRedirectButtonAction(_ sender: Any) {
+        self.productRedirectAction?()
+    }
+    
 }

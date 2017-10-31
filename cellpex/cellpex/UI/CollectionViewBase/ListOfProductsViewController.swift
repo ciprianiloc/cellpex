@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SafariServices
 class ListOfProductsViewController: UIViewController {
 
     let searchController = UISearchController(searchResultsController: nil)
@@ -48,11 +48,21 @@ extension ListOfProductsViewController: UICollectionViewDataSource {
             withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
         cell.productImageView.image = UIImage.init(named: "teset_product_icon")
         cell.productDateLabel.text = "28, Oct"
-        cell.productProvider.text = "servicegsm"
+        cell.productRedirectButton.setTitle("servicegsm", for: .normal)
         cell.productSatusLabel.text = "New"
         cell.productPriceLabel.text = "320 USD"
         cell.productDescriptionLabel.text = "Apple iPhone 6s"
         cell.productPropertiesLabel.text = "32 GB"
+        cell.productRedirectAction = {[weak self] in
+            guard let `self` = self else {
+                return;
+            }
+            let redirectURL = URLConstant.redirectURL
+            if let url = URL(string: redirectURL) {
+                let svc = SFSafariViewController(url: url)
+                self.present(svc, animated: true, completion: nil)
+            }
+        }
         return cell;
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
