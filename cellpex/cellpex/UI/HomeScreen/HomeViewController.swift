@@ -10,6 +10,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet weak var unreadMessagesLabel: UILabel!
+    @IBOutlet weak var filterLabel: UILabel!
     @IBOutlet weak var colectionView: UICollectionView!
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -23,6 +25,8 @@ class HomeViewController: UIViewController {
         navigationItem.searchController = searchController
         self.addLeftBarButtonWithImage(UIImage(named: "hamburger_icon")!)
         self.addNavigationTitleViewImage(UIImage(named: "login_logo_image")!)
+        filterLabel.text = "Wholesale Lots"
+        unreadMessagesLabel.text = "Unread messages 8"
     }
 
     override func didReceiveMemoryWarning() {
