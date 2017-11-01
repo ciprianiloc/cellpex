@@ -15,15 +15,26 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var forgotButton: UIButton!
-    
     @IBOutlet weak var registerButton: UIButton!
+    let passwordTextFieldRightButton = UIButton(type: .custom)
+    var passwordTextFieldShoulBeSecure = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         forgotButton.layer.borderWidth = 1.0
         forgotButton.layer.borderColor = UIColor.lightGray.cgColor
         registerButton.backgroundColor = UIColor(named: "button_enable_color")
+        passwordTextField.rightViewMode = .always
         updateLoginButtonState()
+        
+        passwordTextFieldRightButton.frame =  CGRect(x: 0, y: 0, width: passwordTextField.frame.height - 12, height: passwordTextField.frame.height - 12)
+        passwordTextFieldRightButton.contentMode = UIViewContentMode.center
+        passwordTextField.rightView = passwordTextFieldRightButton
+        passwordTextFieldRightButton.addTarget(self, action: #selector(self.passwordTextFieldRightButtonAction), for: .touchUpInside)
+        let passwordTextFieldRightButtonImage = passwordTextFieldShoulBeSecure ? "eyes_icon_secure" : "eyes_icon_notsecure"
+        passwordTextFieldRightButton.setImage(UIImage(named: passwordTextFieldRightButtonImage), for: .normal)
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateLoginButtonState), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+        passwordTextField.isSecureTextEntry = passwordTextFieldShoulBeSecure
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +87,13 @@ class LoginViewController: UIViewController {
         self.loginButton.isEnabled = isLoginEnable
         let loginButtonCollorName = isLoginEnable ? "button_enable_color" : "button_disabled_color"
         self.loginButton.backgroundColor = UIColor(named: loginButtonCollorName)
+    }
+    
+    @objc fileprivate func passwordTextFieldRightButtonAction() {
+        passwordTextFieldShoulBeSecure = (!passwordTextFieldShoulBeSecure)
+        let passwordTextFieldRightButtonImage = passwordTextFieldShoulBeSecure ? "eyes_icon_secure" : "eyes_icon_notsecure"
+        passwordTextFieldRightButton.setImage(UIImage(named: passwordTextFieldRightButtonImage), for: .normal)
+        passwordTextField.isSecureTextEntry = passwordTextFieldShoulBeSecure
     }
 }
 
