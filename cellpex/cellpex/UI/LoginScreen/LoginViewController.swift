@@ -46,6 +46,7 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func signInButtonAction(_ sender: Any) {
+        UserDefaults.standard.set(usernameTextField.text, forKey: UtilsConstant.UserIsLogIn)
         let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
         
         let mainViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController

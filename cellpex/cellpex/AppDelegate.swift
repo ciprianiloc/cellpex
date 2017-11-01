@@ -13,10 +13,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        guard UserDefaults.standard.object(forKey: UtilsConstant.UserIsLogIn) != nil else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateInitialViewController()
+            self.window?.rootViewController = viewController
+            self.window?.makeKeyAndVisible()
+            return true
+        }
+        
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        
+        let mainViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        let leftViewController = storyboard.instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
+        
+        let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
+        
+        UINavigationBar.appearance().tintColor = UIColor.darkGray
+        leftViewController.mainViewController = nvc
+        
+        let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
+        slideMenuController.delegate = mainViewController
 
-      return true
+        self.window?.rootViewController = slideMenuController
+        self.window?.makeKeyAndVisible()
+        
+        return true
     }
 
 }

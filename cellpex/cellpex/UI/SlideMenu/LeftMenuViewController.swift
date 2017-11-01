@@ -103,7 +103,10 @@ extension LeftMenuViewController : UITableViewDelegate {
                 self.slideMenuController()?.closeLeft()
                 self.performSegue(withIdentifier: "showFollowingInventory", sender: self)
             case .LogOut :
-                self.slideMenuController()?.navigationController?.popToRootViewController(animated: true)
+                UserDefaults.standard.set(nil, forKey: UtilsConstant.UserIsLogIn)
+                guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
+                let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()
+                appDel.window?.rootViewController = rootController
             }
         }
     }

@@ -16,3 +16,7 @@ struct URLConstant {
     static let redirectURL = "https://www.cellpex.com/index.php?fuseaction=site.device_redirect"
     static let noLogoURL = "https://www.cellpex.com/assets/images/no_company_logo.jpeg"
 }
+
+struct UtilsConstant {
+    static let UserIsLogIn = "UserIsLogIn"
+}
