@@ -18,6 +18,7 @@ class ListOfProductsViewController: UIViewController {
     
     var footerView:RefreshFooterView?
     var isLoading:Bool = false
+    var selectedProductIndex : Int?
     
     let footerViewReuseIdentifier = "RefreshFooterView"
     override func viewDidLoad() {
@@ -35,6 +36,12 @@ class ListOfProductsViewController: UIViewController {
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
         self.productCollectionView?.collectionViewLayout.invalidateLayout()
         self.view.setNeedsDisplay()
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if ("showProductDetails" == segue.identifier) {
+            let productDetails = segue.destination as! ProductDetailsViewController
+            productDetails.title = "Apple iPhone 6s"
+        }
     }
 }
 
@@ -80,10 +87,8 @@ extension ListOfProductsViewController: UICollectionViewDataSource {
 
 extension ListOfProductsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
-        let productDetailsViewController = homeStoryboard.instantiateViewController(withIdentifier: "ProductDetailsViewController") as! ProductDetailsViewController
-        productDetailsViewController.title = "Apple iPhone 6s"
-        self.navigationController?.pushViewController(productDetailsViewController, animated: true)
+        selectedProductIndex = indexPath.row
+        self.performSegue(withIdentifier: "showProductDetails", sender: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
@@ -137,7 +142,6 @@ extension ListOfProductsViewController : UIScrollViewDelegate {
         if pullRatio >= 1 {
             self.footerView?.animateFinal()
         }
-        print("pullRation:\(pullRatio)")
     }
     
     //compute the offset and call the load method

@@ -34,6 +34,14 @@ class LeftMenuViewController: UIViewController, LeftMenuProtocol {
         super.viewDidLoad()
         userLabel.text = "user name (0)"
         companyLabel.text = "TestText"
+        
+        getDataFromUrl(url: URL(string: URLConstant.noLogoURL)!) { data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() { [weak self] in
+                guard let `self` = self else { return }
+                self.userLogo.image = UIImage(data: data)
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,6 +55,11 @@ class LeftMenuViewController: UIViewController, LeftMenuProtocol {
     
     func changeViewController(_ menu: LeftMenu) {
         self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
+    }
+    private func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data, response, error)
+            }.resume()
     }
 }
 
@@ -82,19 +95,13 @@ extension LeftMenuViewController : UITableViewDelegate {
                 self.slideMenuController()?.closeLeft()
             case .Messages :
                 self.slideMenuController()?.closeLeft()
-                let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
-                let messagesViewController = homeStoryboard.instantiateViewController(withIdentifier: "MessagesViewController") as! MessagesViewController
-                self.slideMenuController()?.navigationController?.pushViewController(messagesViewController, animated: true)
+                self.performSegue(withIdentifier: "showMessages", sender: self)
             case .Feedback :
                 self.slideMenuController()?.closeLeft()
-                let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
-                let feedbackViewController = homeStoryboard.instantiateViewController(withIdentifier: "FeedbackViewController") as! FeedbackViewController
-                self.slideMenuController()?.navigationController?.pushViewController(feedbackViewController, animated: true)
+                self.performSegue(withIdentifier: "showFeedback", sender: self)
             case .FollowingInventory :
                 self.slideMenuController()?.closeLeft()
-                let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
-                let followingInventoryViewController = homeStoryboard.instantiateViewController(withIdentifier: "FollowingInventoryViewController") as! FollowingInventoryViewController
-                self.slideMenuController()?.navigationController?.pushViewController(followingInventoryViewController, animated: true)
+                self.performSegue(withIdentifier: "showFollowingInventory", sender: self)
             case .LogOut :
                 self.slideMenuController()?.navigationController?.popToRootViewController(animated: true)
             }

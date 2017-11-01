@@ -16,11 +16,20 @@ class FeedbackViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.title = "Feedback"
-        // Do any additional setup after loading the view.
+        updateButtonState()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateButtonState), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateButtonState), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
     }
 
     @IBAction func sendButtonAction(_ sender: Any) {
-        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func updateButtonState() {
+        let isButtonEnable = (subjectTextField.text?.isEmpty == false && messageTextView.text.isEmpty == false)
+        self.sendButton.isEnabled = isButtonEnable
+        let buttonCollorName = isButtonEnable ? "button_enable_color" : "button_disabled_color"
+        self.sendButton.backgroundColor = UIColor(named: buttonCollorName)
     }
 }
 

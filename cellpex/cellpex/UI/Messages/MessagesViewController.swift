@@ -49,12 +49,7 @@ extension MessagesViewController : UITableViewDataSource {
 }
 
 extension MessagesViewController : UITableViewDelegate {
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        return headerView
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 40
-//    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "showMessage", sender: self)
+    }
 }
