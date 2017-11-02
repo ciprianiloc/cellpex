@@ -125,14 +125,11 @@
                         <outlet property="companyLabel" destination="uDg-9o-bkf" id="dr2-tf-4iW"/>
                         <outlet property="userLabel" destination="RX5-dA-rMm" id="pGW-N6-jvb"/>
                         <outlet property="userLogo" destination="5RO-o6-Cay" id="NUW-Ez-mHN"/>
-                        <segue destination="HvN-OJ-5fF" kind="show" identifier="showFollowingInventory" id="kY1-ji-AsC"/>
-                        <segue destination="Rc7-6c-S9Q" kind="show" identifier="showFeedback" id="fLc-bX-Ce0"/>
-                        <segue destination="Rcf-TX-6Et" kind="show" identifier="showMessages" id="ddm-4A-pRh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eM5-DR-Rzp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-863" y="-295"/>
+            <point key="canvasLocation" x="-1399" y="-190"/>
         </scene>
         <!--Messages View Controller-->
         <scene sceneID="Fhu-nW-XIf">
@@ -252,7 +249,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JGL-N3-oUC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1039" y="455"/>
+            <point key="canvasLocation" x="931" y="455"/>
         </scene>
         <!--Feedback View Controller-->
         <scene sceneID="XcB-Gn-NVF">
@@ -734,11 +731,14 @@
                         <outlet property="filterLabel" destination="Mhv-dX-HMw" id="e7c-Gr-2br"/>
                         <outlet property="unreadMessagesLabel" destination="QVZ-Lx-2gA" id="zVh-pJ-Yw8"/>
                         <segue destination="MN3-qc-L7K" kind="show" identifier="showProductDetails" id="Iwy-Ez-BS2"/>
+                        <segue destination="Rc7-6c-S9Q" kind="show" identifier="showFeedback" id="CMA-sf-Phd"/>
+                        <segue destination="Rcf-TX-6Et" kind="show" identifier="showMessages" id="VQY-kM-diN"/>
+                        <segue destination="HvN-OJ-5fF" kind="show" identifier="showFollowingInventory" id="KWl-la-sY4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgI-Y4-JkP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-863" y="-1057"/>
+            <point key="canvasLocation" x="-710" y="-189"/>
         </scene>
         <!--Product Details View Controller-->
         <scene sceneID="psJ-lv-ZLK">
@@ -753,10 +753,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q9g-g1-qES" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-374" y="-1855"/>
+            <point key="canvasLocation" x="968" y="-1058"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kDp-8W-fr3"/>
+        <segue reference="Iwy-Ez-BS2"/>
     </inferredMetricsTieBreakers>
 </document>

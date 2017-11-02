@@ -95,13 +95,16 @@ extension LeftMenuViewController : UITableViewDelegate {
                 self.slideMenuController()?.closeLeft()
             case .Messages :
                 self.slideMenuController()?.closeLeft()
-                self.performSegue(withIdentifier: "showMessages", sender: self)
+                let homeViewController = self.slideMenuController()?.delegate as! HomeViewController
+                homeViewController.performSegue(withIdentifier: "showMessages", sender: self)
             case .Feedback :
                 self.slideMenuController()?.closeLeft()
-                self.performSegue(withIdentifier: "showFeedback", sender: self)
+                let homeViewController = self.slideMenuController()?.delegate as! HomeViewController
+                homeViewController.performSegue(withIdentifier: "showFeedback", sender: self)
             case .FollowingInventory :
                 self.slideMenuController()?.closeLeft()
-                self.performSegue(withIdentifier: "showFollowingInventory", sender: self)
+                let homeViewController = self.slideMenuController()?.delegate as! HomeViewController
+                homeViewController.performSegue(withIdentifier: "showFollowingInventory", sender: self)
             case .LogOut :
                 UserDefaults.standard.set(nil, forKey: UtilsConstant.UserIsLogIn)
                 guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
