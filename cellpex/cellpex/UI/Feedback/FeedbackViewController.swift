@@ -12,11 +12,20 @@ class FeedbackViewController: UIViewController {
     @IBOutlet weak var subjectTextField: UITextField!
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
+    let placeholderLabel = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.title = "Feedback"
         updateButtonState()
+        placeholderLabel.text = "Type here..."
+        placeholderLabel.font = UIFont.italicSystemFont(ofSize: (messageTextView.font?.pointSize)!)
+        placeholderLabel.sizeToFit()
+        messageTextView.addSubview(placeholderLabel)
+        placeholderLabel.frame.origin = CGPoint(x: 5, y: (messageTextView.font?.pointSize)! / 2)
+        placeholderLabel.textColor = UIColor.lightGray
+        placeholderLabel.isHidden = !messageTextView.text.isEmpty
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateButtonState), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateButtonState), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
     }
@@ -26,6 +35,7 @@ class FeedbackViewController: UIViewController {
     }
     
     @objc private func updateButtonState() {
+        placeholderLabel.isHidden = !messageTextView.text.isEmpty
         let isButtonEnable = (subjectTextField.text?.isEmpty == false && messageTextView.text.isEmpty == false)
         self.sendButton.isEnabled = isButtonEnable
         let buttonCollorName = isButtonEnable ? "button_enable_color" : "button_disabled_color"
