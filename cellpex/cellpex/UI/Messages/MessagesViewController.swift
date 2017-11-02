@@ -12,6 +12,12 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var subjectLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var unreadView: UIView!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        unreadView.layer.cornerRadius = unreadView.frame.height / 2
+    }
 }
 
 class MessagesViewController: UIViewController {
@@ -40,9 +46,21 @@ extension MessagesViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell") as! MessageTableViewCell
-        cell.fromLabel.text = "From:testA"
-        cell.subjectLabel.text = "Re:Re:subjectTest"
+        cell.fromLabel.text = "TestA@testing.com"
+        cell.subjectLabel.text = "SubjectTest"
         cell.dateLabel.text = "18, Oct 2017"
+        cell.messageLabel.text = "Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger."
+        cell.unreadView.isHidden = true
+        if indexPath.row < 5 {
+            cell.unreadView.isHidden = false
+        } else if indexPath.row < 10 {
+            cell.fromLabel.text = "Testtest@verylongemailaddresssss.com"
+            cell.subjectLabel.text = "SubjectTestSubjectTestSubjectTestSubjectTtessssest"
+            cell.dateLabel.text = "18, Oct 2017"
+            cell.messageLabel.text = "Make a symbolic breakpoint at UIViewAler tForUnsati sfiableConstraints to catch this in the debugger.Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger."
+        } else if indexPath.row < 15 {
+                        cell.messageLabel.text = "Make a symbolic breakpoint"
+        }
         return cell
     }
 
