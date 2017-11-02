@@ -31,12 +31,17 @@ class FeedbackViewController: UIViewController {
     }
 
     @IBAction func sendButtonAction(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        let confimAlert = UIAlertController(title: nil, message: "Thank you for your feedback!", preferredStyle: .alert)
+        confimAlert.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: { [weak self] _ in
+            guard let `self` = self else {return}
+            self.navigationController?.popViewController(animated: true)
+        }))
+        self.present(confimAlert, animated: true)
     }
     
     @objc private func updateButtonState() {
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
-        let isButtonEnable = (subjectTextField.text?.isEmpty == false && messageTextView.text.isEmpty == false)
+        let isButtonEnable = (subjectTextField.text?.isEmpty == false || messageTextView.text.isEmpty == false)
         self.sendButton.isEnabled = isButtonEnable
         let buttonCollorName = isButtonEnable ? "button_enable_color" : "button_disabled_color"
         self.sendButton.backgroundColor = UIColor(named: buttonCollorName)
