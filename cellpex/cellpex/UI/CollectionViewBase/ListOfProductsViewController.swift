@@ -151,11 +151,9 @@ extension ListOfProductsViewController : UIScrollViewDelegate {
         let diffHeight = contentHeight - contentOffset;
         let frameHeight = scrollView.bounds.size.height;
         let pullHeight  = fabs(diffHeight - frameHeight);
-        print("pullHeight:\(pullHeight)");
         if pullHeight == 0.0
         {
             if (self.footerView?.isAnimatingFinal)! {
-                print("load more trigger")
                 self.isLoading = true
                 self.footerView?.startAnimate()
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (timer:Timer) in

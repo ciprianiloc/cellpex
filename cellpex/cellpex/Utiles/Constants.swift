@@ -17,6 +17,23 @@ struct URLConstant {
     static let noLogoURL = "https://www.cellpex.com/assets/images/no_company_logo.jpeg"
 }
 
+struct WebServices {
+    static let productionHostName = "https://www.cellpex.com/"
+    static let devHostName = "https://dev.cellpex.com/"
+    static let apiToUse = "XXXapi/v1/"
+    static let wsLogin = "login.php"
+    static let wsLogout = "logout.php"
+    static let wsUpdateDevice = "update_device.php"
+    
+}
+
+struct KeychainConstant {
+    static let deviceID = "device id"
+    static let username = "username"
+    static let password = "password"
+    static let userID   = "user id"
+}
+
 struct UtilsConstant {
     static let UserIsLogIn = "UserIsLogIn"
 }

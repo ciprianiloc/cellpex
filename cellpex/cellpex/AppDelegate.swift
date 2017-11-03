@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,7 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        guard UserDefaults.standard.object(forKey: UtilsConstant.UserIsLogIn) != nil else {
+        if (KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) == nil) {
+            KeychainWrapper.standard.set((UIDevice.current.identifierForVendor?.uuidString)!, forKey: KeychainConstant.deviceID)
+        }
+        
+        guard let _ = KeychainWrapper.standard.string(forKey: KeychainConstant.userID) else {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateInitialViewController()
             self.window?.rootViewController = viewController

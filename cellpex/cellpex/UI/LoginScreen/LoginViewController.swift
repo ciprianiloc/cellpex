@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import SwiftKeychainWrapper
 
 class LoginViewController: UIViewController {
 
@@ -35,6 +36,7 @@ class LoginViewController: UIViewController {
         passwordTextFieldRightButton.setImage(UIImage(named: passwordTextFieldRightButtonImage), for: .normal)
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateLoginButtonState), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
         passwordTextField.isSecureTextEntry = passwordTextFieldShoulBeSecure
+    
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +48,10 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func signInButtonAction(_ sender: Any) {
-        UserDefaults.standard.set(usernameTextField.text, forKey: UtilsConstant.UserIsLogIn)
+        KeychainWrapper.standard.set(usernameTextField.text!, forKey: KeychainConstant.username)
+        KeychainWrapper.standard.set(passwordTextField.text!, forKey: KeychainConstant.password)
+        KeychainWrapper.standard.set("user ID will be received", forKey: KeychainConstant.userID)
+       // NetworkManager.loginWithUserName(username: usernameTextField.text!, password: passwordTextField.text!)
         let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
         
         let mainViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController

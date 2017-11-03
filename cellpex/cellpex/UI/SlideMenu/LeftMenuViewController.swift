@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 protocol LeftMenuProtocol : class {
     func changeViewController(_ menu: LeftMenu)
@@ -106,7 +107,10 @@ extension LeftMenuViewController : UITableViewDelegate {
                 let homeViewController = self.slideMenuController()?.delegate as! HomeViewController
                 homeViewController.performSegue(withIdentifier: "showFollowingInventory", sender: self)
             case .LogOut :
-                UserDefaults.standard.set(nil, forKey: UtilsConstant.UserIsLogIn)
+                KeychainWrapper.standard.removeObject(forKey: KeychainConstant.userID)
+                KeychainWrapper.standard.removeObject(forKey: KeychainConstant.username)
+                KeychainWrapper.standard.removeObject(forKey: KeychainConstant.password)
+
                 guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
                 let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()
                 appDel.window?.rootViewController = rootController
