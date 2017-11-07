@@ -327,20 +327,39 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="73x-5g-yC0">
-                                                <rect key="frame" x="10" y="90" width="355" height="507"/>
+                                                <rect key="frame" x="10" y="90" width="355" height="502"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Jf-vQ-qvl">
-                                                <rect key="frame" x="10" y="607" width="355" height="30"/>
+                                                <rect key="frame" x="10" y="602" width="321" height="35"/>
                                                 <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="4Sc-Yi-s4x"/>
+                                                    <constraint firstAttribute="height" constant="35" id="4Sc-Yi-s4x"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0aE-cY-ZKC" userLabel="send">
+                                                <rect key="frame" x="333" y="605" width="32" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="32" id="1BV-CO-oc9"/>
+                                                    <constraint firstAttribute="height" constant="32" id="VA0-f1-5xg"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="send_message_enabled_icon"/>
+                                                <state key="disabled" image="send_message_disabled_icon"/>
+                                                <connections>
+                                                    <action selector="sendMessageAction:" destination="xjn-ll-gqq" eventType="touchUpInside" id="Qzi-sH-qms"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HwY-4s-0NS">
+                                                <rect key="frame" x="10" y="637" width="321" height="1"/>
+                                                <color key="backgroundColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="KLR-yZ-RCj"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -349,11 +368,16 @@
                                             <constraint firstAttribute="trailing" secondItem="gqb-8w-lGB" secondAttribute="trailing" id="Lxq-oH-geV"/>
                                             <constraint firstItem="gqb-8w-lGB" firstAttribute="leading" secondItem="Z6G-IV-u1D" secondAttribute="leading" id="QRw-tS-FBo"/>
                                             <constraint firstItem="73x-5g-yC0" firstAttribute="leading" secondItem="Z6G-IV-u1D" secondAttribute="leading" constant="10" id="TNi-bX-Apb"/>
+                                            <constraint firstAttribute="bottom" secondItem="0aE-cY-ZKC" secondAttribute="bottom" constant="10" id="Txf-En-Oiz"/>
                                             <constraint firstAttribute="trailing" secondItem="73x-5g-yC0" secondAttribute="trailing" constant="10" id="WLr-US-4ex"/>
+                                            <constraint firstItem="HwY-4s-0NS" firstAttribute="top" secondItem="5Jf-vQ-qvl" secondAttribute="bottom" id="YFg-q2-Shh"/>
                                             <constraint firstItem="gqb-8w-lGB" firstAttribute="top" secondItem="Z6G-IV-u1D" secondAttribute="topMargin" id="YKM-89-9c7"/>
-                                            <constraint firstAttribute="trailing" secondItem="5Jf-vQ-qvl" secondAttribute="trailing" constant="10" id="YRu-sm-Xjg"/>
+                                            <constraint firstItem="0aE-cY-ZKC" firstAttribute="leading" secondItem="5Jf-vQ-qvl" secondAttribute="trailing" constant="2" id="YRu-sm-Xjg"/>
                                             <constraint firstItem="5Jf-vQ-qvl" firstAttribute="leading" secondItem="Z6G-IV-u1D" secondAttribute="leading" constant="10" id="dbL-Xl-GzB"/>
+                                            <constraint firstItem="HwY-4s-0NS" firstAttribute="leading" secondItem="Z6G-IV-u1D" secondAttribute="leading" constant="10" id="dbz-XZ-dY3"/>
                                             <constraint firstItem="5Jf-vQ-qvl" firstAttribute="top" secondItem="73x-5g-yC0" secondAttribute="bottom" constant="10" id="qWf-dR-l5g"/>
+                                            <constraint firstItem="0aE-cY-ZKC" firstAttribute="leading" secondItem="HwY-4s-0NS" secondAttribute="trailing" constant="2" id="zcN-sY-iPz"/>
+                                            <constraint firstAttribute="trailing" secondItem="0aE-cY-ZKC" secondAttribute="trailing" constant="10" id="zvO-Ox-1fY"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -377,11 +401,14 @@
                         <viewLayoutGuide key="safeArea" id="lf3-we-wIu"/>
                     </view>
                     <connections>
+                        <outlet property="contentView" destination="Z6G-IV-u1D" id="4ft-Bb-oXa"/>
                         <outlet property="dateLabel" destination="HFs-VH-hge" id="XVC-mJ-Rup"/>
                         <outlet property="fromLabel" destination="DHh-Pg-hGW" id="EeL-wg-V6i"/>
                         <outlet property="messageLabel" destination="73x-5g-yC0" id="uIC-my-g8R"/>
                         <outlet property="messageTextView" destination="5Jf-vQ-qvl" id="O4p-FN-fXi"/>
                         <outlet property="messageTextViewHeight" destination="4Sc-Yi-s4x" id="Qeu-Cl-4qD"/>
+                        <outlet property="scrollView" destination="NzM-Ju-11A" id="CvU-zS-DNL"/>
+                        <outlet property="sendButton" destination="0aE-cY-ZKC" id="9jd-37-fPK"/>
                         <outlet property="subjectLabel" destination="IHL-mB-ZE9" id="9ey-s4-UZY"/>
                     </connections>
                 </viewController>
@@ -881,6 +908,10 @@
             <point key="canvasLocation" x="968" y="-1058"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="send_message_disabled_icon" width="32" height="32"/>
+        <image name="send_message_enabled_icon" width="32" height="32"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Iwy-Ez-BS2"/>
     </inferredMetricsTieBreakers>
