@@ -9,7 +9,13 @@
 import UIKit
 
 class MessageViewController: UIViewController {
-
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var subjectLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var messageTextView: UITextView!
+    @IBOutlet weak var messageTextViewHeight: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
