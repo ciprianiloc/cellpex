@@ -22,6 +22,7 @@ class MessageTableViewCell: UITableViewCell {
 
 class MessagesViewController: UIViewController {
     @IBOutlet weak var messageSelector: UISegmentedControl!
+    @IBOutlet weak var messagesTanleView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -34,11 +35,15 @@ class MessagesViewController: UIViewController {
     }
 
     @IBAction func selectorValueHasChanged(_ sender: Any) {
-        
+        messagesTanleView.reloadData()
     }
 }
 
 extension MessagesViewController : UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 56
@@ -67,7 +72,8 @@ extension MessagesViewController : UITableViewDataSource {
 }
 
 extension MessagesViewController : UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("didDeselectRowAt \(indexPath.row)")
         self.performSegue(withIdentifier: "showMessage", sender: self)
     }
 }
