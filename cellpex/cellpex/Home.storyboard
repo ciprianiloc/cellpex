@@ -917,7 +917,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="rVV-pF-pEM" userLabel="CharacteristicCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CharacteristicCell" id="rVV-pF-pEM" userLabel="CharacteristicCell">
                                         <rect key="frame" x="3.5" y="0.0" width="368" height="106"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -959,7 +959,7 @@
                                         </constraints>
                                         <size key="customSize" width="368" height="106"/>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UCW-Pi-RSD" userLabel="ProductImageCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductImageCell" id="UCW-Pi-RSD" userLabel="ProductImageCell">
                                         <rect key="frame" x="2.5" y="116" width="370" height="221"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -988,7 +988,7 @@
                                             <constraint firstAttribute="bottomMargin" secondItem="9YQ-0s-jRW" secondAttribute="bottom" constant="30" id="zL0-80-Zpd"/>
                                         </constraints>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RPH-mk-tgW" userLabel="ProviderInfoCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProviderInfoCell" id="RPH-mk-tgW" userLabel="ProviderInfoCell">
                                         <rect key="frame" x="8" y="347" width="359" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -1045,7 +1045,7 @@
                                         </constraints>
                                         <size key="customSize" width="359" height="120"/>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UE7-gt-RBk" userLabel="SendMessageCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SendMessageCell" id="UE7-gt-RBk" userLabel="SendMessageCell">
                                         <rect key="frame" x="2.5" y="477" width="370" height="256"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -1100,19 +1100,28 @@
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EU3-r2-hBT">
                                                     <rect key="frame" x="18" y="214" width="120" height="30"/>
+                                                    <color key="backgroundColor" red="0.078431372550000003" green="0.27450980390000002" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="MAF-2o-sBU"/>
                                                         <constraint firstAttribute="height" constant="30" id="uTp-WL-LBF"/>
                                                     </constraints>
-                                                    <state key="normal" title="GO TO ORDER"/>
+                                                    <state key="normal" title="GO TO ORDER">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eg2-wi-3S3">
                                                     <rect key="frame" x="222" y="214" width="130" height="30"/>
+                                                    <color key="backgroundColor" red="0.078431372550000003" green="0.27450980390000002" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="130" id="Gf5-no-ADF"/>
                                                         <constraint firstAttribute="height" constant="30" id="OxG-Dx-lEv"/>
                                                     </constraints>
-                                                    <state key="normal" title="SEND MESSAGE"/>
+                                                    <state key="normal" title="SEND MESSAGE">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="disabled">
+                                                        <color key="titleColor" red="0.44705882352941173" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
                                                 </button>
                                             </subviews>
                                         </view>
@@ -1133,7 +1142,7 @@
                                         </constraints>
                                         <size key="customSize" width="370" height="256"/>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pVc-eg-GGH" userLabel="AditionalDetailsCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AdditionalDetails" id="pVc-eg-GGH" userLabel="AditionalDetailsCell">
                                         <rect key="frame" x="12" y="743" width="351" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
