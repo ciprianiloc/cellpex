@@ -33,7 +33,7 @@ class ListOfProductsViewController: UIViewController {
         self.productCollectionView?.register(UINib(nibName: "RefreshFooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewReuseIdentifier)
     }
     
-    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.productCollectionView?.collectionViewLayout.invalidateLayout()
         self.view.setNeedsDisplay()
     }

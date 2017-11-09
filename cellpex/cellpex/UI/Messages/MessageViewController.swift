@@ -25,38 +25,60 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var messageTextViewHeight: NSLayoutConstraint!
     @IBOutlet weak var messageTextViewButtomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var tableViewButtomConstraings: NSLayoutConstraint!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var underLineTextView: UIView!
+    @IBOutlet weak var messageTableView: UITableView!
     let placeholderLabel = UILabel()
+    var hasTextView = true
     override func viewDidLoad() {
         super.viewDidLoad()
-        sendButton.isEnabled = (messageTextView.text.isEmpty == false)
-        placeholderLabel.text = "Type here..."
-        placeholderLabel.font = UIFont.italicSystemFont(ofSize: (messageTextView.font?.pointSize)!)
-        placeholderLabel.sizeToFit()
-        messageTextView.addSubview(placeholderLabel)
-        placeholderLabel.frame.origin = CGPoint(x: 5, y: (messageTextView.font?.pointSize)! / 2)
-        placeholderLabel.textColor = UIColor.lightGray
-        placeholderLabel.isHidden = !messageTextView.text.isEmpty
-        NotificationCenter.default.addObserver(self, selector: #selector(self.textViewHasChanged), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        if hasTextView {
+            sendButton.isEnabled = (messageTextView.text.isEmpty == false)
+            placeholderLabel.text = "Type here..."
+
+            placeholderLabel.font = UIFont.italicSystemFont(ofSize: (messageTextView.font?.pointSize)!)
+            placeholderLabel.sizeToFit()
+            messageTextView.addSubview(placeholderLabel)
+            placeholderLabel.frame.origin = CGPoint(x: 5, y: (messageTextView.font?.pointSize)! / 2)
+            placeholderLabel.textColor = UIColor.lightGray
+            placeholderLabel.isHidden = !messageTextView.text.isEmpty
+            NotificationCenter.default.addObserver(self, selector: #selector(self.textViewHasChanged), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        } else {
+            tableViewButtomConstraings.isActive = false
+            messageTextView.removeFromSuperview()
+            sendButton.removeFromSuperview()
+            underLineTextView.removeFromSuperview()
+            var buttomConstraints : NSLayoutYAxisAnchor
+            if #available(iOS 11, *) {
+                let guide = view.safeAreaLayoutGuide
+                buttomConstraints = guide.bottomAnchor
+            } else {
+                buttomConstraints = self.bottomLayoutGuide.bottomAnchor
+            }
+            messageTableView.bottomAnchor.constraint(equalTo: buttomConstraints).isActive = true
+        }
     }
     @objc private func textViewHasChanged() {
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
         let sizeThatFitsTextView = messageTextView.sizeThatFits(CGSize(width: messageTextView.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
-        messageTextViewHeight.constant = sizeThatFitsTextView.height;
+        messageTextViewHeight.constant = CGFloat.minimum(sizeThatFitsTextView.height, self.view.frame.height/2) + 10
         sendButton.isEnabled = true
         if messageTextView.text.isEmpty {
             sendButton.isEnabled = false
             messageTextViewHeight.constant = 35
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if hasTextView {
+            let sizeThatFitsTextView = messageTextView.sizeThatFits(CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
+            messageTextViewHeight.constant = CGFloat.minimum(sizeThatFitsTextView.height, size.height/4) + 10
+            if messageTextView.text.isEmpty {
+                messageTextViewHeight.constant = 35
+            }
+        }
     }
     
     @IBAction func sendMessageAction(_ sender: Any) {
@@ -98,7 +120,7 @@ extension MessageViewController : UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageCell
-            cell.messageLabel.text = "Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.\nMake a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger."
+            cell.messageLabel.text = "Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.\nMake a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.\nMake a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.\nMake a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.\nMake a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.\nMake a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.Make a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger.\nMake a symbolic breakpoint at UIViewAlertForUnsatisfiableConstraints to catch this in the debugger."
 
             return cell
         }
