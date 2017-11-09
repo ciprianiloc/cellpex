@@ -19,7 +19,8 @@ class FollowingInventoryViewController: ListOfProductsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         filterLabel.text = "Following Inv"
-        unreadMessagesLabel.text = "Unread messages 8"
+        unreadMessagesLabel.text = ""
+        unreadMessagesLabel.isHidden = true
     }    
 
 }

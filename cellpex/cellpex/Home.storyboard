@@ -465,7 +465,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0mX-on-EXT">
-                                <rect key="frame" x="147" y="376" width="80" height="35"/>
+                                <rect key="frame" x="147.5" y="376" width="80" height="35"/>
                                 <color key="backgroundColor" red="0.84313725490196079" green="0.84313725490196079" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="Man-5a-mV3"/>
@@ -722,17 +722,16 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="filter label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mhv-dX-HMw" userLabel="filter label">
-                                        <rect key="frame" x="10" y="4" width="120" height="21"/>
+                                        <rect key="frame" x="10" y="4.5" width="205" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="120" id="BJf-u2-wvo"/>
                                             <constraint firstAttribute="height" constant="21" id="dZh-do-02D"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unread messages 8" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVZ-Lx-2gA" userLabel="Unread messages 8">
-                                        <rect key="frame" x="135" y="4" width="230" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Unread messages 8" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVZ-Lx-2gA" userLabel="Unread messages 8">
+                                        <rect key="frame" x="217" y="4" width="148" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="mFK-cD-xj7"/>
                                         </constraints>
@@ -747,7 +746,7 @@
                                     <constraint firstAttribute="height" constant="30" id="VQh-Ys-3WM"/>
                                     <constraint firstItem="Mhv-dX-HMw" firstAttribute="centerY" secondItem="hJt-WC-GnS" secondAttribute="centerY" id="Xrv-4i-j4Y"/>
                                     <constraint firstAttribute="trailing" secondItem="QVZ-Lx-2gA" secondAttribute="trailing" constant="10" id="bwq-XB-UrF"/>
-                                    <constraint firstItem="QVZ-Lx-2gA" firstAttribute="leading" secondItem="Mhv-dX-HMw" secondAttribute="trailing" constant="5" id="hBJ-gj-vR6"/>
+                                    <constraint firstItem="QVZ-Lx-2gA" firstAttribute="leading" secondItem="Mhv-dX-HMw" secondAttribute="trailing" constant="2" id="hBJ-gj-vR6"/>
                                     <constraint firstItem="QVZ-Lx-2gA" firstAttribute="centerY" secondItem="hJt-WC-GnS" secondAttribute="centerY" id="mR7-oN-ifo"/>
                                 </constraints>
                             </view>
@@ -898,7 +897,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgI-Y4-JkP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-710" y="-189"/>
+            <point key="canvasLocation" x="-711.20000000000005" y="-189.3553223388306"/>
         </scene>
         <!--Product Details View Controller-->
         <scene sceneID="psJ-lv-ZLK">

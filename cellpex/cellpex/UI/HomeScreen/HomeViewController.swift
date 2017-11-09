@@ -23,8 +23,15 @@ class HomeViewController: ListOfProductsViewController {
 
         self.collectionView.addSubview(refreshControl)
         self.addLeftBarButtonWithImage(UIImage(named: "hamburger_icon")!)
-        filterLabel.text = "Wholesale Lots"
-        unreadMessagesLabel.text = "Unread messages 8"        
+        filterLabel.text = "Wholesale LotsWholesale LotsWholesale LotsWholesale Lots"
+        unreadMessagesLabel.text = "Unread messages 8"
+        unreadMessagesLabel.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.unreadMessagesLabelTap))
+        unreadMessagesLabel.addGestureRecognizer(gesture)
+    }
+    
+    @objc func unreadMessagesLabelTap() {
+        self.performSegue(withIdentifier: "showMessages", sender: self)
     }
     
 }
