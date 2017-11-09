@@ -18,7 +18,7 @@ class FeedbackViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.title = "Feedback"
         updateButtonState()
-        placeholderLabel.text = "Type here..."
+        placeholderLabel.text = "Type your message..."
         placeholderLabel.font = UIFont.italicSystemFont(ofSize: (messageTextView.font?.pointSize)!)
         placeholderLabel.sizeToFit()
         messageTextView.addSubview(placeholderLabel)

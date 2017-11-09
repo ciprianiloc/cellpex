@@ -35,7 +35,7 @@ class MessageViewController: UIViewController {
         super.viewDidLoad()
         if hasTextView {
             sendButton.isEnabled = (messageTextView.text.isEmpty == false)
-            placeholderLabel.text = "Type here..."
+            placeholderLabel.text = "Type your message..."
 
             placeholderLabel.font = UIFont.italicSystemFont(ofSize: (messageTextView.font?.pointSize)!)
             placeholderLabel.sizeToFit()
