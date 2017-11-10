@@ -51,7 +51,7 @@ class LoginViewController: UIViewController {
         KeychainWrapper.standard.set(usernameTextField.text!, forKey: KeychainConstant.username)
         KeychainWrapper.standard.set(passwordTextField.text!, forKey: KeychainConstant.password)
         KeychainWrapper.standard.set("user ID will be received", forKey: KeychainConstant.userID)
-       // NetworkManager.loginWithUserName(username: usernameTextField.text!, password: passwordTextField.text!)
+        NetworkManager.loginWithUserName(username: usernameTextField.text!, password: passwordTextField.text!)
         let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
         
         let mainViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
