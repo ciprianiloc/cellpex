@@ -917,7 +917,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CharacteristicCell" id="rVV-pF-pEM" userLabel="CharacteristicCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CharacteristicCell" id="rVV-pF-pEM" userLabel="CharacteristicCell" customClass="CharacteristicCell" customModule="cellpex" customModuleProvider="target">
                                         <rect key="frame" x="3.5" y="0.0" width="368" height="106"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -958,8 +958,13 @@
                                             <constraint firstItem="Rj0-eI-KDK" firstAttribute="top" secondItem="rVV-pF-pEM" secondAttribute="topMargin" constant="5" id="iWo-r6-9sK"/>
                                         </constraints>
                                         <size key="customSize" width="368" height="106"/>
+                                        <connections>
+                                            <outlet property="productCharacteristicLabel" destination="jYu-Ce-Rff" id="5Tm-NA-9Rt"/>
+                                            <outlet property="productInfoLabel" destination="Rj0-eI-KDK" id="jjP-hf-xQ2"/>
+                                            <outlet property="underLineView" destination="NyD-Ti-TZd" id="gbg-90-x56"/>
+                                        </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductImageCell" id="UCW-Pi-RSD" userLabel="ProductImageCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProductImageCell" id="UCW-Pi-RSD" userLabel="ProductImageCell" customClass="ProductImageCell" customModule="cellpex" customModuleProvider="target">
                                         <rect key="frame" x="2.5" y="116" width="370" height="221"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -976,6 +981,9 @@
                                                     <rect key="frame" x="165" y="188" width="39" height="23"/>
                                                     <color key="pageIndicatorTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="currentPageIndicatorTintColor" red="0.98039215690000003" green="0.31372549020000001" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <action selector="productPageHasChanged:" destination="UCW-Pi-RSD" eventType="valueChanged" id="byo-iR-QuD"/>
+                                                    </connections>
                                                 </pageControl>
                                             </subviews>
                                         </view>
@@ -987,8 +995,12 @@
                                             <constraint firstItem="9YQ-0s-jRW" firstAttribute="centerX" secondItem="UCW-Pi-RSD" secondAttribute="centerX" id="ltU-Q4-PJ6"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="9YQ-0s-jRW" secondAttribute="bottom" constant="30" id="zL0-80-Zpd"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="productImageView" destination="9YQ-0s-jRW" id="6MM-ZR-X3S"/>
+                                            <outlet property="productPageController" destination="cWG-fQ-jPv" id="xdu-5T-vuu"/>
+                                        </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProviderInfoCell" id="RPH-mk-tgW" userLabel="ProviderInfoCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProviderInfoCell" id="RPH-mk-tgW" userLabel="ProviderInfoCell" customClass="ProviderInfoCell" customModule="cellpex" customModuleProvider="target">
                                         <rect key="frame" x="8" y="347" width="359" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -1003,14 +1015,14 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sr-fc-OcG">
                                                     <rect key="frame" x="128" y="18" width="213" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Tg-16-Jzt">
                                                     <rect key="frame" x="128" y="49.5" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="0.98039215690000003" green="0.31372549020000001" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpN-y1-uQ7">
@@ -1044,8 +1056,15 @@
                                             <constraint firstItem="0sr-fc-OcG" firstAttribute="leading" secondItem="yVX-xg-y9Q" secondAttribute="trailing" constant="10" id="xe8-KB-6WS"/>
                                         </constraints>
                                         <size key="customSize" width="359" height="120"/>
+                                        <connections>
+                                            <outlet property="providerImageView" destination="yVX-xg-y9Q" id="bmP-NI-CVO"/>
+                                            <outlet property="providerLinkLabel" destination="5Tg-16-Jzt" id="atJ-BK-1cC"/>
+                                            <outlet property="providerLocationLable" destination="KpN-y1-uQ7" id="SXG-Rs-tDo"/>
+                                            <outlet property="providerNameLabel" destination="0sr-fc-OcG" id="hj2-rA-umB"/>
+                                            <outlet property="providerNumber" destination="2Qk-di-BOM" id="nXS-Ez-a9a"/>
+                                        </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SendMessageCell" id="UE7-gt-RBk" userLabel="SendMessageCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SendMessageCell" id="UE7-gt-RBk" userLabel="SendMessageCell" customClass="SendMessageCell" customModule="cellpex" customModuleProvider="target">
                                         <rect key="frame" x="2.5" y="477" width="370" height="256"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -1141,8 +1160,14 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="24s-xD-L1P" secondAttribute="trailing" constant="10" id="zpv-Y3-qBm"/>
                                         </constraints>
                                         <size key="customSize" width="370" height="256"/>
+                                        <connections>
+                                            <outlet property="goToOrderButton" destination="EU3-r2-hBT" id="6i3-XM-hnS"/>
+                                            <outlet property="messageOptionLabel" destination="BsK-Qs-iXP" id="4QI-Z6-g5d"/>
+                                            <outlet property="messageTextView" destination="24s-xD-L1P" id="AN7-jc-fV6"/>
+                                            <outlet property="sendMessageButton" destination="Eg2-wi-3S3" id="fde-hR-qsT"/>
+                                        </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AdditionalDetails" id="pVc-eg-GGH" userLabel="AditionalDetailsCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AditionalDetailsCell" id="pVc-eg-GGH" userLabel="AditionalDetailsCell" customClass="AditionalDetailsCell" customModule="cellpex" customModuleProvider="target">
                                         <rect key="frame" x="12" y="743" width="351" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -1173,8 +1198,15 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="7vo-Ne-fei" secondAttribute="trailing" constant="10" id="wZ7-UA-C4Z"/>
                                         </constraints>
                                         <size key="customSize" width="351" height="100"/>
+                                        <connections>
+                                            <outlet property="additionalDetailsLabel" destination="ZZV-pU-AE7" id="B0Z-ir-0ON"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="MN3-qc-L7K" id="tdn-lV-1YU"/>
+                                    <outlet property="delegate" destination="MN3-qc-L7K" id="uMF-fU-2ac"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1186,6 +1218,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="X8d-2g-sqY"/>
                     </view>
+                    <connections>
+                        <outlet property="productDetailsCollectionView" destination="q2h-Qe-gUh" id="At6-pI-azE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q9g-g1-qES" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
