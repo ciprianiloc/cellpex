@@ -86,6 +86,11 @@ class ProductDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.productDetailsCollectionView?.collectionViewLayout.invalidateLayout()
+        self.view.setNeedsDisplay()
+    }
+    
 }
 
 extension ProductDetailsViewController: UICollectionViewDataSource {
@@ -104,19 +109,19 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
-            cell.backgroundColor = UIColor.green
+            cell.productImageView.backgroundColor = UIColor.orange
             return cell
         } else if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "CharacteristicCell", for: indexPath) as! CharacteristicCell
             cell.productInfoLabel.text = characteristics[indexPath.row].0
             cell.productCharacteristicLabel.text = characteristics[indexPath.row].1
+            cell.underLineView.isHidden = indexPath.row == characteristics.count - 1
             return cell
         } else if indexPath.section == 2 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "AditionalDetailsCell", for: indexPath) as! AditionalDetailsCell
             cell.additionalDetailsLabel.text = "Additional details text Additional details text Additional details text Additional details text"
-            cell.backgroundColor = UIColor.yellow
             return cell
         } else if indexPath.section == 3 {
             let cell = collectionView.dequeueReusableCell(
@@ -125,15 +130,12 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
             cell.providerLinkLabel.text = "solidgsm"
             cell.providerNumber.text = "(3)"
             cell.providerLocationLable.text = "Hong Kong, hongkong"
-            cell.backgroundColor = UIColor.green
-
+            cell.providerImageView.backgroundColor = UIColor.orange
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "SendMessageCell", for: indexPath) as! SendMessageCell
             cell.messageOptionLabel.text = "General Availability"
-            cell.backgroundColor = UIColor.orange
-
             return cell
         }
     }
@@ -149,20 +151,23 @@ extension ProductDetailsViewController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let widthPerItem = (UIDevice.current.userInterfaceIdiom == .pad) ?(collectionView.frame.width - 10)/2 : collectionView.frame.width - 10;
         if indexPath.section == 0 {
-            return CGSize(width: collectionView.frame.width, height: 200)
+            return CGSize(width: collectionView.frame.width, height: 240)
         } else if indexPath.section == 1 {
             return CGSize(width: widthPerItem, height: 30)
         } else if indexPath.section == 4 {
-            return CGSize(width: widthPerItem, height:300)
+            return CGSize(width: widthPerItem, height:250)
         }
-        return CGSize(width: widthPerItem, height: 100)
+        return CGSize(width: widthPerItem, height: 90)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5;
+            return 0;
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize.zero
+        if section == 1 {
+            return CGSize.zero
+        }
+        return CGSize(width: self.view.frame.width, height:5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
