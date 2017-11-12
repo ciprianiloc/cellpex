@@ -39,12 +39,32 @@ class ProviderInfoCell: UICollectionViewCell {
 
 class SendMessageCell: UICollectionViewCell {
     @IBOutlet weak var messageOptionLabel: UILabel!
-    
     @IBOutlet weak var messageTextView: UITextView!
-    
     @IBOutlet weak var sendMessageButton: UIButton!
     @IBOutlet weak var goToOrderButton: UIButton!
+    
+    let placeholderLabel = UILabel()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        sendMessageButton.isEnabled = (messageTextView.text.isEmpty == false)
+        placeholderLabel.text = "Type your message..."
+        
+        placeholderLabel.font = UIFont.italicSystemFont(ofSize: (messageTextView.font?.pointSize)!)
+        placeholderLabel.sizeToFit()
+        messageTextView.addSubview(placeholderLabel)
+        placeholderLabel.frame.origin = CGPoint(x: 5, y: (messageTextView.font?.pointSize)! / 2)
+        placeholderLabel.textColor = UIColor.lightGray
+        placeholderLabel.isHidden = !messageTextView.text.isEmpty
+        NotificationCenter.default.addObserver(self, selector: #selector(self.textViewHasChanged), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
+    }
+    
+    @objc func textViewHasChanged() {
+        placeholderLabel.isHidden = !messageTextView.text.isEmpty
+        sendMessageButton.isEnabled = !messageTextView.text.isEmpty
+    }
+    
 }
+
 
 class AditionalDetailsCell: UICollectionViewCell {
     
@@ -55,6 +75,7 @@ class AditionalDetailsCell: UICollectionViewCell {
 class ProductDetailsViewController: UIViewController {
 
     @IBOutlet weak var productDetailsCollectionView: UICollectionView!
+    private let characteristics = [("Condition", "Refurbished | 64 GB"), ("Carrier","Unlocked"), ("Price","196.00 USD / Item"),("Availability", "Physical Stock"), ("Stock", "200 Items"), ("Packing", "Blister Packed"), ("Market", "Other"), ("Date", "09,Nov 2017"), ("Location","Hong Kong, hongkong")]
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -73,6 +94,9 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 1 {
+            return characteristics.count
+        }
         return 1
     }
     
@@ -80,26 +104,36 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
-            
+            cell.backgroundColor = UIColor.green
             return cell
         } else if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "CharacteristicCell", for: indexPath) as! CharacteristicCell
-            
+            cell.productInfoLabel.text = characteristics[indexPath.row].0
+            cell.productCharacteristicLabel.text = characteristics[indexPath.row].1
             return cell
         } else if indexPath.section == 2 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "AditionalDetailsCell", for: indexPath) as! AditionalDetailsCell
-            
+            cell.additionalDetailsLabel.text = "Additional details text Additional details text Additional details text Additional details text"
+            cell.backgroundColor = UIColor.yellow
             return cell
         } else if indexPath.section == 3 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "ProviderInfoCell", for: indexPath) as! ProviderInfoCell
-            
+            cell.providerNameLabel.text = "SKYRISE DISTRIBUTION LIMITED"
+            cell.providerLinkLabel.text = "solidgsm"
+            cell.providerNumber.text = "(3)"
+            cell.providerLocationLable.text = "Hong Kong, hongkong"
+            cell.backgroundColor = UIColor.green
+
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "SendMessageCell", for: indexPath) as! SendMessageCell
+            cell.messageOptionLabel.text = "General Availability"
+            cell.backgroundColor = UIColor.orange
+
             return cell
         }
     }
@@ -114,7 +148,14 @@ extension ProductDetailsViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let widthPerItem = (UIDevice.current.userInterfaceIdiom == .pad) ?(collectionView.frame.width - 10)/2 : collectionView.frame.width - 10;
-        return CGSize(width: widthPerItem, height: 109)
+        if indexPath.section == 0 {
+            return CGSize(width: collectionView.frame.width, height: 200)
+        } else if indexPath.section == 1 {
+            return CGSize(width: widthPerItem, height: 30)
+        } else if indexPath.section == 4 {
+            return CGSize(width: widthPerItem, height:300)
+        }
+        return CGSize(width: widthPerItem, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -125,7 +166,7 @@ extension ProductDetailsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.size.width, height: 55)
+        return CGSize(width: collectionView.bounds.size.width, height: 0)
     }
 }
 
