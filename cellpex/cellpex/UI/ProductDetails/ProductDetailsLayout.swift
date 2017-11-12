@@ -40,9 +40,9 @@ class ProductDetailsLayout: UICollectionViewLayout {
     }
     
     override func prepare() {
-        guard cache.isEmpty == true else {
-            return
-        }
+//        guard cache.isEmpty == true else {
+//            return
+//        }
         let productImageLastY = setupForProductImageSection()
         let productCharacteristicsLastY = setupForProductCharacteristicsSection(startY: productImageLastY)
         let _ = setupForAdditionalDetailsSection(startY: productCharacteristicsLastY)
@@ -66,7 +66,7 @@ class ProductDetailsLayout: UICollectionViewLayout {
         cache.append(attributes)
         
         // 6. Updates the collection view content height
-        contentHeight = max(contentHeight, frame.maxY)
+        contentHeight = frame.maxY
         return contentHeight
     }
     
@@ -91,7 +91,7 @@ class ProductDetailsLayout: UICollectionViewLayout {
             cache.append(attributes)
             
             // 6. Updates the collection view content height
-            contentHeight = max(contentHeight, frame.maxY)
+            contentHeight = frame.maxY
             yOffset = yOffset + height
         }
         return yOffset
@@ -113,7 +113,7 @@ class ProductDetailsLayout: UICollectionViewLayout {
         cache.append(attributes)
         
         // 6. Updates the collection view content height
-        contentHeight = max(contentHeight, frame.maxY)
+        contentHeight =  frame.maxY
         return contentHeight
     }
     
