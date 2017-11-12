@@ -34,6 +34,7 @@
 		F69EECE91FA3B1B200F497F1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69EECE81FA3B1B200F497F1 /* HomeViewController.swift */; };
 		F69EECEB1FA3B1DA00F497F1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F69EECEA1FA3B1DA00F497F1 /* Home.storyboard */; };
 		F69EECED1FA4557700F497F1 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69EECEC1FA4557700F497F1 /* ProductCollectionViewCell.swift */; };
+		F6FAC25F1FB886A900D9F95B /* ProductDetailsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FAC25E1FB886A900D9F95B /* ProductDetailsLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		F69EECE81FA3B1B200F497F1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F69EECEA1FA3B1DA00F497F1 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		F69EECEC1FA4557700F497F1 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		F6FAC25E1FB886A900D9F95B /* ProductDetailsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				F636A1891FA76B4200DCDCFA /* ProductDetailsViewController.swift */,
+				F6FAC25E1FB886A900D9F95B /* ProductDetailsLayout.swift */,
 			);
 			path = ProductDetails;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6FAC25F1FB886A900D9F95B /* ProductDetailsLayout.swift in Sources */,
 				F6863C7E1FA7629600A5F6D2 /* MessagesViewController.swift in Sources */,
 				F63410111FA9135B00D46222 /* PaddedTextField.swift in Sources */,
 				F634100F1FA9030900D46222 /* Constants.swift in Sources */,

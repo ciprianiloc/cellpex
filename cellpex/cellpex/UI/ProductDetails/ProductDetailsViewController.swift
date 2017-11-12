@@ -79,6 +79,9 @@ class ProductDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        if let layout = productDetailsCollectionView?.collectionViewLayout as? ProductDetailsLayout {
+            layout.delegate = self
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -117,11 +120,13 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
             cell.productInfoLabel.text = characteristics[indexPath.row].0
             cell.productCharacteristicLabel.text = characteristics[indexPath.row].1
             cell.underLineView.isHidden = indexPath.row == characteristics.count - 1
+            cell.backgroundColor = UIColor.gray
             return cell
         } else if indexPath.section == 2 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "AditionalDetailsCell", for: indexPath) as! AditionalDetailsCell
             cell.additionalDetailsLabel.text = "Additional details text Additional details text Additional details text Additional details text"
+            cell.backgroundColor = UIColor.red
             return cell
         } else if indexPath.section == 3 {
             let cell = collectionView.dequeueReusableCell(
@@ -131,11 +136,13 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
             cell.providerNumber.text = "(3)"
             cell.providerLocationLable.text = "Hong Kong, hongkong"
             cell.providerImageView.backgroundColor = UIColor.orange
+            cell.backgroundColor = UIColor.yellow
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "SendMessageCell", for: indexPath) as! SendMessageCell
             cell.messageOptionLabel.text = "General Availability"
+            cell.backgroundColor = UIColor.orange
             return cell
         }
     }
@@ -145,33 +152,45 @@ extension ProductDetailsViewController: UICollectionViewDelegate {
     
 }
 
-extension ProductDetailsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let widthPerItem = (UIDevice.current.userInterfaceIdiom == .pad) ?(collectionView.frame.width - 10)/2 : collectionView.frame.width - 10;
+//extension ProductDetailsViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView,
+//                        layout collectionViewLayout: UICollectionViewLayout,
+//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let widthPerItem = (UIDevice.current.userInterfaceIdiom == .pad) ?(collectionView.frame.width - 10)/2 : collectionView.frame.width - 10;
+//        if indexPath.section == 0 {
+//            return CGSize(width: collectionView.frame.width, height: 240)
+//        } else if indexPath.section == 1 {
+//            return CGSize(width: widthPerItem, height: 30)
+//        } else if indexPath.section == 4 {
+//            return CGSize(width: widthPerItem, height:250)
+//        }
+//        return CGSize(width: widthPerItem, height: 90)
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//            return 0;
+//    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        if section == 1 {
+//            return CGSize.zero
+//        }
+//        return CGSize(width: self.view.frame.width, height:5)
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+//        return CGSize(width: collectionView.bounds.size.width, height: 0)
+//    }
+//}
+
+extension ProductDetailsViewController : ProductDetailsLayoutDelegate {
+    func collectionView(_ collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return CGSize(width: collectionView.frame.width, height: 240)
+            return 240
         } else if indexPath.section == 1 {
-            return CGSize(width: widthPerItem, height: 30)
+            return 30
         } else if indexPath.section == 4 {
-            return CGSize(width: widthPerItem, height:250)
+            return 250;
         }
-        return CGSize(width: widthPerItem, height: 90)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-            return 0;
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if section == 1 {
-            return CGSize.zero
-        }
-        return CGSize(width: self.view.frame.width, height:5)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.size.width, height: 0)
+        return 90
     }
 }
-
