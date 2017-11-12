@@ -40,15 +40,18 @@ class ProductDetailsLayout: UICollectionViewLayout {
     }
     
     override func prepare() {
+        guard cache.isEmpty == true else {
+            return
+        }
         let productImageLastY = setupForProductImageSection()
         let productCharacteristicsLastY = setupForProductCharacteristicsSection(startY: productImageLastY)
-        let productAdditionalSectionY = setupForAdditionalDetailsSection(startY: productCharacteristicsLastY)
-        let productProviderSectionLastY = setupForProductProviderSection(startY: productAdditionalSectionY)
+        let _ = setupForAdditionalDetailsSection(startY: productCharacteristicsLastY)
+        let productProviderSectionLastY = setupForProductProviderSection(startY: productImageLastY)
         let _ = setupForSendMessageSection(startY: productProviderSectionLastY)
     }
     
     private func setupForProductImageSection () -> CGFloat{
-        guard cache.isEmpty == true, let collectionView = collectionView else {
+        guard let collectionView = collectionView else {
             return 0
         }
         let indexPath = IndexPath(item: 0, section: 0)
@@ -68,7 +71,7 @@ class ProductDetailsLayout: UICollectionViewLayout {
     }
     
     private func setupForProductCharacteristicsSection(startY: CGFloat) -> CGFloat{
-        guard cache.isEmpty == true, let collectionView = collectionView else {
+        guard let collectionView = collectionView else {
             return 0
         }
         var yOffset = startY
@@ -78,9 +81,9 @@ class ProductDetailsLayout: UICollectionViewLayout {
             
             // 4. Asks the delegate for the height of the picture and the annotation and calculates the cell frame.
             let cellHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath)
-            let height = cellPadding * 2 + cellHeight
+            let height =   cellHeight
             let frame = CGRect(x: 0, y: yOffset, width: contentWidth/2, height: height)
-            let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
+            let insetFrame = frame.insetBy(dx: 0 , dy: 0)
             
             // 5. Creates an UICollectionViewLayoutItem with the frame and add it to the cache
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -95,13 +98,13 @@ class ProductDetailsLayout: UICollectionViewLayout {
     }
     
     private func setupForAdditionalDetailsSection(startY: CGFloat) -> CGFloat{
-        guard cache.isEmpty == true, let collectionView = collectionView else {
+        guard let collectionView = collectionView else {
             return 0
         }
         let indexPath = IndexPath(item: 0, section: 2)
         let cellHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath)
         let height = cellPadding * 2 + cellHeight
-        let frame = CGRect(x: 0, y: startY, width: contentWidth, height: height)
+        let frame = CGRect(x: 0, y: startY, width: contentWidth/2, height: height)
         let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
         
         // 5. Creates an UICollectionViewLayoutItem with the frame and add it to the cache
@@ -115,13 +118,13 @@ class ProductDetailsLayout: UICollectionViewLayout {
     }
     
     private func setupForProductProviderSection(startY: CGFloat) -> CGFloat{
-        guard cache.isEmpty == true, let collectionView = collectionView else {
+        guard let collectionView = collectionView else {
             return 0
         }
         let indexPath = IndexPath(item: 0, section: 3)
         let cellHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath)
         let height = cellPadding * 2 + cellHeight
-        let frame = CGRect(x: 0, y: startY, width: contentWidth/2, height: height)
+        let frame = CGRect(x: contentWidth/2, y: startY, width: contentWidth/2, height: height)
         let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
         
         // 5. Creates an UICollectionViewLayoutItem with the frame and add it to the cache
@@ -130,18 +133,18 @@ class ProductDetailsLayout: UICollectionViewLayout {
         cache.append(attributes)
         
         // 6. Updates the collection view content height
-        contentHeight = max(contentHeight, frame.maxY)
+        contentHeight =  frame.maxY
         return contentHeight
     }
     
     private func setupForSendMessageSection(startY: CGFloat) -> CGFloat{
-        guard cache.isEmpty == true, let collectionView = collectionView else {
+        guard let collectionView = collectionView else {
             return 0
         }
         let indexPath = IndexPath(item: 0, section: 4)
         let cellHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath)
         let height = cellPadding * 2 + cellHeight
-        let frame = CGRect(x: 0, y: startY, width: contentWidth/2, height: height)
+        let frame = CGRect(x: contentWidth/2, y: startY, width: contentWidth/2, height: height)
         let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
         
         // 5. Creates an UICollectionViewLayoutItem with the frame and add it to the cache

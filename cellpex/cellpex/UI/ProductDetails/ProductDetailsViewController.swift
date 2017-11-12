@@ -112,7 +112,6 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
-            cell.productImageView.backgroundColor = UIColor.orange
             return cell
         } else if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(
@@ -120,13 +119,11 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
             cell.productInfoLabel.text = characteristics[indexPath.row].0
             cell.productCharacteristicLabel.text = characteristics[indexPath.row].1
             cell.underLineView.isHidden = indexPath.row == characteristics.count - 1
-            cell.backgroundColor = UIColor.gray
             return cell
         } else if indexPath.section == 2 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "AditionalDetailsCell", for: indexPath) as! AditionalDetailsCell
             cell.additionalDetailsLabel.text = "Additional details text Additional details text Additional details text Additional details text"
-            cell.backgroundColor = UIColor.red
             return cell
         } else if indexPath.section == 3 {
             let cell = collectionView.dequeueReusableCell(
@@ -136,13 +133,11 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
             cell.providerNumber.text = "(3)"
             cell.providerLocationLable.text = "Hong Kong, hongkong"
             cell.providerImageView.backgroundColor = UIColor.orange
-            cell.backgroundColor = UIColor.yellow
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "SendMessageCell", for: indexPath) as! SendMessageCell
             cell.messageOptionLabel.text = "General Availability"
-            cell.backgroundColor = UIColor.orange
             return cell
         }
     }
