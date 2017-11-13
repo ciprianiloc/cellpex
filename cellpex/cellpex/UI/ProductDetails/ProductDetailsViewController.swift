@@ -42,11 +42,14 @@ class SendMessageCell: UICollectionViewCell {
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var sendMessageButton: UIButton!
     @IBOutlet weak var goToOrderButton: UIButton!
+    @IBOutlet weak var messageOptionArrowImage: UIImageView!
     
     let placeholderLabel = UILabel()
     override func awakeFromNib() {
         super.awakeFromNib()
-        sendMessageButton.isEnabled = (messageTextView.text.isEmpty == false)
+        sendMessageButton.isEnabled = !messageTextView.text.isEmpty
+        let buttonCollorName = sendMessageButton.isEnabled ? "button_enable_color" : "button_disabled_color"
+        self.sendMessageButton.backgroundColor = UIColor(named: buttonCollorName)
         placeholderLabel.text = "Type your message..."
         
         placeholderLabel.font = UIFont.italicSystemFont(ofSize: (messageTextView.font?.pointSize)!)
@@ -61,6 +64,8 @@ class SendMessageCell: UICollectionViewCell {
     @objc func textViewHasChanged() {
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
         sendMessageButton.isEnabled = !messageTextView.text.isEmpty
+        let buttonCollorName = sendMessageButton.isEnabled ? "button_enable_color" : "button_disabled_color"
+        self.sendMessageButton.backgroundColor = UIColor(named: buttonCollorName)
     }
     
     
@@ -79,6 +84,7 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var productDetailsCollectionView: UICollectionView!
     @IBOutlet weak var collectionViewButtomConstraints: NSLayoutConstraint!
     private let characteristics = [("Condition", "Refurbished | 64 GB"), ("Carrier","Unlocked"), ("Price","196.00 USD / Item"),("Availability", "Physical Stock"), ("Stock", "200 Items"), ("Packing", "Blister Packed"), ("Market", "Other"), ("Date", "09,Nov 2017"), ("Location","Hong Kong, hongkong")]
+    private var selectSubjectActionSheet: UIAlertController?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -96,6 +102,7 @@ class ProductDetailsViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.productDetailsCollectionView?.collectionViewLayout.invalidateLayout()
+        selectSubjectActionSheet?.dismiss(animated: false, completion: nil)
         self.view.setNeedsDisplay()
     }
     
@@ -116,17 +123,21 @@ class ProductDetailsViewController: UIViewController {
     }
     
     @IBAction func selectSubject(_ sender: Any) {
+        let cell = productDetailsCollectionView.cellForItem(at: IndexPath(row: 0, section: 4)) as! SendMessageCell
+        selectSubjectActionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let subjectOptions = ["General Availability", "Payment Inquiry", "Shipping Inquiry"]
-        let selectSubjectActionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        selectSubjectActionSheet.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: { (action) in
+        selectSubjectActionSheet?.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: { (action) in
             
         }))
         for subjectOption in subjectOptions {
-            selectSubjectActionSheet.addAction(UIAlertAction.init(title: subjectOption, style: .default, handler: { (action) in
-                
+            selectSubjectActionSheet?.addAction(UIAlertAction.init(title: subjectOption, style: .default, handler: { (action) in
+                cell.messageOptionLabel.text = subjectOption
             }))
         }
-//        self.present(selectSubjectActionSheet, animated: true)
+        selectSubjectActionSheet?.popoverPresentationController?.sourceView = cell.contentView;
+        selectSubjectActionSheet?.popoverPresentationController?.sourceRect = CGRect.init(x: cell.messageOptionArrowImage.frame.origin.x + cell.messageOptionArrowImage.frame.size.width, y: cell.messageOptionArrowImage.frame.origin.y + cell.messageOptionArrowImage.frame.size.height, width: 1, height: 1)
+        
+        self.present(selectSubjectActionSheet!, animated: true)
     }
 }
 

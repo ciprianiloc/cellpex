@@ -161,7 +161,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XIC-Je-J4y" id="GVO-JA-a7D">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="from" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UkT-xu-qtg" userLabel="from">
@@ -1166,6 +1166,7 @@
                                         <size key="customSize" width="370" height="256"/>
                                         <connections>
                                             <outlet property="goToOrderButton" destination="EU3-r2-hBT" id="6i3-XM-hnS"/>
+                                            <outlet property="messageOptionArrowImage" destination="mec-uU-roa" id="KQH-PV-acj"/>
                                             <outlet property="messageOptionLabel" destination="BsK-Qs-iXP" id="4QI-Z6-g5d"/>
                                             <outlet property="messageTextView" destination="24s-xD-L1P" id="AN7-jc-fV6"/>
                                             <outlet property="sendMessageButton" destination="Eg2-wi-3S3" id="fde-hR-qsT"/>
