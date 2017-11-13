@@ -105,7 +105,10 @@ class ProductDetailsViewController: UIViewController {
         let keyboardRectangle = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardRectangle.height
         collectionViewButtomConstraints.constant = keyboardHeight
-        productDetailsCollectionView.scrollToItem(at: IndexPath(row: 0, section: 4), at: UICollectionViewScrollPosition.left, animated: true)
+        DispatchQueue.main.async {
+            self.productDetailsCollectionView.scrollToItem(at: IndexPath(row: 0, section: 4), at: UICollectionViewScrollPosition.bottom, animated: true)
+        }
+    
     }
     
     @objc func keyboardWillHide(sender: NSNotification){

@@ -45,8 +45,9 @@ class ProductDetailsLayout: UICollectionViewLayout {
 //        }
         let productImageLastY = setupForProductImageSection()
         let productCharacteristicsLastY = setupForProductCharacteristicsSection(startY: productImageLastY)
-        let _ = setupForAdditionalDetailsSection(startY: productCharacteristicsLastY)
-        let productProviderSectionLastY = setupForProductProviderSection(startY: productImageLastY)
+        let additionalDetailsLastY = setupForAdditionalDetailsSection(startY: productCharacteristicsLastY)
+        let startYForProductProviderSection = (UIDevice.current.userInterfaceIdiom == .pad) ? productImageLastY : additionalDetailsLastY
+        let productProviderSectionLastY = setupForProductProviderSection(startY: startYForProductProviderSection)
         let _ = setupForSendMessageSection(startY: productProviderSectionLastY)
     }
     
@@ -81,8 +82,9 @@ class ProductDetailsLayout: UICollectionViewLayout {
             
             // 4. Asks the delegate for the height of the picture and the annotation and calculates the cell frame.
             let cellHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath)
-            let height =   cellHeight
-            let frame = CGRect(x: 0, y: yOffset, width: contentWidth/2, height: height)
+            let height = cellHeight
+            let width = (UIDevice.current.userInterfaceIdiom == .pad) ? contentWidth/2 : contentWidth
+            let frame = CGRect(x: 0, y: yOffset, width: width, height: height)
             let insetFrame = frame.insetBy(dx: 0 , dy: 0)
             
             // 5. Creates an UICollectionViewLayoutItem with the frame and add it to the cache
@@ -104,7 +106,8 @@ class ProductDetailsLayout: UICollectionViewLayout {
         let indexPath = IndexPath(item: 0, section: 2)
         let cellHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath)
         let height = cellPadding * 2 + cellHeight
-        let frame = CGRect(x: 0, y: startY, width: contentWidth/2, height: height)
+        let width = (UIDevice.current.userInterfaceIdiom == .pad) ? contentWidth/2 : contentWidth
+        let frame = CGRect(x: 0, y: startY, width: width, height: height)
         let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
         
         // 5. Creates an UICollectionViewLayoutItem with the frame and add it to the cache
@@ -124,7 +127,9 @@ class ProductDetailsLayout: UICollectionViewLayout {
         let indexPath = IndexPath(item: 0, section: 3)
         let cellHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath)
         let height = cellPadding * 2 + cellHeight
-        let frame = CGRect(x: contentWidth/2, y: startY, width: contentWidth/2, height: height)
+        let width = (UIDevice.current.userInterfaceIdiom == .pad) ? contentWidth/2 : contentWidth
+        let x = (UIDevice.current.userInterfaceIdiom == .pad) ? contentWidth/2 : 0
+        let frame = CGRect(x: x, y: startY, width: width, height: height)
         let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
         
         // 5. Creates an UICollectionViewLayoutItem with the frame and add it to the cache
@@ -144,7 +149,9 @@ class ProductDetailsLayout: UICollectionViewLayout {
         let indexPath = IndexPath(item: 0, section: 4)
         let cellHeight = delegate.collectionView(collectionView, heightForPhotoAtIndexPath: indexPath)
         let height = cellPadding * 2 + cellHeight
-        let frame = CGRect(x: contentWidth/2, y: startY, width: contentWidth/2, height: height)
+        let width = (UIDevice.current.userInterfaceIdiom == .pad) ? contentWidth/2 : contentWidth
+        let x = (UIDevice.current.userInterfaceIdiom == .pad) ? contentWidth/2 : 0
+        let frame = CGRect(x: x, y: startY, width: width, height: height)
         let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
         
         // 5. Creates an UICollectionViewLayoutItem with the frame and add it to the cache
