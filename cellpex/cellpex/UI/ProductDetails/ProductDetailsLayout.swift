@@ -19,7 +19,7 @@ class ProductDetailsLayout: UICollectionViewLayout {
     
     //2. Configurable properties
     fileprivate var numberOfColumns = 1
-    fileprivate var cellPadding: CGFloat = 6
+    fileprivate var cellPadding: CGFloat = 0
     
     //3. Array to keep a cache of attributes.
     fileprivate var cache = [UICollectionViewLayoutAttributes]()

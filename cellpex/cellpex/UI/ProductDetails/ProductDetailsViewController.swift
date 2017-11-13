@@ -63,6 +63,8 @@ class SendMessageCell: UICollectionViewCell {
         sendMessageButton.isEnabled = !messageTextView.text.isEmpty
     }
     
+    
+    
 }
 
 
@@ -75,6 +77,7 @@ class AditionalDetailsCell: UICollectionViewCell {
 class ProductDetailsViewController: UIViewController {
 
     @IBOutlet weak var productDetailsCollectionView: UICollectionView!
+    @IBOutlet weak var collectionViewButtomConstraints: NSLayoutConstraint!
     private let characteristics = [("Condition", "Refurbished | 64 GB"), ("Carrier","Unlocked"), ("Price","196.00 USD / Item"),("Availability", "Physical Stock"), ("Stock", "200 Items"), ("Packing", "Blister Packed"), ("Market", "Other"), ("Date", "09,Nov 2017"), ("Location","Hong Kong, hongkong")]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +85,8 @@ class ProductDetailsViewController: UIViewController {
         if let layout = productDetailsCollectionView?.collectionViewLayout as? ProductDetailsLayout {
             layout.delegate = self
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,6 +99,32 @@ class ProductDetailsViewController: UIViewController {
         self.view.setNeedsDisplay()
     }
     
+    @objc func keyboardWillShow(sender: NSNotification) {
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        collectionViewButtomConstraints.constant = keyboardHeight
+        productDetailsCollectionView.scrollToItem(at: IndexPath(row: 0, section: 4), at: UICollectionViewScrollPosition.left, animated: true)
+    }
+    
+    @objc func keyboardWillHide(sender: NSNotification){
+        collectionViewButtomConstraints.constant = 0
+    }
+    
+    @IBAction func selectSubject(_ sender: Any) {
+        let subjectOptions = ["General Availability", "Payment Inquiry", "Shipping Inquiry"]
+        let selectSubjectActionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        selectSubjectActionSheet.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: { (action) in
+            
+        }))
+        for subjectOption in subjectOptions {
+            selectSubjectActionSheet.addAction(UIAlertAction.init(title: subjectOption, style: .default, handler: { (action) in
+                
+            }))
+        }
+//        self.present(selectSubjectActionSheet, animated: true)
+    }
 }
 
 extension ProductDetailsViewController: UICollectionViewDataSource {
@@ -147,44 +178,18 @@ extension ProductDetailsViewController: UICollectionViewDelegate {
     
 }
 
-//extension ProductDetailsViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let widthPerItem = (UIDevice.current.userInterfaceIdiom == .pad) ?(collectionView.frame.width - 10)/2 : collectionView.frame.width - 10;
-//        if indexPath.section == 0 {
-//            return CGSize(width: collectionView.frame.width, height: 240)
-//        } else if indexPath.section == 1 {
-//            return CGSize(width: widthPerItem, height: 30)
-//        } else if indexPath.section == 4 {
-//            return CGSize(width: widthPerItem, height:250)
-//        }
-//        return CGSize(width: widthPerItem, height: 90)
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//            return 0;
-//    }
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        if section == 1 {
-//            return CGSize.zero
-//        }
-//        return CGSize(width: self.view.frame.width, height:5)
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-//        return CGSize(width: collectionView.bounds.size.width, height: 0)
-//    }
-//}
-
 extension ProductDetailsViewController : ProductDetailsLayoutDelegate {
     func collectionView(_ collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 240
+            return 280
         } else if indexPath.section == 1 {
             return 30
+        } else if indexPath.section == 2 {
+            return 100
+        } else if indexPath.section == 3 {
+            return 90
         } else if indexPath.section == 4 {
-            return 250;
+            return 280;
         }
         return 90
     }

@@ -21,15 +21,15 @@ class NetworkManager: NSObject {
         
         let params = ["username": usernamebase64,
                       "password": passwordbase64,
-                      "deviceId": deviceIdbase64,
-            "firebaseToken":"token",
-            "device":"iPhone",
-            "model":"model",
+                      "deviceId": deviceId,
+            "firebaseToken":"tokenfirebaseToken",
+            "brand":"iPhone",
+            "model":"iPhone6",
             "product":"product",
-            "os":"IOS",
+            "os":"iOS",
             "release":"10.0.3",
-            "sdk":"11",
-            "screenResolution":"test"]
+            "sdk":"iOS",
+            "screenResolution":"320x640"]
 
         
 //        Alamofire.request(URL(string: loginURLString)!, method: .post, parameters: parameter, encoding: URLEncoding.default, headers: nil).responseJSON { (data) in
