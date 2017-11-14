@@ -52,10 +52,19 @@ class NetworkManager: NSObject {
         let sessionTask = session.dataTask(with: request) { (data: Data?, urlresponse: URLResponse?, error: Error?) in
             
             if data != nil{
-            
-                let str = String.init(data: data!, encoding: .utf8) ?? ""
-                let x = JSONSerialization.isValidJSONObject(data!)
-                print("test: \(String(describing: str)) xxx \(x)")
+                do {
+                    let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                    
+                    //Store response in NSDictionary for easy access
+                    let dict = parsedData as? NSDictionary
+                    print("\(parsedData)");
+                    
+                }
+                    //else throw an error detailing what went wrong
+                catch let error as NSError {
+                    print("Details of JSON parsing error:\n \(error)")
+                }
+                
             }
         }
         sessionTask.resume()
