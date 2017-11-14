@@ -20,6 +20,7 @@ class LoginViewController: UIViewController {
     let passwordTextFieldRightButton = UIButton(type: .custom)
     var passwordTextFieldShoulBeSecure = true
     
+    @IBOutlet weak var loginSpinner: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
         forgotButton.layer.borderWidth = 1.0
@@ -48,31 +49,35 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func signInButtonAction(_ sender: Any) {
-        KeychainWrapper.standard.set(usernameTextField.text!, forKey: KeychainConstant.username)
-        KeychainWrapper.standard.set(passwordTextField.text!, forKey: KeychainConstant.password)
-        KeychainWrapper.standard.set("user ID will be received", forKey: KeychainConstant.userID)
+        self.loginSpinner.startAnimating()
         NetworkManager.loginWithUserName(username: usernameTextField.text!, password: passwordTextField.text!, successHandler: { [weak self] in
-            let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
-            
-            let mainViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-            let leftViewController = homeStoryboard.instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
-            
-            let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
-            
-            UINavigationBar.appearance().tintColor = UIColor.darkGray
-            leftViewController.mainViewController = nvc
-            
-            let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
-            if #available(iOS 11, *) {
-            } else {
-                slideMenuController.automaticallyAdjustsScrollViewInsets = true
+            DispatchQueue.main.async {
+                self?.loginSpinner.stopAnimating()
+                let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
+                
+                let mainViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                let leftViewController = homeStoryboard.instantiateViewController(withIdentifier: "LeftMenuViewController") as! LeftMenuViewController
+                
+                let nvc: UINavigationController = UINavigationController(rootViewController: mainViewController)
+                
+                UINavigationBar.appearance().tintColor = UIColor.darkGray
+                leftViewController.mainViewController = nvc
+                
+                let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
+                if #available(iOS 11, *) {
+                } else {
+                    slideMenuController.automaticallyAdjustsScrollViewInsets = true
+                }
+                slideMenuController.delegate = mainViewController as SlideMenuControllerDelegate
+                self?.navigationController?.pushViewController(slideMenuController, animated: true)
             }
-            slideMenuController.delegate = mainViewController as SlideMenuControllerDelegate
-            self?.navigationController?.pushViewController(slideMenuController, animated: true)
         }) {[weak self](errorMessage: String) in
-            let alert = UIAlertController.init(title: nil, message: errorMessage, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self?.present(alert, animated: true)
+            DispatchQueue.main.async {
+                self?.loginSpinner.stopAnimating()
+                let alert = UIAlertController.init(title: nil, message: errorMessage, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self?.present(alert, animated: true)
+            }
         }
     }
     

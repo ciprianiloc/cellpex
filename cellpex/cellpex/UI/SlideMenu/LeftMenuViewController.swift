@@ -33,10 +33,10 @@ class LeftMenuViewController: UIViewController, LeftMenuProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userLabel.text = "user name (0)"
-        companyLabel.text = "TestText"
+        userLabel.text = SessionManager.manager.userModel?.user
+        companyLabel.text = SessionManager.manager.userModel?.company
         
-        getDataFromUrl(url: URL(string: URLConstant.noLogoURL)!) { data, response, error in
+        getDataFromUrl(url: URL(string: SessionManager.manager.userModel?.companyLogo ?? URLConstant.noLogoURL)!) { data, response, error in
             guard let data = data, error == nil else { return }
             DispatchQueue.main.async() { [weak self] in
                 guard let `self` = self else { return }
