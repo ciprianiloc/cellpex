@@ -20,6 +20,8 @@
 		F63F91C91FA360C80083A4A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F63F91C71FA360C80083A4A8 /* Main.storyboard */; };
 		F63F91CB1FA360C80083A4A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F63F91CA1FA360C80083A4A8 /* Assets.xcassets */; };
 		F63F91CE1FA360C80083A4A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F63F91CC1FA360C80083A4A8 /* LaunchScreen.storyboard */; };
+		F658B9A31FBB823A00E92FCD /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F658B9A21FBB823A00E92FCD /* UserModel.swift */; };
+		F658B9A51FBB8CA800E92FCD /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F658B9A41FBB8CA800E92FCD /* SessionManager.swift */; };
 		F6660A051FACC63400116A8F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6660A041FACC63400116A8F /* NetworkManager.swift */; };
 		F66D648F1FB326AF0070775F /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D648E1FB326AF0070775F /* MessageModel.swift */; };
 		F6863C681FA7163200A5F6D2 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6863C671FA7163200A5F6D2 /* LeftMenuViewController.swift */; };
@@ -55,6 +57,8 @@
 		F63F91CA1FA360C80083A4A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F63F91CD1FA360C80083A4A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F63F91CF1FA360C80083A4A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F658B9A21FBB823A00E92FCD /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		F658B9A41FBB8CA800E92FCD /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		F6660A041FACC63400116A8F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F66D648E1FB326AF0070775F /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		F6863C671FA7163200A5F6D2 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
@@ -166,10 +170,20 @@
 			path = cellpex;
 			sourceTree = "<group>";
 		};
+		F658B9A11FBB820A00E92FCD /* JsonModels */ = {
+			isa = PBXGroup;
+			children = (
+				F658B9A21FBB823A00E92FCD /* UserModel.swift */,
+			);
+			path = JsonModels;
+			sourceTree = "<group>";
+		};
 		F6660A031FACC60C00116A8F /* core */ = {
 			isa = PBXGroup;
 			children = (
+				F658B9A11FBB820A00E92FCD /* JsonModels */,
 				F6660A041FACC63400116A8F /* NetworkManager.swift */,
+				F658B9A41FBB8CA800E92FCD /* SessionManager.swift */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -383,11 +397,13 @@
 				F6863C811FA767A500A5F6D2 /* FeedbackViewController.swift in Sources */,
 				F63F91C61FA360C80083A4A8 /* LoginViewController.swift in Sources */,
 				F6863C7A1FA752DB00A5F6D2 /* LeftMenuCell.swift in Sources */,
+				F658B9A31FBB823A00E92FCD /* UserModel.swift in Sources */,
 				F63F91C41FA360C80083A4A8 /* AppDelegate.swift in Sources */,
 				F634100C1FA8F83800D46222 /* RefreshFooterView.swift in Sources */,
 				F6863C751FA733A600A5F6D2 /* ExSlideMenuController.swift in Sources */,
 				F636A18F1FA7778900DCDCFA /* LeftMenuModel.swift in Sources */,
 				F69EECED1FA4557700F497F1 /* ProductCollectionViewCell.swift in Sources */,
+				F658B9A51FBB8CA800E92FCD /* SessionManager.swift in Sources */,
 				F6660A051FACC63400116A8F /* NetworkManager.swift in Sources */,
 				F69EECE91FA3B1B200F497F1 /* HomeViewController.swift in Sources */,
 				F68E615E1FA8B6B70046E5BC /* ListOfProductsViewController.swift in Sources */,

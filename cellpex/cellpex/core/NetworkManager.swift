@@ -11,7 +11,7 @@ import Alamofire
 import SwiftKeychainWrapper
 
 class NetworkManager: NSObject {
-    static func loginWithUserName(username: String, password:String) {
+    static func loginWithUserName(username: String, password:String, successHandler: @escaping ()->(), errorHandler: @escaping (_ errorMessage:String) ->()) {
         let loginURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.wsLogin
         let usernamebase64 = username.data(using: .utf8)?.base64EncodedString() ?? ""
         let passwordbase64 = password.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -55,13 +55,24 @@ class NetworkManager: NSObject {
                 do {
                     let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
                     
-                    //Store response in NSDictionary for easy access
-                    let dict = parsedData as? NSDictionary
-                    print("\(parsedData)");
-                    
+                    let responseDictionary = parsedData as? [String : Any?]
+                    let errorValue = responseDictionary?["error"] as! String
+                    if errorValue == "0" {
+                        let dataDictionary = responseDictionary?["data"] as? [String : String]
+                        let loadUserModelWithSuccess = SessionManager.manager.loadUserModel(dictinary: dataDictionary)
+                        if loadUserModelWithSuccess {
+                            successHandler()
+                        } else {
+                            errorHandler("message")
+                        }
+                    } else {
+                        let message = responseDictionary?["message"] as? String
+                        errorHandler(message!)
+                    }
                 }
                     //else throw an error detailing what went wrong
                 catch let error as NSError {
+                    errorHandler("message")
                     print("Details of JSON parsing error:\n \(error)")
                 }
                 

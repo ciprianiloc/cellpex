@@ -17,9 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if (KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) == nil) {
             KeychainWrapper.standard.set((UIDevice.current.identifierForVendor?.uuidString)!, forKey: KeychainConstant.deviceID)
+            
         }
-        
-        guard let _ = KeychainWrapper.standard.string(forKey: KeychainConstant.userID) else {
+        let loadUserModelWithSuccess = SessionManager.manager.loadUserModel(dictinary: nil)
+        if loadUserModelWithSuccess {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateInitialViewController()
             self.window?.rootViewController = viewController
