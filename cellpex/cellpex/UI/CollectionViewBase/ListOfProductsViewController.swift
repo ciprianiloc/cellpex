@@ -19,6 +19,7 @@ class ListOfProductsViewController: UIViewController {
     var footerView:RefreshFooterView?
     var isLoading:Bool = false
     var selectedProductIndex : Int?
+    var products = [ProductModel]()
     
     let footerViewReuseIdentifier = "RefreshFooterView"
     override func viewDidLoad() {
@@ -43,23 +44,37 @@ class ListOfProductsViewController: UIViewController {
             productDetails.title = "Apple iPhone 6s"
         }
     }
+    private func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data, response, error)
+            }.resume()
+    }
 }
 
 extension ListOfProductsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 24
+        return products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
-        cell.productImageView.image = UIImage.init(named: "teset_product_icon")
-        cell.productDateLabel.text = "28, Oct"
-        cell.productRedirectButton.setTitle("servicegsm", for: .normal)
-        cell.productSatusLabel.text = "New"
-        cell.productPriceLabel.text = "320 USD"
-        cell.productDescriptionLabel.text = "Apple iPhone 6s"
-        cell.productPropertiesLabel.text = "32 GB"
+        let product = products[indexPath.row]
+        let imageUrl = product.imageUrl ?? ""
+        getDataFromUrl(url: URL(string: imageUrl)!) { data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() {
+                cell.productImageView.image = UIImage(data: data)
+            }
+        }
+        
+        cell.productDateLabel.text = product.date
+        let redirectTitile = product.user
+        cell.productRedirectButton.setTitle(redirectTitile, for: .normal)
+        cell.productSatusLabel.text = product.cond
+        cell.productPriceLabel.text = product.price
+        cell.productDescriptionLabel.text = product.name
+        cell.productPropertiesLabel.text = product.nameExtra
         cell.productRedirectAction = {[weak self] in
             guard let `self` = self else {
                 return;

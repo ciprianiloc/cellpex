@@ -28,6 +28,19 @@ class HomeViewController: ListOfProductsViewController {
         unreadMessagesLabel.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.unreadMessagesLabelTap))
         unreadMessagesLabel.addGestureRecognizer(gesture)
+        NetworkManager.getProduct(pageNumber: 0, successHandler: { (productsArray : [[String: Any?]?]?) in
+            for product in productsArray! {
+                let productModel = ProductModel.init(dictionary: product)
+                if productModel.isValidProduct {
+                    self.products.append(productModel)
+                }
+            }
+            DispatchQueue.main.async {
+                self.productCollectionView?.reloadData()
+            }
+        }) { (errorMessage: String) in
+            
+        }
     }
     
     @objc func unreadMessagesLabelTap() {

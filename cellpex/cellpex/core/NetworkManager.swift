@@ -61,16 +61,16 @@ class NetworkManager: NSObject {
                         if loadUserModelWithSuccess {
                             successHandler()
                         } else {
-                            errorHandler("message")
+                            errorHandler("Try again later!")
                         }
                     } else {
-                        let message = responseDictionary?["message"] as? String
-                        errorHandler(message!)
+                        let message = (responseDictionary?["message"] as? String) ?? "Try again later!"
+                        errorHandler(message)
                     }
                 }
                     //else throw an error detailing what went wrong
                 catch let error as NSError {
-                    errorHandler("message")
+                    errorHandler("Try again later!")
                     print("Details of JSON parsing error:\n \(error)")
                 }
                 
@@ -84,8 +84,10 @@ class NetworkManager: NSObject {
         let logoutURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.wsLogout
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
-        let params = ["userId": userID,
-                      "deviceId": deviceId,]
+        let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
+        let userIDBase64 = userID.data(using: .utf8)?.base64EncodedString() ?? ""
+        let params = ["userId": userIDBase64,
+                      "deviceId": deviceIDBase64]
         var postContetn = ""
         for element in params {
             postContetn = "\(postContetn)&\(element.key)=\(element.value)"
@@ -120,6 +122,45 @@ class NetworkManager: NSObject {
         sessionTask.resume()
     }
     
+    
+    static func getProduct(pageNumber: Int, successHandler: @escaping (_ products: [[String: Any?]?]? )->(), errorHandler: @escaping (_ errorMessage:String) ->()) {
+        
+        let getProductURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.getProduct
+        let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
+        let userID = SessionManager.manager.userModel?.id ?? ""
+        let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
+        let userIDBase64 = userID.data(using: .utf8)?.base64EncodedString() ?? ""
+        let params = ["userId": userIDBase64,
+                      "deviceId": deviceIDBase64]
+        var postContetn = ""
+        for element in params {
+            postContetn = "\(postContetn)&\(element.key)=\(element.value)"
+        }
+        
+        var request = URLRequest.init(url: URL.init(string: getProductURLString)!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = postContetn.data(using: .utf8)
+        let sessionConfiguration = URLSessionConfiguration.default
+        let session = URLSession.init(configuration: sessionConfiguration)
+        let sessionTask = session.dataTask(with: request) { (data: Data?, urlresponse: URLResponse?, error: Error?) in
+            
+            if data != nil{
+                do {
+                    let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                    
+                    let responseDictionary = parsedData as? [String : Any?]
+                    let productsArray = responseDictionary?["data"] as? [[String: Any?]?]
+                    successHandler(productsArray)
+                    print("\(String(describing: responseDictionary))")
+                }
+                    //else throw an error detailing what went wrong
+                catch let error as NSError {
+                    print("Details of JSON parsing error:\n \(error)")
+                }
+            }
+        }
+        sessionTask.resume()
+    }
 }
 
 

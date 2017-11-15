@@ -24,6 +24,7 @@ struct WebServices {
     static let wsLogin = "login.php"
     static let wsLogout = "logout.php"
     static let wsUpdateDevice = "update_device.php"
+    static let getProduct = "get_posts.php"
     
 }
 
