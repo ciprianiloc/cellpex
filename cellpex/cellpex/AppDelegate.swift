@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         let loadUserModelWithSuccess = SessionManager.manager.loadUserModel(dictinary: nil)
-        if loadUserModelWithSuccess {
+        if loadUserModelWithSuccess == false {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateInitialViewController()
             self.window?.rootViewController = viewController

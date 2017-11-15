@@ -17,7 +17,7 @@ final class SessionManager: NSObject {
         super.init()
     }
     
-    func loadUserModel(dictinary : [String : String]?) ->Bool {
+    func loadUserModel(dictinary : [String : Any?]?) ->Bool {
         userModel = UserModel(dictionary: dictinary)
         guard let _ = userModel?.id, let _ = userModel?.user, let _ = userModel?.email, let _ =
             userModel?.id else {

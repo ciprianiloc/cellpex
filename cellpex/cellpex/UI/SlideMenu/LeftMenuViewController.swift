@@ -33,10 +33,13 @@ class LeftMenuViewController: UIViewController, LeftMenuProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userLabel.text = SessionManager.manager.userModel?.user
+        let user = SessionManager.manager.userModel?.user ?? ""
+        let feedbackScore = SessionManager.manager.userModel?.feedbackScore ?? ""
+        let companyLogoURL =  SessionManager.manager.userModel?.companyLogo ?? URLConstant.noLogoURL
+        userLabel.text = "\(user) (\(feedbackScore))"
         companyLabel.text = SessionManager.manager.userModel?.company
         
-        getDataFromUrl(url: URL(string: SessionManager.manager.userModel?.companyLogo ?? URLConstant.noLogoURL)!) { data, response, error in
+        getDataFromUrl(url: URL(string: companyLogoURL)!) { data, response, error in
             guard let data = data, error == nil else { return }
             DispatchQueue.main.async() { [weak self] in
                 guard let `self` = self else { return }
@@ -107,10 +110,7 @@ extension LeftMenuViewController : UITableViewDelegate {
                 let homeViewController = self.slideMenuController()?.delegate as! HomeViewController
                 homeViewController.performSegue(withIdentifier: "showFollowingInventory", sender: self)
             case .LogOut :
-                KeychainWrapper.standard.removeObject(forKey: KeychainConstant.userID)
-                KeychainWrapper.standard.removeObject(forKey: KeychainConstant.username)
-                KeychainWrapper.standard.removeObject(forKey: KeychainConstant.password)
-
+                NetworkManager.logoutRequest()
                 guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
                 let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()
                 appDel.window?.rootViewController = rootController

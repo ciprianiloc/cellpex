@@ -36,7 +36,7 @@ struct UserModel {
     var companyLogo : String
     
     
-    init(dictionary: [String: String]?) {
+    init(dictionary: [String: Any?]?) {
         guard let userDictionary = dictionary else {
             user = KeychainWrapper.standard.string(forKey: KeychainUserModel.user.rawValue)
             email = KeychainWrapper.standard.string(forKey: KeychainUserModel.email.rawValue)
@@ -46,12 +46,12 @@ struct UserModel {
             companyLogo = KeychainWrapper.standard.string(forKey: KeychainUserModel.companyLogo.rawValue) ?? URLConstant.noLogoURL
             return
         }
-        user = userDictionary[ServerUserModel.user.rawValue]
-        email = userDictionary[ServerUserModel.email.rawValue]
-        id = userDictionary[ServerUserModel.id.rawValue]
-        feedbackScore = userDictionary[ServerUserModel.feedbackScore.rawValue] ?? "0"
-        company = userDictionary[ServerUserModel.company.rawValue] ?? "NoCompany"
-        companyLogo = userDictionary[ServerUserModel.companyLogo.rawValue] ?? URLConstant.noLogoURL
+        user = (userDictionary[ServerUserModel.user.rawValue] as? String)
+        email = (userDictionary[ServerUserModel.email.rawValue] as? String)
+        id = (userDictionary[ServerUserModel.id.rawValue] as? String)
+        feedbackScore = (userDictionary[ServerUserModel.feedbackScore.rawValue] as? String) ?? "0"
+        company = (userDictionary[ServerUserModel.company.rawValue] as? String) ?? ""
+        companyLogo = (userDictionary[ServerUserModel.companyLogo.rawValue] as? String) ?? URLConstant.noLogoURL
         guard let _ = user, let _ = email, let _ = id else {
             return
         }

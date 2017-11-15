@@ -17,8 +17,6 @@ class NetworkManager: NSObject {
         let passwordbase64 = password.data(using: .utf8)?.base64EncodedString() ?? ""
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let deviceIdbase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
-//        let parameter = ["username":usernamebase64, "password" : passwordbase64,"deviceId":deviceIdbase64] as! [String : String]
-        
         let firebaseToken = "tokenfirebaseToken".data(using: .utf8)?.base64EncodedString() ?? ""
         let brand = "Apple".data(using: .utf8)?.base64EncodedString() ?? ""
         let model = "iPhone6".data(using: .utf8)?.base64EncodedString() ?? ""
@@ -58,7 +56,7 @@ class NetworkManager: NSObject {
                     let responseDictionary = parsedData as? [String : Any?]
                     let errorValue = responseDictionary?["error"] as! String
                     if errorValue == "0" {
-                        let dataDictionary = responseDictionary?["data"] as? [String : String]
+                        let dataDictionary = responseDictionary?["data"] as? [String : Any?]
                         let loadUserModelWithSuccess = SessionManager.manager.loadUserModel(dictinary: dataDictionary)
                         if loadUserModelWithSuccess {
                             successHandler()
@@ -82,60 +80,46 @@ class NetworkManager: NSObject {
         
     }
     
+    static func logoutRequest() {
+        let logoutURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.wsLogout
+        let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
+        let userID = SessionManager.manager.userModel?.id ?? ""
+        let params = ["userId": userID,
+                      "deviceId": deviceId,]
+        var postContetn = ""
+        for element in params {
+            postContetn = "\(postContetn)&\(element.key)=\(element.value)"
+        }
+        
+        var request = URLRequest.init(url: URL.init(string: logoutURLString)!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = postContetn.data(using: .utf8)
+        let sessionConfiguration = URLSessionConfiguration.default
+        let session = URLSession.init(configuration: sessionConfiguration)
+        let sessionTask = session.dataTask(with: request) { (data: Data?, urlresponse: URLResponse?, error: Error?) in
+            
+            if data != nil{
+                do {
+                    let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                    
+                    let responseDictionary = parsedData as? [String : Any?]
+                    print("\(String(describing: responseDictionary))")
+                }
+                    //else throw an error detailing what went wrong
+                catch let error as NSError {
+                    print("Details of JSON parsing error:\n \(error)")
+                }
+            }
+            KeychainWrapper.standard.removeObject(forKey: KeychainUserModel.id.rawValue)
+            KeychainWrapper.standard.removeObject(forKey: KeychainUserModel.user.rawValue)
+            KeychainWrapper.standard.removeObject(forKey: KeychainUserModel.email.rawValue)
+            KeychainWrapper.standard.removeObject(forKey: KeychainUserModel.company.rawValue)
+            KeychainWrapper.standard.removeObject(forKey: KeychainUserModel.companyLogo.rawValue)
+            KeychainWrapper.standard.removeObject(forKey: KeychainUserModel.feedbackScore.rawValue)
+        }
+        sessionTask.resume()
+    }
+    
 }
-        
-//        Alamofire.request(URL(string: loginURLString)!, method: .post, parameters: parameter, encoding: URLEncoding.default, headers: nil).responseJSON { (data) in
-//
-//                   }
-        
-//        Alamofire.request(URL(string: loginURLString)!, method: .post, parameters: parameter, encoding: URLEncoding.default, headers: nil).response { (data) in
-//
-//        }
-        
-
-        
-//        Alamofire.request(loginURLString,method: .post, parameters: params, encoding: JSONEncoding.prettyPrinted, headers: [:]).responseData { (response:DataResponse<Data>) in
-//
-//            switch(response.result) {
-//
-//            case .success(_):
-//
-//                if response.result.value != nil
-//
-//                            {
-//                                print("response : \(response.result.value!)")
-//                                let str = String.init(data: response.data!, encoding: .utf8)
-//                                print("response : \(String(describing: str))")
-//                            }
-//                            else
-//                            {
-//                                print("Error")
-//                            }
-//                            break
-//                        case .failure(_):
-//                            print("Failure : \(response.result.error!)")
-//                            break
-//                        }
-//                    }
-
-//        Alamofire.request(loginURLString,method: .post, parameters: params, encoding: JSONEncoding.prettyPrinted, headers: [:]).responseJSON { (response:DataResponse<Any>) in
-//
-//            switch(response.result) {
-//            case .success(_):
-//                if response.result.value != nil
-//
-//                {
-//                    print("response : \(response.result.value!)")
-//                }
-//                else
-//                {
-//                    print("Error")
-//                }
-//                break
-//            case .failure(_):
-//                print("Failure : \(response.result.error!)")
-//                break
-//            }
-//        }
 
 
