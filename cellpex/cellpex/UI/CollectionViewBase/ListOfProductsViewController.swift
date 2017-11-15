@@ -18,7 +18,7 @@ class ListOfProductsViewController: UIViewController {
     
     var footerView:RefreshFooterView?
     var isLoading:Bool = false
-    var selectedProductIndex : Int?
+    var selectedProductIndex = 0
     var products = [ProductModel]()
     
     let footerViewReuseIdentifier = "RefreshFooterView"
@@ -41,7 +41,13 @@ class ListOfProductsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if ("showProductDetails" == segue.identifier) {
             let productDetails = segue.destination as! ProductDetailsViewController
-            productDetails.title = "Apple iPhone 6s"
+            let productModel = products[selectedProductIndex]
+            productDetails.title = productModel.name
+            NetworkManager.getProductDetails(product: productModel, successHandler: { (productInfo:[String : Any?]?) in
+                productDetails.handleSuccessReceived(productDetails: productInfo)
+            }, errorHandler: { (errorMessage:String) in
+                productDetails.handleErrorReceived(errorMessage: errorMessage)
+            })
         }
     }
     private func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
@@ -49,6 +55,7 @@ class ListOfProductsViewController: UIViewController {
             completion(data, response, error)
             }.resume()
     }
+    
 }
 
 extension ListOfProductsViewController: UICollectionViewDataSource {

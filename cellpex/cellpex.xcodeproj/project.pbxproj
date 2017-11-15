@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D70173C2750488ADCC4CB290 /* Pods_cellpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02D959E466398F5EF7834E2 /* Pods_cellpex.framework */; };
+		F6272DF41FBC814A007F0B22 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */; };
 		F634100B1FA8F83800D46222 /* RefreshFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63410091FA8F83800D46222 /* RefreshFooterView.xib */; };
 		F634100C1FA8F83800D46222 /* RefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634100A1FA8F83800D46222 /* RefreshFooterView.swift */; };
 		F634100F1FA9030900D46222 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634100E1FA9030900D46222 /* Constants.swift */; };
@@ -44,6 +45,7 @@
 		5D5CB441E4733E3FD3D3C44C /* Pods-cellpex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.debug.xcconfig"; sourceTree = "<group>"; };
 		9E95EA33004CC2B8BAC80ADA /* Pods-cellpex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.release.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.release.xcconfig"; sourceTree = "<group>"; };
 		B02D959E466398F5EF7834E2 /* Pods_cellpex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cellpex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		F63410091FA8F83800D46222 /* RefreshFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshFooterView.xib; sourceTree = "<group>"; };
 		F634100A1FA8F83800D46222 /* RefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshFooterView.swift; sourceTree = "<group>"; };
 		F634100E1FA9030900D46222 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				F658B9A21FBB823A00E92FCD /* UserModel.swift */,
 				F67183741FBC40DA005A053D /* ProductModel.swift */,
+				F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */,
 			);
 			path = JsonModels;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 			files = (
 				F6FAC25F1FB886A900D9F95B /* ProductDetailsLayout.swift in Sources */,
 				F6863C7E1FA7629600A5F6D2 /* MessagesViewController.swift in Sources */,
+				F6272DF41FBC814A007F0B22 /* ProductDetailsModel.swift in Sources */,
 				F63410111FA9135B00D46222 /* PaddedTextField.swift in Sources */,
 				F634100F1FA9030900D46222 /* Constants.swift in Sources */,
 				F6863C781FA7341700A5F6D2 /* UIApplication.swift in Sources */,

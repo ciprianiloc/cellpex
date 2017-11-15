@@ -80,11 +80,14 @@ class AditionalDetailsCell: UICollectionViewCell {
 
 
 class ProductDetailsViewController: UIViewController {
-
+    private var productDetailsModel : ProductDetailsModel?
     @IBOutlet weak var productDetailsCollectionView: UICollectionView!
     @IBOutlet weak var collectionViewButtomConstraints: NSLayoutConstraint!
-    private let characteristics = [("Condition", "Refurbished | 64 GB"), ("Carrier","Unlocked"), ("Price","196.00 USD / Item"),("Availability", "Physical Stock"), ("Stock", "200 Items"), ("Packing", "Blister Packed"), ("Market", "Other"), ("Date", "09,Nov 2017"), ("Location","Hong Kong, hongkong")]
+    private var characteristics = [(String, String)]()
+
     private var selectSubjectActionSheet: UIAlertController?
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -93,6 +96,45 @@ class ProductDetailsViewController: UIViewController {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        self.productDetailsModel = nil
+    }
+    
+    func handleErrorReceived(errorMessage: String) {
+        print("\(errorMessage)")
+    }
+    
+    func handleSuccessReceived(productDetails: [String : Any?]?) {
+        DispatchQueue.main.async {
+            self.productDetailsModel = ProductDetailsModel.init(dictionary: productDetails)
+            if let condition = self.productDetailsModel?.condition {
+                 self.characteristics.append(("Condition", condition))
+            }
+            if let carrier = self.productDetailsModel?.carrier {
+                self.characteristics.append(("Carrier", carrier))
+            }
+            if let price = self.productDetailsModel?.price {
+                self.characteristics.append(("Price", "\(price) / Item"))
+            }
+            if let availability = self.productDetailsModel?.availability {
+                self.characteristics.append(("Availability", availability))
+            }
+            if let stock = self.productDetailsModel?.quantity {
+                self.characteristics.append(("Stock", "\(stock) Items"))
+            }
+            if let packing = self.productDetailsModel?.pack {
+                self.characteristics.append(("Packing", packing))
+            }
+            if let market = self.productDetailsModel?.market {
+                self.characteristics.append(("Market", market))
+            }
+            if let date = self.productDetailsModel?.date {
+                self.characteristics.append(("Date", date))
+            }
+            if let location = self.productDetailsModel?.userState {
+                self.characteristics.append(("Location", location))
+            }
+            self.productDetailsCollectionView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -139,6 +181,12 @@ class ProductDetailsViewController: UIViewController {
         
         self.present(selectSubjectActionSheet!, animated: true)
     }
+    
+    private func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data, response, error)
+            }.resume()
+    }
 }
 
 extension ProductDetailsViewController: UICollectionViewDataSource {
@@ -168,16 +216,28 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
         } else if indexPath.section == 2 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "AditionalDetailsCell", for: indexPath) as! AditionalDetailsCell
-            cell.additionalDetailsLabel.text = "Additional details text Additional details text Additional details text Additional details text"
+            cell.additionalDetailsLabel.text = self.productDetailsModel?.details
             return cell
         } else if indexPath.section == 3 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "ProviderInfoCell", for: indexPath) as! ProviderInfoCell
-            cell.providerNameLabel.text = "SKYRISE DISTRIBUTION LIMITED"
-            cell.providerLinkLabel.text = "solidgsm"
-            cell.providerNumber.text = "(3)"
-            cell.providerLocationLable.text = "Hong Kong, hongkong"
-            cell.providerImageView.backgroundColor = UIColor.orange
+            if let providerName = self.productDetailsModel?.userCompany {
+                cell.providerNameLabel.text = providerName
+            }
+            if let user = self.productDetailsModel?.user {
+                cell.providerLinkLabel.text = user
+            }
+            let userFeedback = self.productDetailsModel?.userFeedbackScore ?? "0"
+            cell.providerNumber.text = "(\(userFeedback))"
+            cell.providerLocationLable.text = self.productDetailsModel?.providerAddress
+            if let userLogo = self.productDetailsModel?.userCompanyLogoUrl {
+                getDataFromUrl(url: URL(string: userLogo)!) { data, response, error in
+                    guard let data = data, error == nil else { return }
+                    DispatchQueue.main.async() {
+                        cell.providerImageView.image = UIImage(data: data)
+                    }
+                }
+            }
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(

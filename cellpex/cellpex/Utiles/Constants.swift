@@ -25,7 +25,7 @@ struct WebServices {
     static let wsLogout = "logout.php"
     static let wsUpdateDevice = "update_device.php"
     static let getProduct = "get_posts.php"
-    
+    static let getProductDetails = "get_post_details.php"
 }
 
 struct KeychainConstant {
