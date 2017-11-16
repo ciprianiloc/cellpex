@@ -21,10 +21,9 @@ class FollowingInventoryViewController: ListOfProductsViewController {
         filterLabel.text = "Following Inv"
         unreadMessagesLabel.text = ""
         unreadMessagesLabel.isHidden = true
-        NetworkManager.getProduct(search: nil, endPoint: WebServices.getFollowingMemebers, successHandler: { [weak self](productsArray : [[String: Any?]?]?) in
-            self?.loadProducts(productsArray: productsArray)
-        }) { (errorMessage: String) in
-            
+        self.productManager.originalEndPoint = WebServices.getFollowingMemebers
+        self.productManager.requestFirstTimeProducts { [weak self] in
+            self?.productsReceived()
         }
     }    
 

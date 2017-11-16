@@ -15,23 +15,29 @@ class ListOfProductsViewController: UIViewController {
     var productCollectionView :UICollectionView? {
         return nil
     }
-    
+
+    let refreshControl = UIRefreshControl()
+
     var footerView:RefreshFooterView?
     var isLoading:Bool = false
     var selectedProductIndex = 0
-    var products = [ProductModel]()
+    let productManager = ProductsManager(endPoint: WebServices.getProducts)
     
     let footerViewReuseIdentifier = "RefreshFooterView"
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.productCollectionView?.addSubview(refreshControl)
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         searchController.searchBar.placeholder = "Type mode"
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
         self.addNavigationTitleViewImage(UIImage(named: "login_logo_image")!)
         self.productCollectionView?.register(UINib(nibName: "RefreshFooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewReuseIdentifier)
+        self.refreshControl.attributedTitle = NSAttributedString.init(string: "pull to refresh")
+        self.refreshControl.addTarget(self, action: #selector(ListOfProductsViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -41,7 +47,7 @@ class ListOfProductsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if ("showProductDetails" == segue.identifier) {
             let productDetails = segue.destination as! ProductDetailsViewController
-            let productModel = products[selectedProductIndex]
+            let productModel = productManager.products[selectedProductIndex]
             productDetails.title = productModel.name
             NetworkManager.getProductDetails(product: productModel, successHandler: { (productInfo:[String : Any?]?) in
                 productDetails.handleSuccessReceived(productDetails: productInfo)
@@ -56,31 +62,32 @@ class ListOfProductsViewController: UIViewController {
             }.resume()
     }
     
-    func loadProducts(productsArray:[[String: Any?]?]?) {
-        if let listOfProducts = productsArray {
-            for product in listOfProducts {
-                let productModel = ProductModel.init(dictionary: product)
-                if productModel.isValidProduct {
-                    self.products.append(productModel)
-                }
-            }
-            DispatchQueue.main.async {[weak self] in
-                self?.productCollectionView?.reloadData()
-            }
+    func productsReceived() {
+        DispatchQueue.main.async {[weak self] in
+            self?.productCollectionView?.reloadData()
         }
     }
     
+    @objc func handleRefresh(refreshControl: UIRefreshControl) {
+        searchController.searchBar.text = nil
+        productManager.reloadProducts { [weak self] in
+            DispatchQueue.main.async {
+                self?.refreshControl.endRefreshing()
+            }
+            self?.productsReceived()
+        }
+    }
 }
 
 extension ListOfProductsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return products.count
+        return productManager.products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
-        let product = products[indexPath.row]
+        let product = productManager.products[indexPath.row]
         let imageUrl = product.imageUrl ?? ""
         getDataFromUrl(url: URL(string: imageUrl)!) { data, response, error in
             guard let data = data, error == nil else { return }
@@ -192,12 +199,21 @@ extension ListOfProductsViewController : UIScrollViewDelegate {
             if (self.footerView?.isAnimatingFinal)! {
                 self.isLoading = true
                 self.footerView?.startAnimate()
-                Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { (timer:Timer) in
+                self.productManager.requestNextPage {[weak self] in
+                    self?.productsReceived()
+                    self?.isLoading = false
+                }
 
-                    self.productCollectionView?.reloadData()
-                    self.isLoading = false
-                })
             }
+        }
+    }
+}
+
+extension ListOfProductsViewController : UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.productManager.searchValue = searchBar.text
+        self.productManager.requestFirstTimeProducts {[weak self] in
+            self?.productsReceived()
         }
     }
 }

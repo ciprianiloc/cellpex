@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D70173C2750488ADCC4CB290 /* Pods_cellpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02D959E466398F5EF7834E2 /* Pods_cellpex.framework */; };
+		F622CA451FBDC447008920BC /* ProductsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F622CA441FBDC447008920BC /* ProductsManager.swift */; };
 		F6272DF41FBC814A007F0B22 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */; };
 		F634100B1FA8F83800D46222 /* RefreshFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63410091FA8F83800D46222 /* RefreshFooterView.xib */; };
 		F634100C1FA8F83800D46222 /* RefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634100A1FA8F83800D46222 /* RefreshFooterView.swift */; };
@@ -45,6 +46,7 @@
 		5D5CB441E4733E3FD3D3C44C /* Pods-cellpex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.debug.xcconfig"; sourceTree = "<group>"; };
 		9E95EA33004CC2B8BAC80ADA /* Pods-cellpex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.release.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.release.xcconfig"; sourceTree = "<group>"; };
 		B02D959E466398F5EF7834E2 /* Pods_cellpex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cellpex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F622CA441FBDC447008920BC /* ProductsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsManager.swift; sourceTree = "<group>"; };
 		F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		F63410091FA8F83800D46222 /* RefreshFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshFooterView.xib; sourceTree = "<group>"; };
 		F634100A1FA8F83800D46222 /* RefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshFooterView.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				F63410091FA8F83800D46222 /* RefreshFooterView.xib */,
 				F69EECEC1FA4557700F497F1 /* ProductCollectionViewCell.swift */,
 				F68E615D1FA8B6B70046E5BC /* ListOfProductsViewController.swift */,
+				F622CA441FBDC447008920BC /* ProductsManager.swift */,
 			);
 			path = CollectionViewBase;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				F636A18F1FA7778900DCDCFA /* LeftMenuModel.swift in Sources */,
 				F69EECED1FA4557700F497F1 /* ProductCollectionViewCell.swift in Sources */,
 				F658B9A51FBB8CA800E92FCD /* SessionManager.swift in Sources */,
+				F622CA451FBDC447008920BC /* ProductsManager.swift in Sources */,
 				F6660A051FACC63400116A8F /* NetworkManager.swift in Sources */,
 				F69EECE91FA3B1B200F497F1 /* HomeViewController.swift in Sources */,
 				F68E615E1FA8B6B70046E5BC /* ListOfProductsViewController.swift in Sources */,

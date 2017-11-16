@@ -124,8 +124,6 @@ class NetworkManager: NSObject {
     
     
     static func getProduct(search:String?,endPoint:String, successHandler: @escaping (_ products: [[String: Any?]?]? )->(), errorHandler: @escaping (_ errorMessage:String) ->()) {
-        
-        let getProductURLString = WebServices.devHostName + WebServices.apiToUse + endPoint
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
         let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -141,6 +139,7 @@ class NetworkManager: NSObject {
             postContetn = "\(postContetn)&\(element.key)=\(element.value)"
         }
         
+        let getProductURLString = WebServices.devHostName + WebServices.apiToUse + endPoint
         var request = URLRequest.init(url: URL.init(string: getProductURLString)!)
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = postContetn.data(using: .utf8)

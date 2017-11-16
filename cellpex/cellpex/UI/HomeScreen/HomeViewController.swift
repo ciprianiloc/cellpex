@@ -14,14 +14,12 @@ class HomeViewController: ListOfProductsViewController {
     @IBOutlet weak var unreadMessagesLabel: UILabel!
     @IBOutlet weak var filterLabel: UILabel!
     
-    let refreshControl = UIRefreshControl()
     override var productCollectionView :UICollectionView? {
         return collectionView
     }
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.collectionView.addSubview(refreshControl)
         self.addLeftBarButtonWithImage(UIImage(named: "hamburger_icon")!)
         filterLabel.text = "Wholesale Lots"
         unreadMessagesLabel.isUserInteractionEnabled = true
@@ -35,10 +33,8 @@ class HomeViewController: ListOfProductsViewController {
                 }
             }
         }
-        NetworkManager.getProduct(search: nil, endPoint: WebServices.getProduct, successHandler: { [weak self](productsArray : [[String: Any?]?]?) in
-            self?.loadProducts(productsArray: productsArray)
-        }) { (errorMessage: String) in
-            
+        self.productManager.requestFirstTimeProducts { [weak self] in
+            self?.productsReceived()
         }
     }
     
