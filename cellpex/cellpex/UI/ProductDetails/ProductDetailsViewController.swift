@@ -87,6 +87,7 @@ class ProductDetailsViewController: UIViewController {
     private var selectSubjectActionSheet: UIAlertController?
     private var shouldUseHeightZero = true
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -95,6 +96,7 @@ class ProductDetailsViewController: UIViewController {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        spinner.startAnimating()
         self.productDetailsModel = nil
     }
     
@@ -132,6 +134,7 @@ class ProductDetailsViewController: UIViewController {
             self.characteristics.append(("Location", location))
         }
         DispatchQueue.main.async { [weak self] in
+            self?.spinner.stopAnimating()
             self?.shouldUseHeightZero = false
             self?.productDetailsCollectionView.reloadData()
         }
@@ -162,6 +165,36 @@ class ProductDetailsViewController: UIViewController {
     
     @objc func keyboardWillHide(sender: NSNotification){
         collectionViewButtomConstraints.constant = 0
+    }
+    @IBAction func goToOrderAction(_ sender: Any) {
+    }
+    
+    @IBAction func sendButtonAction(_ sender: Any) {
+        let postId = productDetailsModel?.id ?? ""
+        self.spinner.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        if let sendMessageCell = productDetailsCollectionView.cellForItem(at: IndexPath(row: 0, section: 4)) as? SendMessageCell {
+            let subject = sendMessageCell.messageOptionLabel.text ?? "General Availability"
+            let message = sendMessageCell.messageTextView.text ?? ""
+
+            NetworkManager.sendMessage(postId: postId, subject: subject, message: message) { [weak self](message: String) in
+                let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
+                    
+                }))
+                DispatchQueue.main.async {
+                    self?.spinner.stopAnimating()
+                    sendMessageCell.messageOptionLabel.text = "General Availability"
+                    sendMessageCell.messageTextView.text = nil
+                    sendMessageCell.sendMessageButton.isEnabled = false
+                    self?.present(alert, animated: true)
+                    self?.view.isUserInteractionEnabled = true
+                }
+            }
+        } else {
+            self.spinner.stopAnimating()
+            self.view.isUserInteractionEnabled = true
+        }
     }
     
     @IBAction func selectSubject(_ sender: Any) {

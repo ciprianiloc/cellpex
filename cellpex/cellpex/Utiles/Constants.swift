@@ -27,9 +27,16 @@ struct WebServices {
     static let getProducts = "get_posts.php"
     static let getFollowingMemebers = "get_posts_following_members.php"
     static let getProductsSearch = "get_posts_search.php"
-
     static let getProductDetails = "get_post_details.php"
     static let getUnreadMessageCounter = "get_unread_messages_inbox.php"
+    
+    static let getInboxMessages = "get_messages_inbox.php"
+    static let getInboxMessage = "get_message_inbox.php"
+    static let getSendMessages = "get_messages_sent.php"
+    static let getSendMessage = "get_message_sent.php"
+    static let sendMessage = "post_message_send.php"
+    static let sendReplyMessage = "post_message_reply.php"
+    static let sendFeedbackMessage = "post_feedback_send.php"
 }
 
 struct KeychainConstant {

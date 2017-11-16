@@ -1129,6 +1129,9 @@
                                                     <state key="normal" title="GO TO ORDER">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="goToOrderAction:" destination="MN3-qc-L7K" eventType="touchUpInside" id="6wg-Lg-i7V"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eg2-wi-3S3">
                                                     <rect key="frame" x="222" y="214" width="130" height="30"/>
@@ -1143,6 +1146,9 @@
                                                     <state key="disabled">
                                                         <color key="titleColor" red="0.44705882352941173" green="0.44705882352941173" blue="0.44705882352941173" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="sendButtonAction:" destination="MN3-qc-L7K" eventType="touchUpInside" id="k8p-Pa-msY"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>
@@ -1213,11 +1219,16 @@
                                     <outlet property="delegate" destination="MN3-qc-L7K" id="uMF-fU-2ac"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="SXy-m2-6fV">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="q2h-Qe-gUh" firstAttribute="top" secondItem="X8d-2g-sqY" secondAttribute="top" id="7WP-H8-zVM"/>
                             <constraint firstItem="X8d-2g-sqY" firstAttribute="trailing" secondItem="q2h-Qe-gUh" secondAttribute="trailing" id="Sfz-Rn-XHH"/>
+                            <constraint firstItem="SXy-m2-6fV" firstAttribute="centerY" secondItem="D9f-hj-3ry" secondAttribute="centerY" id="aZh-Aj-ceU"/>
+                            <constraint firstItem="SXy-m2-6fV" firstAttribute="centerX" secondItem="D9f-hj-3ry" secondAttribute="centerX" id="ghv-tU-5l8"/>
                             <constraint firstItem="X8d-2g-sqY" firstAttribute="bottom" secondItem="q2h-Qe-gUh" secondAttribute="bottom" id="h9v-iM-oFb"/>
                             <constraint firstItem="q2h-Qe-gUh" firstAttribute="leading" secondItem="X8d-2g-sqY" secondAttribute="leading" id="yrb-nx-Mxz"/>
                         </constraints>
@@ -1226,6 +1237,7 @@
                     <connections>
                         <outlet property="collectionViewButtomConstraints" destination="h9v-iM-oFb" id="VhI-iy-KGI"/>
                         <outlet property="productDetailsCollectionView" destination="q2h-Qe-gUh" id="At6-pI-azE"/>
+                        <outlet property="spinner" destination="SXy-m2-6fV" id="OLE-6F-1ob"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q9g-g1-qES" userLabel="First Responder" sceneMemberID="firstResponder"/>

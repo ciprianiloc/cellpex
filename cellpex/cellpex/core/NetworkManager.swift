@@ -260,6 +260,51 @@ class NetworkManager: NSObject {
         sessionTask.resume()
     }
     
+    static func sendMessage(postId: String, subject: String, message: String, sendMessageHandler: @escaping (_ message:String) ->()) {
+        let getUnreadURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.sendMessage
+        let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
+        let userID = SessionManager.manager.userModel?.id ?? ""
+        let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
+        let userIDBase64 = userID.data(using: .utf8)?.base64EncodedString() ?? ""
+        let postId64 = postId.data(using: .utf8)?.base64EncodedString() ?? ""
+        let subject64 = subject.data(using: .utf8)?.base64EncodedString() ?? ""
+        let message64 = message.data(using: .utf8)?.base64EncodedString() ?? ""
+        let params = ["userId": userIDBase64,
+                      "deviceId": deviceIDBase64,
+                      "postId":  postId64,
+                      "subject": subject64,
+                      "message": message64]
+        
+        var postContetn = ""
+        for element in params {
+            postContetn = "\(postContetn)&\(element.key)=\(element.value)"
+        }
+        
+        var request = URLRequest.init(url: URL.init(string: getUnreadURLString)!)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = postContetn.data(using: .utf8)
+        let sessionConfiguration = URLSessionConfiguration.default
+        let session = URLSession.init(configuration: sessionConfiguration)
+        let sessionTask = session.dataTask(with: request) { (data: Data?, urlresponse: URLResponse?, error: Error?) in
+            
+            if data != nil{
+                do {
+                    let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                    
+                    let responseDictionary = parsedData as? [String : Any?]
+                    let responseData = (responseDictionary?["message"] as? String) ?? "Some error appears. Please try again!"
+                    sendMessageHandler(responseData)
+                }
+                    //else throw an error detailing what went wrong
+                catch let error as NSError {
+                    sendMessageHandler("Some error appears. Please try again!")
+                    print("Details of JSON parsing error:\n \(error)")
+                }
+            }
+        }
+        sessionTask.resume()
+    }
+
 }
 
 
