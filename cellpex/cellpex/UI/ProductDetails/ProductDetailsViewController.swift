@@ -84,9 +84,8 @@ class ProductDetailsViewController: UIViewController {
     @IBOutlet weak var productDetailsCollectionView: UICollectionView!
     @IBOutlet weak var collectionViewButtomConstraints: NSLayoutConstraint!
     private var characteristics = [(String, String)]()
-
     private var selectSubjectActionSheet: UIAlertController?
-
+    private var shouldUseHeightZero = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,36 +103,37 @@ class ProductDetailsViewController: UIViewController {
     }
     
     func handleSuccessReceived(productDetails: [String : Any?]?) {
-        DispatchQueue.main.async {
-            self.productDetailsModel = ProductDetailsModel.init(dictionary: productDetails)
-            if let condition = self.productDetailsModel?.condition {
-                 self.characteristics.append(("Condition", condition))
-            }
-            if let carrier = self.productDetailsModel?.carrier {
-                self.characteristics.append(("Carrier", carrier))
-            }
-            if let price = self.productDetailsModel?.price {
-                self.characteristics.append(("Price", "\(price) / Item"))
-            }
-            if let availability = self.productDetailsModel?.availability {
-                self.characteristics.append(("Availability", availability))
-            }
-            if let stock = self.productDetailsModel?.quantity {
-                self.characteristics.append(("Stock", "\(stock) Items"))
-            }
-            if let packing = self.productDetailsModel?.pack {
-                self.characteristics.append(("Packing", packing))
-            }
-            if let market = self.productDetailsModel?.market {
-                self.characteristics.append(("Market", market))
-            }
-            if let date = self.productDetailsModel?.date {
-                self.characteristics.append(("Date", date))
-            }
-            if let location = self.productDetailsModel?.userState {
-                self.characteristics.append(("Location", location))
-            }
-            self.productDetailsCollectionView.reloadData()
+        self.productDetailsModel = ProductDetailsModel.init(dictionary: productDetails)
+        if let condition = self.productDetailsModel?.condition {
+             self.characteristics.append(("Condition", condition))
+        }
+        if let carrier = self.productDetailsModel?.carrierAndSimStatus {
+            self.characteristics.append(("Carrier", carrier))
+        }
+        if let price = self.productDetailsModel?.price {
+            self.characteristics.append(("Price", "\(price) / Item"))
+        }
+        if let availability = self.productDetailsModel?.availability {
+            self.characteristics.append(("Availability", availability))
+        }
+        if let stock = self.productDetailsModel?.quantity {
+            self.characteristics.append(("Stock", "\(stock) Items"))
+        }
+        if let packing = self.productDetailsModel?.pack {
+            self.characteristics.append(("Packing", packing))
+        }
+        if let market = self.productDetailsModel?.market {
+            self.characteristics.append(("Market", market))
+        }
+        if let date = self.productDetailsModel?.date {
+            self.characteristics.append(("Date", date))
+        }
+        if let location = self.productDetailsModel?.userState {
+            self.characteristics.append(("Location", location))
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.shouldUseHeightZero = false
+            self?.productDetailsCollectionView.reloadData()
         }
     }
 
@@ -205,6 +205,25 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
+            if let productImages = productDetailsModel?.imagesUrl, productImages.count > 0{
+                if let imageURL = productImages[0] {
+                    getDataFromUrl(url: URL(string: imageURL)!) { data, response, error in
+                        guard let data = data, error == nil else { return }
+                        DispatchQueue.main.async() {
+                            cell.productImageView.image = UIImage(data: data)
+                        }
+                    }
+                }
+            } else {
+                if let imageURL = self.productDetailsModel?.imageUrl {
+                    getDataFromUrl(url: URL(string: imageURL)!) { data, response, error in
+                        guard let data = data, error == nil else { return }
+                        DispatchQueue.main.async() {
+                            cell.productImageView.image = UIImage(data: data)
+                        }
+                    }
+                }
+            }
             return cell
         } else if indexPath.section == 1 {
             let cell = collectionView.dequeueReusableCell(
@@ -254,6 +273,9 @@ extension ProductDetailsViewController: UICollectionViewDelegate {
 
 extension ProductDetailsViewController : ProductDetailsLayoutDelegate {
     func collectionView(_ collectionView:UICollectionView, heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
+        if shouldUseHeightZero {
+            return 0
+        }
         if indexPath.section == 0 {
             return 280
         } else if indexPath.section == 1 {

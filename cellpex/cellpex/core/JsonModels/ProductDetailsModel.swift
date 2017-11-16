@@ -74,6 +74,7 @@ struct ProductDetailsModel {
     
     var condition : String?
     var providerAddress : String?
+    var carrierAndSimStatus : String?
     init(dictionary: [String: Any?]?) {
         guard let productDetails = dictionary else {
             isValidProduct = false
@@ -108,26 +109,52 @@ struct ProductDetailsModel {
         userFeedbackScore = productDetails[ServerProductDetailsModel.userFeedbackScore.rawValue] as? String
         userState = productDetails[ServerProductDetailsModel.userState.rawValue] as? String
         quantity = productDetails[ServerProductDetailsModel.quantity.rawValue] as? String
-        if cond != nil {
-            condition = cond!
-            if memory != nil {
-                condition = "\(cond!) | \(memory!)"
+       
+        if let condValue = cond, condValue.count > 0 {
+            condition = condValue
+            if let memoryValue = memory, memoryValue.count > 0 {
+                condition = "\(condValue) | \(memoryValue)"
+                if let colorValue = color, colorValue.count > 0 {
+                    condition = "\(condValue) | \(memoryValue) | \(colorValue)"
+                }
+            } else {
+                if let colorValue = color, colorValue.count > 0 {
+                    condition = "\(condValue) | \(colorValue)"
+                }
             }
         } else {
-            if memory != nil {
-                condition = "\(memory!)"
+            if let memoryValue = memory, memoryValue.count > 0 {
+                condition = memoryValue
+                if let colorValue = color, colorValue.count > 0 {
+                    condition = "\(memoryValue) | \(colorValue)"
+                }
+            } else {
+                if let colorValue = color, colorValue.count > 0 {
+                    condition = colorValue
+                }
             }
         }
-        if userCountry != nil {
-            providerAddress = userCountry!
-            if userState != nil {
-                providerAddress = "\(userCountry!), \(userState!)"
+        if let userCountryValue = userCountry, userCountryValue.count > 0 {
+            providerAddress = userCountryValue
+            if let userStateValue = userState, userStateValue.count > 0 {
+                providerAddress = "\(userCountryValue), \(userStateValue)"
             }
         } else {
-            if userState != nil {
-                providerAddress = "\(userState!)"
+            if let userStateValue = userState, userStateValue.count > 0 {
+                providerAddress = userStateValue
             }
         }
+        if let carrierValue = carrier, carrierValue.count > 0 {
+            carrierAndSimStatus = carrierValue
+            if let simStatusValue = simStatus, simStatusValue.count > 0 {
+                carrierAndSimStatus = "\(carrierValue) | \(simStatusValue)"
+            }
+        } else {
+            if let simStatusValue = simStatus, simStatusValue.count > 0 {
+                carrierAndSimStatus = simStatusValue
+            }
+        }
+
         
     }
 }

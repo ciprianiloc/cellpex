@@ -208,14 +208,14 @@ class NetworkManager: NSObject {
         sessionTask.resume()
     }
     
-    static func getUnreadMessageCuont(updateNumberOfMessageHandler: @escaping (_ numberOfMessage:String) ->()) {
+    static func getUnreadMessageCount(updateNumberOfMessageHandler: @escaping (_ numberOfMessage:Int) ->()) {
         let getUnreadURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.getUnreadMessageCounter
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
         let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
         let userIDBase64 = userID.data(using: .utf8)?.base64EncodedString() ?? ""
-        let params = ["userId": userID,
-                      "deviceId": deviceId]
+        let params = ["userId": userIDBase64,
+                      "deviceId": deviceIDBase64]
         var postContetn = ""
         for element in params {
             postContetn = "\(postContetn)&\(element.key)=\(element.value)"
@@ -233,7 +233,9 @@ class NetworkManager: NSObject {
                     let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
                     
                     let responseDictionary = parsedData as? [String : Any?]
-                    print("\(String(describing: responseDictionary))")
+                    let responseData = responseDictionary?["data"] as? [String : Any?]
+                    let number = responseData?["nr"] as? Int ?? 0
+                    updateNumberOfMessageHandler(number)
                 }
                     //else throw an error detailing what went wrong
                 catch let error as NSError {

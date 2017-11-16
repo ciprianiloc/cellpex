@@ -27,9 +27,13 @@ class HomeViewController: ListOfProductsViewController {
         unreadMessagesLabel.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.unreadMessagesLabelTap))
         unreadMessagesLabel.addGestureRecognizer(gesture)
-        self.unreadMessagesLabel.text = ""
-        NetworkManager.getUnreadMessageCuont { [weak self](numberOfMessage:String) in
-            self?.unreadMessagesLabel.text = "Unread messages \(numberOfMessage)"
+        self.unreadMessagesLabel.text = "Messages"
+        NetworkManager.getUnreadMessageCount { [weak self](numberOfMessage:Int) in
+            if numberOfMessage > 0 {
+                DispatchQueue.main.async {
+                    self?.unreadMessagesLabel.text = "Unread messages \(numberOfMessage)"
+                }
+            }
         }
         NetworkManager.getProduct(search: nil, endPoint: WebServices.getProduct, successHandler: { [weak self](productsArray : [[String: Any?]?]?) in
             self?.loadProducts(productsArray: productsArray)
