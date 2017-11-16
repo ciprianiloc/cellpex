@@ -11,6 +11,19 @@ import Alamofire
 import SwiftKeychainWrapper
 
 class NetworkManager: NSObject {
+    static func gedDeviceModel() -> String {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let modelCode = withUnsafePointer(to: &systemInfo.machine) {
+            $0.withMemoryRebound(to: CChar.self, capacity: 1) {
+                ptr in String.init(validatingUTF8: ptr)
+                
+            }
+        }
+        let modelInfo = modelCode ?? "unknow"
+        return modelInfo
+    }
+    
     static func loginWithUserName(username: String, password:String, successHandler: @escaping ()->(), errorHandler: @escaping (_ errorMessage:String) ->()) {
         let loginURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.wsLogin
         let usernamebase64 = username.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -19,12 +32,15 @@ class NetworkManager: NSObject {
         let deviceIdbase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
         let firebaseToken = "tokenfirebaseToken".data(using: .utf8)?.base64EncodedString() ?? ""
         let brand = "Apple".data(using: .utf8)?.base64EncodedString() ?? ""
-        let model = "iPhone6".data(using: .utf8)?.base64EncodedString() ?? ""
-        let product = "product".data(using: .utf8)?.base64EncodedString() ?? ""
+        let model = NetworkManager.gedDeviceModel().data(using: .utf8)?.base64EncodedString() ?? ""
+        let version = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0.0"
+        let product = version.data(using: .utf8)?.base64EncodedString() ?? ""
         let os = "IOS".data(using: .utf8)?.base64EncodedString() ?? ""
-        let release = "11.1.0".data(using: .utf8)?.base64EncodedString() ?? ""
+        let release = UIDevice.current.systemVersion.data(using: .utf8)?.base64EncodedString() ?? ""
         let sdk = "iOS11".data(using: .utf8)?.base64EncodedString() ?? ""
-        let screenResolution = "1040x2400".data(using: .utf8)?.base64EncodedString() ?? ""
+        let height = (UIScreen.main.bounds.size.height * UIScreen.main.scale)
+        let width = (UIScreen.main.bounds.size.width * UIScreen.main.scale)
+        let screenResolution = "\(width)x\(height)".data(using: .utf8)?.base64EncodedString() ?? ""
         
         let params = ["username": usernamebase64,
                       "password": passwordbase64,
@@ -188,7 +204,6 @@ class NetworkManager: NSObject {
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
         let sessionTask = session.dataTask(with: request) { (data: Data?, urlresponse: URLResponse?, error: Error?) in
-            
             if data != nil{
                 do {
                     let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)

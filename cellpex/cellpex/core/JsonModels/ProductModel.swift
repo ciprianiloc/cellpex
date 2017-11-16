@@ -34,6 +34,7 @@ struct ProductModel {
     var user : String?
     var userId : String?
     var userLevel : String?
+    var image : UIImage?
     
     init(dictionary: [String: Any?]?) {
         guard let productDictionary = dictionary else {

@@ -15,6 +15,7 @@ final class  ProductsManager : NSObject{
     var searchValue : String?
     var lastRequestedPage = 1
     private var responseHandler : (()->())?
+    private(set) var shoulShowRefreshFooter = true
     
     init(endPoint : String) {
         originalEndPoint = endPoint
@@ -28,8 +29,8 @@ final class  ProductsManager : NSObject{
         NetworkManager.getProduct(search: searchValue, endPoint: endPoint, successHandler: {[weak self](productsArray : [[String: Any?]?]?) in
             self?.products.removeAll()
             self?.loadProducts(productsArray: productsArray)
-        }) { (errorMessage: String) in
-            
+        }) { [weak self](errorMessage: String) in
+            self?.shoulShowRefreshFooter = false
         }
     }
     
@@ -40,8 +41,8 @@ final class  ProductsManager : NSObject{
         NetworkManager.getProduct(search: nil, endPoint: originalEndPoint, successHandler: {[weak self](productsArray : [[String: Any?]?]?) in
             self?.products.removeAll()
             self?.loadProducts(productsArray: productsArray)
-        }) { (errorMessage: String) in
-
+        }) {[weak self] (errorMessage: String) in
+            self?.shoulShowRefreshFooter = false
         }
     }
     
@@ -51,12 +52,15 @@ final class  ProductsManager : NSObject{
         let endPoint = ((searchValue != nil) ? WebServices.getProductsSearch : originalEndPoint) + "?pag=\(lastRequestedPage)"
         NetworkManager.getProduct(search: searchValue, endPoint: endPoint, successHandler: {[weak self](productsArray : [[String: Any?]?]?) in
             self?.loadProducts(productsArray: productsArray)
-        }) { (errorMessage: String) in
+        }) {[weak self] (errorMessage: String) in
+            self?.shoulShowRefreshFooter = false
         }
     }
     
     private func loadProducts(productsArray:[[String: Any?]?]?) {
+        self.shoulShowRefreshFooter = false
         if let listOfProducts = productsArray {
+            self.shoulShowRefreshFooter = (listOfProducts.count == 20)
             for product in listOfProducts {
                 let productModel = ProductModel.init(dictionary: product)
                 if productModel.isValidProduct {

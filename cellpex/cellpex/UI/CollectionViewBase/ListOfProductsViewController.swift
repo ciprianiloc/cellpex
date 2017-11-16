@@ -88,11 +88,17 @@ extension ListOfProductsViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
         let product = productManager.products[indexPath.row]
-        let imageUrl = product.imageUrl ?? ""
-        getDataFromUrl(url: URL(string: imageUrl)!) { data, response, error in
-            guard let data = data, error == nil else { return }
-            DispatchQueue.main.async() {
-                cell.productImageView.image = UIImage(data: data)
+        if let productImage = product.image {
+            cell.productImageView.image = productImage
+        } else {
+            let imageUrl = product.imageUrl ?? ""
+            getDataFromUrl(url: URL(string: imageUrl)!) { data, response, error in
+                guard let data = data, error == nil else { return }
+                DispatchQueue.main.async() {
+                    let image = UIImage(data: data)
+                    cell.productImageView.image = image
+                    self.productManager.products[indexPath.row].image = image
+                }
             }
         }
         
@@ -163,7 +169,7 @@ extension ListOfProductsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if isLoading {
+        if isLoading || self.productManager.shoulShowRefreshFooter == false {
             return CGSize.zero
         }
         return CGSize(width: collectionView.bounds.size.width, height: 55)
@@ -196,14 +202,13 @@ extension ListOfProductsViewController : UIScrollViewDelegate {
         let pullHeight  = fabs(diffHeight - frameHeight);
         if pullHeight == 0.0
         {
-            if (self.footerView?.isAnimatingFinal)! {
+            if let _ = self.footerView?.isAnimatingFinal, self.productManager.shoulShowRefreshFooter {
                 self.isLoading = true
                 self.footerView?.startAnimate()
                 self.productManager.requestNextPage {[weak self] in
                     self?.productsReceived()
                     self?.isLoading = false
                 }
-
             }
         }
     }

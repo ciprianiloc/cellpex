@@ -3,6 +3,7 @@ import UIKit
 
 class RefreshFooterView : UICollectionReusableView {
    
+    @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var refreshControlIndicator: UIActivityIndicatorView!
     var isAnimatingFinal:Bool = false
     var currentTransform:CGAffineTransform?
@@ -28,17 +29,20 @@ class RefreshFooterView : UICollectionReusableView {
     func prepareInitialAnimation() {
         self.isAnimatingFinal = false
         self.refreshControlIndicator?.stopAnimating()
+        infoLabel.isHidden = false
         self.refreshControlIndicator?.transform = CGAffineTransform.init(scaleX: 0.0, y: 0.0)
     }
     
     func startAnimate() {
         self.isAnimatingFinal = true
         self.refreshControlIndicator?.startAnimating()
+        infoLabel.isHidden = true
     }
     
     func stopAnimate() {
         self.isAnimatingFinal = false
         self.refreshControlIndicator?.stopAnimating()
+        infoLabel.isHidden = false
     }
     
     //final animation to display loading
