@@ -25,7 +25,10 @@ struct WebServices {
     static let wsLogout = "logout.php"
     static let wsUpdateDevice = "update_device.php"
     static let getProduct = "get_posts.php"
+    static let getFollowingMemebers = "get_posts_following_members.php"
     static let getProductDetails = "get_post_details.php"
+    
+    static let getUnreadMessageCounter = "get_unread_messages_inbox.php"
 }
 
 struct KeychainConstant {

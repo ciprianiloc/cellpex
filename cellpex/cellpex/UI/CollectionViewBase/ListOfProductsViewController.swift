@@ -56,6 +56,20 @@ class ListOfProductsViewController: UIViewController {
             }.resume()
     }
     
+    func loadProducts(productsArray:[[String: Any?]?]?) {
+        if let listOfProducts = productsArray {
+            for product in listOfProducts {
+                let productModel = ProductModel.init(dictionary: product)
+                if productModel.isValidProduct {
+                    self.products.append(productModel)
+                }
+            }
+            DispatchQueue.main.async {[weak self] in
+                self?.productCollectionView?.reloadData()
+            }
+        }
+    }
+    
 }
 
 extension ListOfProductsViewController: UICollectionViewDataSource {

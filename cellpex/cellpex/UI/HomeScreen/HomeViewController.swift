@@ -23,21 +23,16 @@ class HomeViewController: ListOfProductsViewController {
 
         self.collectionView.addSubview(refreshControl)
         self.addLeftBarButtonWithImage(UIImage(named: "hamburger_icon")!)
-        filterLabel.text = "Wholesale LotsWholesale LotsWholesale LotsWholesale Lots"
-        unreadMessagesLabel.text = "Unread messages 8"
+        filterLabel.text = "Wholesale Lots"
         unreadMessagesLabel.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.unreadMessagesLabelTap))
         unreadMessagesLabel.addGestureRecognizer(gesture)
-        NetworkManager.getProduct(pageNumber: 0, successHandler: { (productsArray : [[String: Any?]?]?) in
-            for product in productsArray! {
-                let productModel = ProductModel.init(dictionary: product)
-                if productModel.isValidProduct {
-                    self.products.append(productModel)
-                }
-            }
-            DispatchQueue.main.async {
-                self.productCollectionView?.reloadData()
-            }
+        self.unreadMessagesLabel.text = ""
+        NetworkManager.getUnreadMessageCuont { [weak self](numberOfMessage:String) in
+            self?.unreadMessagesLabel.text = "Unread messages \(numberOfMessage)"
+        }
+        NetworkManager.getProduct(search: nil, endPoint: WebServices.getProduct, successHandler: { [weak self](productsArray : [[String: Any?]?]?) in
+            self?.loadProducts(productsArray: productsArray)
         }) { (errorMessage: String) in
             
         }
