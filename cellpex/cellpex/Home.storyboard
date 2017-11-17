@@ -235,13 +235,18 @@
                                     <outlet property="delegate" destination="Rcf-TX-6Et" id="Rhd-32-HGb"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="udr-Eu-bDT">
+                                <rect key="frame" x="177" y="125" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ntr-JT-sOF" firstAttribute="leading" secondItem="ado-EN-dsI" secondAttribute="leading" id="4md-3z-yjd"/>
                             <constraint firstItem="ado-EN-dsI" firstAttribute="trailing" secondItem="ntr-JT-sOF" secondAttribute="trailing" id="8of-xV-zSh"/>
+                            <constraint firstItem="udr-Eu-bDT" firstAttribute="top" secondItem="w2f-Wg-a6i" secondAttribute="bottom" constant="70" id="DYM-hK-XMf"/>
                             <constraint firstItem="w2f-Wg-a6i" firstAttribute="top" secondItem="ado-EN-dsI" secondAttribute="top" constant="5" id="NoT-Hj-Wjz"/>
                             <constraint firstItem="w2f-Wg-a6i" firstAttribute="leading" secondItem="ado-EN-dsI" secondAttribute="leading" constant="20" id="bHo-XE-IwF"/>
+                            <constraint firstItem="udr-Eu-bDT" firstAttribute="centerX" secondItem="KHU-3D-l21" secondAttribute="centerX" id="rg0-Oi-buo"/>
                             <constraint firstItem="ntr-JT-sOF" firstAttribute="top" secondItem="w2f-Wg-a6i" secondAttribute="bottom" constant="5" id="t9X-7e-bAg"/>
                             <constraint firstItem="ado-EN-dsI" firstAttribute="trailing" secondItem="w2f-Wg-a6i" secondAttribute="trailing" constant="20" id="ufh-mE-HBU"/>
                             <constraint firstItem="ado-EN-dsI" firstAttribute="bottom" secondItem="ntr-JT-sOF" secondAttribute="bottom" id="w8A-gR-6IJ"/>
@@ -251,6 +256,7 @@
                     <connections>
                         <outlet property="messageSelector" destination="w2f-Wg-a6i" id="Y2H-ri-jOE"/>
                         <outlet property="messagesTableView" destination="ntr-JT-sOF" id="EMh-yT-moq"/>
+                        <outlet property="spinner" destination="udr-Eu-bDT" id="JcK-0U-uSx"/>
                         <segue destination="xjn-ll-gqq" kind="show" identifier="showMessage" id="dK1-42-No3"/>
                     </connections>
                 </viewController>

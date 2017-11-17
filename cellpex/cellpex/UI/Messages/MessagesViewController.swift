@@ -23,15 +23,19 @@ class MessageTableViewCell: UITableViewCell {
 class MessagesViewController: UIViewController {
     @IBOutlet weak var messageSelector: UISegmentedControl!
     @IBOutlet weak var messagesTableView: UITableView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     let messagesManager = MessagesManager()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.title = "Messages"
+        spinner.startAnimating()
         messagesManager.reloadInboxMessages {
             DispatchQueue.main.async { [weak self] in
                 self?.messagesTableView.reloadData()
+                self?.spinner.stopAnimating()
             }
         }
     }
@@ -42,16 +46,22 @@ class MessagesViewController: UIViewController {
     }
 
     @IBAction func selectorValueHasChanged(_ sender: Any) {
+        messagesManager.inboxMessages.removeAll()
+        messagesManager.sentMessages.removeAll()
+        messagesTableView.reloadData()
+        spinner.startAnimating()
         if messageSelector.selectedSegmentIndex == 1 {
             messagesManager.reloadSentMessages {
                 DispatchQueue.main.async { [weak self] in
                     self?.messagesTableView.reloadData()
+                    self?.spinner.stopAnimating()
                 }
             }
         } else {
             messagesManager.reloadInboxMessages {
                 DispatchQueue.main.async { [weak self] in
                     self?.messagesTableView.reloadData()
+                    self?.spinner.stopAnimating()
                 }
             }
         }
