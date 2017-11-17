@@ -16,7 +16,7 @@ final class  ProductsManager : NSObject{
     var lastRequestedPage = 1
     private var responseHandler : (()->())?
     private(set) var shoulShowRefreshFooter = true
-    
+    private var shouldReloadProducts = false
     init(endPoint : String) {
         originalEndPoint = endPoint
         searchValue = nil
@@ -27,7 +27,7 @@ final class  ProductsManager : NSObject{
         self.responseHandler = successHandler
         let endPoint = (searchValue != nil) ? WebServices.getProductsSearch : originalEndPoint
         NetworkManager.getProduct(search: searchValue, endPoint: endPoint, successHandler: {[weak self](productsArray : [[String: Any?]?]?) in
-            self?.products.removeAll()
+            self?.shouldReloadProducts = true
             self?.loadProducts(productsArray: productsArray)
         }) { [weak self](errorMessage: String) in
             self?.shoulShowRefreshFooter = false
@@ -39,7 +39,7 @@ final class  ProductsManager : NSObject{
         self.responseHandler = successHandler
         searchValue = nil
         NetworkManager.getProduct(search: nil, endPoint: originalEndPoint, successHandler: {[weak self](productsArray : [[String: Any?]?]?) in
-            self?.products.removeAll()
+            self?.shouldReloadProducts = true
             self?.loadProducts(productsArray: productsArray)
         }) {[weak self] (errorMessage: String) in
             self?.shoulShowRefreshFooter = false
@@ -51,6 +51,7 @@ final class  ProductsManager : NSObject{
         self.responseHandler = successHandler
         let endPoint = ((searchValue != nil) ? WebServices.getProductsSearch : originalEndPoint) + "?pag=\(lastRequestedPage)"
         NetworkManager.getProduct(search: searchValue, endPoint: endPoint, successHandler: {[weak self](productsArray : [[String: Any?]?]?) in
+            self?.shouldReloadProducts = false
             self?.loadProducts(productsArray: productsArray)
         }) {[weak self] (errorMessage: String) in
             self?.shoulShowRefreshFooter = false
@@ -59,15 +60,20 @@ final class  ProductsManager : NSObject{
     
     private func loadProducts(productsArray:[[String: Any?]?]?) {
         self.shoulShowRefreshFooter = false
+        var newProducts = [ProductModel]()
         if let listOfProducts = productsArray {
             self.shoulShowRefreshFooter = (listOfProducts.count == 20)
             for product in listOfProducts {
                 let productModel = ProductModel.init(dictionary: product)
                 if productModel.isValidProduct {
-                    self.products.append(productModel)
+                    newProducts.append(productModel)
                 }
             }
         }
+        if shouldReloadProducts {
+            self.products.removeAll()
+        }
+        self.products.append(contentsOf: newProducts)
         self.responseHandler?()
     }
     
