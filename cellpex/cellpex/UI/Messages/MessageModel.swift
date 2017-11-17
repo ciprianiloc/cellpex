@@ -18,7 +18,7 @@ import UIKit
 //["data"]["message"] = "message"
 //["data"]["viewed"] = "1"
 //["data"]["date"] = "d, M Y"
-struct Message {
+struct MessageModel {
     var subject : String
     var message : String
     var from : String
