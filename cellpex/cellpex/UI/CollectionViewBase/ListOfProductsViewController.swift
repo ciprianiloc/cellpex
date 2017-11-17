@@ -15,7 +15,8 @@ class ListOfProductsViewController: UIViewController {
     var productCollectionView :UICollectionView? {
         return nil
     }
-
+    @IBOutlet weak var collectionViewButtomConstraint: NSLayoutConstraint!
+    
     let refreshControl = UIRefreshControl()
 
     var footerView:RefreshFooterView?
@@ -38,6 +39,8 @@ class ListOfProductsViewController: UIViewController {
         self.productCollectionView?.register(UINib(nibName: "RefreshFooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewReuseIdentifier)
         self.refreshControl.attributedTitle = NSAttributedString.init(string: "pull to refresh")
         self.refreshControl.addTarget(self, action: #selector(ListOfProductsViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -76,6 +79,18 @@ class ListOfProductsViewController: UIViewController {
             }
             self?.productsReceived()
         }
+    }
+    
+    @objc func keyboardWillShow(sender: NSNotification) {
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        collectionViewButtomConstraint.constant = keyboardHeight
+    }
+    
+    @objc func keyboardWillHide(sender: NSNotification){
+        collectionViewButtomConstraint.constant = 0
     }
 }
 
