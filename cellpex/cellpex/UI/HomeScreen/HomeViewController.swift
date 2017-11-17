@@ -10,13 +10,6 @@ import UIKit
 import SwiftKeychainWrapper
 
 class HomeViewController: ListOfProductsViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var unreadMessagesLabel: UILabel!
-    @IBOutlet weak var filterLabel: UILabel!
-    
-    override var productCollectionView :UICollectionView? {
-        return collectionView
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

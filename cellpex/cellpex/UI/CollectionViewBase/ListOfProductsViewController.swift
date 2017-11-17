@@ -11,12 +11,11 @@ import SafariServices
 class ListOfProductsViewController: UIViewController {
 
     let searchController = UISearchController(searchResultsController: nil)
-    
-    var productCollectionView :UICollectionView? {
-        return nil
-    }
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var filterLabel: UILabel!
     @IBOutlet weak var collectionViewButtomConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var unreadMessagesLabel: UILabel!
+
     let refreshControl = UIRefreshControl()
 
     var footerView:RefreshFooterView?
@@ -27,7 +26,7 @@ class ListOfProductsViewController: UIViewController {
     let footerViewReuseIdentifier = "RefreshFooterView"
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.productCollectionView?.addSubview(refreshControl)
+        self.collectionView.addSubview(refreshControl)
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         searchController.searchBar.placeholder = "Type mode"
@@ -36,7 +35,7 @@ class ListOfProductsViewController: UIViewController {
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
         self.addNavigationTitleViewImage(UIImage(named: "login_logo_image")!)
-        self.productCollectionView?.register(UINib(nibName: "RefreshFooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewReuseIdentifier)
+        self.collectionView.register(UINib(nibName: "RefreshFooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewReuseIdentifier)
         self.refreshControl.attributedTitle = NSAttributedString.init(string: "pull to refresh")
         self.refreshControl.addTarget(self, action: #selector(ListOfProductsViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
@@ -44,7 +43,7 @@ class ListOfProductsViewController: UIViewController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        self.productCollectionView?.collectionViewLayout.invalidateLayout()
+        self.collectionView.collectionViewLayout.invalidateLayout()
         self.view.setNeedsDisplay()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,7 +66,7 @@ class ListOfProductsViewController: UIViewController {
     
     func productsReceived() {
         DispatchQueue.main.async {[weak self] in
-            self?.productCollectionView?.reloadData()
+            self?.collectionView.reloadData()
         }
     }
     
