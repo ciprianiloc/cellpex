@@ -12,6 +12,9 @@ class FeedbackViewController: UIViewController {
     @IBOutlet weak var subjectTextField: UITextField!
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var sendButtonButomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewButtomConstraint: NSLayoutConstraint!
+    
     let placeholderLabel = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +31,23 @@ class FeedbackViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateButtonState), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateButtonState), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
     }
 
     @IBAction func sendButtonAction(_ sender: Any) {
-        let confimAlert = UIAlertController(title: nil, message: "Thank you for your feedback!", preferredStyle: .alert)
-        confimAlert.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: { [weak self] _ in
+        let subject = subjectTextField.text ?? ""
+        let message = messageTextView.text ?? ""
+        NetworkManager.sendFeedback(subject: subject, message: message) {[weak self] (messageReceived : String) in
             guard let `self` = self else {return}
-            self.navigationController?.popViewController(animated: true)
-        }))
-        self.present(confimAlert, animated: true)
+            let confimAlert = UIAlertController(title: nil, message: messageReceived, preferredStyle: .alert)
+            confimAlert.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: { _ in
+                self.navigationController?.popViewController(animated: true)
+            }))
+            DispatchQueue.main.async {
+                self.present(confimAlert, animated: true)
+            }
+        }
     }
     
     @objc private func updateButtonState() {
@@ -45,6 +56,20 @@ class FeedbackViewController: UIViewController {
         self.sendButton.isEnabled = isButtonEnable
         let buttonCollorName = isButtonEnable ? "button_enable_color" : "button_disabled_color"
         self.sendButton.backgroundColor = UIColor(named: buttonCollorName)
+    }
+    
+    @objc func keyboardWillShow(sender: NSNotification) {
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        scrollViewButtomConstraint.constant = keyboardHeight
+
+        
+    }
+    
+    @objc func keyboardWillHide(sender: NSNotification){
+        scrollViewButtomConstraint.constant = 0
     }
 }
 
