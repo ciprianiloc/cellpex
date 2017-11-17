@@ -9,39 +9,74 @@
 import UIKit
 
 final class MessagesManager: NSObject {
-    var messages = [InboxMessagesModel]()
-    var originalEndPoint : String
+    var inboxMessages = [InboxMessagesModel]()
+    var sentMessages = [SentMessagesModel]()
+
     var lastRequestedPage = 1
     private var responseHandler : (()->())?
     private(set) var shoulShowRefreshFooter = true
     
-    init(endPoint : String) {
-        originalEndPoint = endPoint
-    }
-    
-    func requestFirstTimeMessages(successHandler: @escaping ()->()) {
+    func reloadInboxMessages(successHandler: @escaping ()->()){
         self.lastRequestedPage = 1
         self.responseHandler = successHandler
+        NetworkManager.getMessages(endPoint: WebServices.getInboxMessages, successHandler: { [weak self](messages : [[String: Any?]?]?) in
+            self?.loadInboxMessages(messagesArray: messages)
+
+        }) { (errorMessage : String) in
+            
+        }
     }
-    
-    func reloadMessages(successHandler: @escaping ()->()) {
+    func reloadSentMessages(successHandler: @escaping ()->()) {
         self.lastRequestedPage = 1
         self.responseHandler = successHandler
+        NetworkManager.getMessages(endPoint: WebServices.getSendMessages, successHandler: { [weak self](messages : [[String: Any?]?]?) in
+            self?.loadSentMessages(messagesArray: messages)
+        }) { (errorMessage : String) in
+            
+        }
     }
     
-    func requestNextPage(successHandler: @escaping ()->()) {
+    func requestInboxNextPage(successHandler: @escaping ()->()) {
         lastRequestedPage = lastRequestedPage + 1
         self.responseHandler = successHandler
-        let endPoint = originalEndPoint + "?pag=\(lastRequestedPage)"
+        let endPoint = WebServices.getInboxMessages + "?pag=\(lastRequestedPage)"
+        NetworkManager.getMessages(endPoint: endPoint, successHandler: { [weak self](messages : [[String: Any?]?]?) in
+            self?.loadInboxMessages(messagesArray: messages)
+        }) { (errorMessage : String) in
+            
+        }
     }
     
-    private func loadProducts(messagesArray:[[String: Any?]?]?) {
+    func requestSentNextPage(successHandler: @escaping ()->()) {
+        lastRequestedPage = lastRequestedPage + 1
+        self.responseHandler = successHandler
+        let endPoint = WebServices.getSendMessages + "?pag=\(lastRequestedPage)"
+        NetworkManager.getMessages(endPoint: endPoint, successHandler: { [weak self](messages : [[String: Any?]?]?) in
+            self?.loadSentMessages(messagesArray: messages)
+        }) { (errorMessage : String) in
+            
+        }
+    }
+    
+    private func loadInboxMessages(messagesArray:[[String: Any?]?]?) {
         self.shoulShowRefreshFooter = false
         if let listOfMessages = messagesArray {
             self.shoulShowRefreshFooter = (listOfMessages.count == 20)
             for message in listOfMessages {
-//                let messageModel = MessageModel()
-//                self.messages.append(messageModel)
+                let messageModel = InboxMessagesModel(dictionary: message)
+                self.inboxMessages.append(messageModel)
+            }
+        }
+        self.responseHandler?()
+    }
+    
+    private func loadSentMessages(messagesArray:[[String: Any?]?]?) {
+        self.shoulShowRefreshFooter = false
+        if let listOfMessages = messagesArray {
+            self.shoulShowRefreshFooter = (listOfMessages.count == 20)
+            for message in listOfMessages {
+                let messageModel = SentMessagesModel(dictionary: message)
+                self.sentMessages.append(messageModel)
             }
         }
         self.responseHandler?()

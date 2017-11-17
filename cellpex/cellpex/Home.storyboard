@@ -250,7 +250,7 @@
                     </view>
                     <connections>
                         <outlet property="messageSelector" destination="w2f-Wg-a6i" id="Y2H-ri-jOE"/>
-                        <outlet property="messagesTanleView" destination="ntr-JT-sOF" id="EMh-yT-moq"/>
+                        <outlet property="messagesTableView" destination="ntr-JT-sOF" id="EMh-yT-moq"/>
                         <segue destination="xjn-ll-gqq" kind="show" identifier="showMessage" id="dK1-42-No3"/>
                     </connections>
                 </viewController>
