@@ -26,6 +26,7 @@ class MessagesViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     let messagesManager = MessagesManager()
+    private var selectedIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,19 @@ class MessagesViewController: UIViewController {
                     self?.messagesTableView.reloadData()
                     self?.spinner.stopAnimating()
                 }
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if ("showProductDetails" == segue.identifier) {
+            let messageVC = segue.destination as! MessageViewController
+            if messageSelector.selectedSegmentIndex == 0 {
+                let message = messagesManager.inboxMessages[selectedIndex]
+                messageVC.requestInboxMessageDetails(mesageModel: message)
+            } else {
+                let message = messagesManager.sentMessages[selectedIndex]
+                messageVC.requestSentMessageDetails(mesageModel: message)
             }
         }
     }
@@ -110,7 +124,7 @@ extension MessagesViewController : UITableViewDataSource {
 
 extension MessagesViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didDeselectRowAt \(indexPath.row)")
+        selectedIndex = indexPath.row
         self.performSegue(withIdentifier: "showMessage", sender: self)
     }
 }

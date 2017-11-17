@@ -61,6 +61,15 @@ class MessageViewController: UIViewController {
             messageTableView.bottomAnchor.constraint(equalTo: buttomConstraints).isActive = true
         }
     }
+    
+    func requestInboxMessageDetails(mesageModel : InboxMessagesModel) {
+        
+    }
+    
+    func requestSentMessageDetails(mesageModel : SentMessagesModel) {
+        
+    }
+    
     @objc private func textViewHasChanged() {
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
         let sizeThatFitsTextView = messageTextView.sizeThatFits(CGSize(width: messageTextView.frame.size.width, height: CGFloat.greatestFiniteMagnitude))

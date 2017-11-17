@@ -46,6 +46,7 @@ class ListOfProductsViewController: UIViewController {
         self.collectionView.collectionViewLayout.invalidateLayout()
         self.view.setNeedsDisplay()
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if ("showProductDetails" == segue.identifier) {
             let productDetails = segue.destination as! ProductDetailsViewController
@@ -58,6 +59,7 @@ class ListOfProductsViewController: UIViewController {
             })
         }
     }
+    
     private func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             completion(data, response, error)
