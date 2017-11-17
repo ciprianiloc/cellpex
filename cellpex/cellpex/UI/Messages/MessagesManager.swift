@@ -9,7 +9,7 @@
 import UIKit
 
 final class MessagesManager: NSObject {
-    var messages = [MessageModel]()
+    var messages = [InboxMessagesModel]()
     var originalEndPoint : String
     var lastRequestedPage = 1
     private var responseHandler : (()->())?
