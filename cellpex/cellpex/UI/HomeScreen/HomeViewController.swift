@@ -15,17 +15,11 @@ class HomeViewController: ListOfProductsViewController {
 
         self.addLeftBarButtonWithImage(UIImage(named: "hamburger_icon")!)
         filterLabel.text = "Wholesale Lots"
+        valueForNoFilter = "Wholesale Lots"
         unreadMessagesLabel.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.unreadMessagesLabelTap))
         unreadMessagesLabel.addGestureRecognizer(gesture)
         self.unreadMessagesLabel.text = "Messages"
-        NetworkManager.getUnreadMessageCount { [weak self](numberOfMessage:Int) in
-            if numberOfMessage > 0 {
-                DispatchQueue.main.async {
-                    self?.unreadMessagesLabel.text = "Unread messages \(numberOfMessage)"
-                }
-            }
-        }
         self.productManager.requestFirstTimeProducts { [weak self] in
             self?.productsReceived()
         }
@@ -33,6 +27,15 @@ class HomeViewController: ListOfProductsViewController {
     
     @objc func unreadMessagesLabelTap() {
         self.performSegue(withIdentifier: "showMessages", sender: self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NetworkManager.getUnreadMessageCount { [weak self](numberOfMessage:Int) in
+            DispatchQueue.main.async {
+                self?.unreadMessagesLabel.text = (numberOfMessage > 0) ? "Unread messages \(numberOfMessage)" : "Messages"
+            }
+        }
     }
     
 }

@@ -12,6 +12,7 @@ class MessageHeader: UITableViewCell {
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var subjectLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var fromOrTo: UILabel!
 }
 
 class MessageCell: UITableViewCell {
@@ -35,12 +36,14 @@ class MessageViewController: UIViewController {
     private var dateText = ""
     private var subjectText = ""
     private var messageText = ""
+    private var messageID = ""
+    private var senderId = ""
     private var shouldDisplayTheMessage = false
+    private var fromOrTo = "From:"
     override func viewDidLoad() {
         super.viewDidLoad()
         spinner.startAnimating()
         if hasTextView {
-            shouldReplayMessageViews(hide : true)
             sendButton.isEnabled = (messageTextView.text.isEmpty == false)
             placeholderLabel.text = "Type your message..."
 
@@ -71,6 +74,7 @@ class MessageViewController: UIViewController {
     
     func requestInboxMessageDetails(mesageModel : InboxMessagesModel) {
         let messageId = mesageModel.id ?? ""
+        hasTextView = (mesageModel.system == "0")
         NetworkManager.getMessage(messageId: messageId, endPoint: WebServices.getInboxMessage, successHandler: { [weak self](messageDictionary: [String : Any?]?) in
             self?.shouldDisplayTheMessage = true
             let model = InboxMessageModel.init(dictionary: messageDictionary)
@@ -78,8 +82,10 @@ class MessageViewController: UIViewController {
             self?.dateText = model.date ?? ""
             self?.messageText = model.message ?? ""
             self?.subjectText = model.subject ?? ""
+            self?.messageID = model.id ?? ""
+            self?.senderId = model.senderId ?? ""
+            self?.fromOrTo = "From:"
             DispatchQueue.main.async {
-                self?.shouldReplayMessageViews(hide : false)
                 self?.spinner.stopAnimating()
                 self?.messageTableView.reloadData()
             }
@@ -90,6 +96,7 @@ class MessageViewController: UIViewController {
     
     func requestSentMessageDetails(mesageModel : SentMessagesModel) {
         let messageId = mesageModel.id ?? ""
+        hasTextView = false
         NetworkManager.getMessage(messageId: messageId, endPoint: WebServices.getSendMessage, successHandler: { [weak self](messageDictionary: [String : Any?]?) in
             let model = SentMessageModel.init(dictionary: messageDictionary)
             self?.fromText = model.user ?? ""
@@ -97,8 +104,10 @@ class MessageViewController: UIViewController {
             self?.messageText = model.message ?? ""
             self?.subjectText = model.subject ?? ""
             self?.shouldDisplayTheMessage = true
+            self?.messageID = model.id ?? ""
+            self?.senderId = model.receiverId ?? ""
+            self?.fromOrTo = "To:"
             DispatchQueue.main.async {
-                self?.shouldReplayMessageViews(hide : false)
                 self?.spinner.stopAnimating()
                 self?.messageTableView.reloadData()
             }
@@ -119,13 +128,7 @@ class MessageViewController: UIViewController {
                 return nil
             }
     }
-    
-    private func shouldReplayMessageViews(hide : Bool) {
-        self.messageTextView.isHidden = hide
-        self.sendButton.isHidden = hide
-        self.underLineTextView.isHidden = hide
-    }
-    
+
     @objc private func textViewHasChanged() {
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
         let sizeThatFitsTextView = messageTextView.sizeThatFits(CGSize(width: messageTextView.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
@@ -147,6 +150,16 @@ class MessageViewController: UIViewController {
     }
     
     @IBAction func sendMessageAction(_ sender: Any) {
+        NetworkManager.sendReply(messageId: messageID, senderId: senderId, message: messageTextView.text) {[weak self] (messageReceived: String) in
+            guard let `self` = self else {return}
+            let confimAlert = UIAlertController(title: nil, message: messageReceived, preferredStyle: .alert)
+            confimAlert.addAction(UIAlertAction.init(title: "OK", style: .cancel, handler: { _ in
+                self.navigationController?.popViewController(animated: true)
+            }))
+            DispatchQueue.main.async {
+                self.present(confimAlert, animated: true)
+            }
+        }
     }
     
     @objc func keyboardWillShow(sender: NSNotification) {
@@ -182,6 +195,7 @@ extension MessageViewController : UITableViewDataSource {
             cell.fromLabel.text = self.fromText
             cell.dateLabel.text = self.dateText
             cell.subjectLabel.text = self.subjectText
+            cell.fromOrTo.text = self.fromOrTo
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageCell

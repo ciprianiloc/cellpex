@@ -119,6 +119,13 @@ extension MessagesViewController : UITableViewDataSource {
         }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        ///let numberOfRow = (messageSelector.selectedSegmentIndex == 0) ? messagesManager.inboxMessages.count : messagesManager.sentMessages.count
+      ///  if indexPath.row > (numberOfRow - 1){
+            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, cell.bounds.size.width)
+      //  }
+    }
 
 }
 

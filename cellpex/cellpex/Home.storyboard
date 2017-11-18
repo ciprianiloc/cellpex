@@ -152,7 +152,7 @@
                                     <action selector="selectorValueHasChanged:" destination="Rcf-TX-6Et" eventType="valueChanged" id="3a6-rm-fhJ"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ntr-JT-sOF">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ntr-JT-sOF">
                                 <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -161,7 +161,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XIC-Je-J4y" id="GVO-JA-a7D">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="from" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UkT-xu-qtg" userLabel="from">
@@ -202,10 +202,18 @@
                                                         <constraint firstAttribute="width" constant="10" id="sxX-VI-ygB"/>
                                                     </constraints>
                                                 </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBy-wv-7iO">
+                                                    <rect key="frame" x="10" y="119" width="365" height="1"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="zLP-eg-Dd3"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="dMl-Ap-eA0" firstAttribute="top" secondItem="GVO-JA-a7D" secondAttribute="topMargin" constant="5" id="1LT-qQ-n4O"/>
                                                 <constraint firstAttribute="trailing" secondItem="yWB-q1-4Oh" secondAttribute="trailing" constant="10" id="2sg-yk-Tuf"/>
+                                                <constraint firstAttribute="bottom" secondItem="jBy-wv-7iO" secondAttribute="bottom" id="B8U-Ge-S3S"/>
                                                 <constraint firstItem="hH2-rA-LAH" firstAttribute="centerY" secondItem="UkT-xu-qtg" secondAttribute="centerY" id="IBv-VQ-pIT"/>
                                                 <constraint firstItem="4n8-5V-6iF" firstAttribute="top" secondItem="UkT-xu-qtg" secondAttribute="bottom" constant="2" id="JEo-yj-JTQ"/>
                                                 <constraint firstItem="UkT-xu-qtg" firstAttribute="leading" secondItem="hH2-rA-LAH" secondAttribute="trailing" constant="3" id="JFN-CT-Wi4"/>
@@ -213,7 +221,9 @@
                                                 <constraint firstAttribute="trailing" secondItem="4n8-5V-6iF" secondAttribute="trailing" constant="10" id="Voi-he-C6L"/>
                                                 <constraint firstItem="4n8-5V-6iF" firstAttribute="leading" secondItem="GVO-JA-a7D" secondAttribute="leadingMargin" constant="15" id="ZNr-WK-g4I"/>
                                                 <constraint firstItem="yWB-q1-4Oh" firstAttribute="leading" secondItem="GVO-JA-a7D" secondAttribute="leadingMargin" constant="15" id="dbD-3d-POd"/>
+                                                <constraint firstItem="jBy-wv-7iO" firstAttribute="leading" secondItem="GVO-JA-a7D" secondAttribute="leading" constant="10" id="fjQ-45-0r1"/>
                                                 <constraint firstAttribute="bottom" secondItem="yWB-q1-4Oh" secondAttribute="bottom" constant="5" id="gt7-d1-KEB"/>
+                                                <constraint firstAttribute="trailing" secondItem="jBy-wv-7iO" secondAttribute="trailing" id="gu7-qc-19F"/>
                                                 <constraint firstItem="hH2-rA-LAH" firstAttribute="leading" secondItem="GVO-JA-a7D" secondAttribute="leadingMargin" constant="3" id="jf3-Zm-Ild"/>
                                                 <constraint firstAttribute="trailing" secondItem="dMl-Ap-eA0" secondAttribute="trailing" constant="10" id="mPE-XV-tS5"/>
                                                 <constraint firstItem="yWB-q1-4Oh" firstAttribute="top" secondItem="4n8-5V-6iF" secondAttribute="bottom" constant="2" id="nTg-2Y-ubc"/>
@@ -333,6 +343,7 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="hIq-Jf-a6h" id="Bbf-z4-mzE"/>
                                             <outlet property="fromLabel" destination="W0N-GB-JQr" id="QMx-Gc-qyJ"/>
+                                            <outlet property="fromOrTo" destination="FVB-ge-2th" id="cqV-kA-zJS"/>
                                             <outlet property="subjectLabel" destination="gEb-ZM-byD" id="gmT-dO-iGX"/>
                                         </connections>
                                     </tableViewCell>

@@ -22,6 +22,7 @@ class ListOfProductsViewController: UIViewController {
     var isLoading:Bool = false
     var selectedProductIndex = 0
     let productManager = ProductsManager(endPoint: WebServices.getProducts)
+    var valueForNoFilter = "Wholesale Lots"
     
     let footerViewReuseIdentifier = "RefreshFooterView"
     override func viewDidLoad() {
@@ -77,6 +78,7 @@ class ListOfProductsViewController: UIViewController {
         productManager.reloadProducts { [weak self] in
             DispatchQueue.main.async {
                 self?.refreshControl.endRefreshing()
+                self?.filterLabel.text = self?.valueForNoFilter
             }
             self?.productsReceived()
         }
@@ -234,6 +236,9 @@ extension ListOfProductsViewController : UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.productManager.searchValue = searchBar.text
         self.productManager.requestFirstTimeProducts {[weak self] in
+            DispatchQueue.main.async {
+                self?.filterLabel.text = self?.productManager.searchValue
+            }
             self?.productsReceived()
         }
     }
