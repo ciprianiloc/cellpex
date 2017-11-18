@@ -21,6 +21,49 @@ public enum ServerSentMessageModel: String {
     case replied = "replied"
 }
 
+/*
+▿ some : 10 elements
+▿ 0 : 2 elements
+- key : "subject"
+▿ value : Optional<Any>
+- some : General Availability on WTS: Apple iPhone 4 | Other | 75.00 USD
+▿ 1 : 2 elements
+- key : "replied"
+▿ value : Optional<Any>
+- some : no
+▿ 2 : 2 elements
+- key : "user"
+▿ value : Optional<Any>
+- some : ionut
+▿ 3 : 2 elements
+- key : "id"
+▿ value : Optional<Any>
+- some : 569
+▿ 4 : 2 elements
+- key : "date"
+▿ value : Optional<Any>
+- some : 16 Nov
+▿ 5 : 2 elements
+- key : "receiverId"
+▿ value : Optional<Any>
+- some : 54
+▿ 6 : 2 elements
+- key : "message"
+▿ value : Optional<Any>
+- some : <b>Item : </b> <a href="/cell-phones-wholesale/333/phones-tablets-wholesale-suppliers/wholesale">WTS: Apple iPhone 4 | Other | 75.00 USD</a><br /><br /><br /><br />Test
+▿ 7 : 2 elements
+- key : "system"
+▿ value : Optional<Any>
+- some : 0
+▿ 8 : 2 elements
+- key : "userLevel"
+▿ value : Optional<Any>
+- some : 2
+▿ 9 : 2 elements
+- key : "viewed"
+▿ value : Optional<Any>
+- some : no
+*/
 struct SentMessageModel {
     private(set) var isValidProduct = true
     var subject : String?

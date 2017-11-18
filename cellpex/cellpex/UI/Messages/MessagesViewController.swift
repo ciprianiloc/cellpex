@@ -69,7 +69,7 @@ class MessagesViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if ("showProductDetails" == segue.identifier) {
+        if ("showMessage" == segue.identifier) {
             let messageVC = segue.destination as! MessageViewController
             if messageSelector.selectedSegmentIndex == 0 {
                 let message = messagesManager.inboxMessages[selectedIndex]

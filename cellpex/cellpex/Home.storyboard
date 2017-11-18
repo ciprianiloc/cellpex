@@ -343,7 +343,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOX-dP-5cA">
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOX-dP-5cA">
                                                     <rect key="frame" x="25" y="21" width="325" height="38"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -379,6 +379,9 @@
                                     <action selector="sendMessageAction:" destination="xjn-ll-gqq" eventType="touchUpInside" id="M9e-Df-f5c"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="SQK-2i-2Ed">
+                                <rect key="frame" x="177" y="120" width="20" height="20"/>
+                            </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="22L-6U-Nud">
                                 <rect key="frame" x="10" y="657" width="321" height="1"/>
                                 <color key="backgroundColor" red="0.5490196078431373" green="0.5490196078431373" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
@@ -403,12 +406,14 @@
                         <constraints>
                             <constraint firstItem="lf3-we-wIu" firstAttribute="trailing" secondItem="pk4-nb-eOf" secondAttribute="trailing" id="7hx-ou-YGk"/>
                             <constraint firstItem="TqG-cP-VLY" firstAttribute="top" secondItem="pk4-nb-eOf" secondAttribute="bottom" id="FKH-eH-NvR"/>
+                            <constraint firstItem="SQK-2i-2Ed" firstAttribute="top" secondItem="lf3-we-wIu" secondAttribute="top" constant="100" id="Jbz-SP-4QC"/>
                             <constraint firstItem="TqG-cP-VLY" firstAttribute="leading" secondItem="lf3-we-wIu" secondAttribute="leading" constant="10" id="RSo-jZ-Uuz"/>
                             <constraint firstItem="TqG-cP-VLY" firstAttribute="bottom" secondItem="6i5-ln-VOo" secondAttribute="bottom" id="S1f-Ry-wkF"/>
                             <constraint firstItem="22L-6U-Nud" firstAttribute="leading" secondItem="fI6-4R-ztw" secondAttribute="leading" constant="10" id="TY8-gt-GER"/>
                             <constraint firstItem="22L-6U-Nud" firstAttribute="top" secondItem="TqG-cP-VLY" secondAttribute="bottom" id="frd-K6-s0L"/>
                             <constraint firstItem="lf3-we-wIu" firstAttribute="bottom" secondItem="TqG-cP-VLY" secondAttribute="bottom" constant="10" id="gN6-nV-kaO"/>
                             <constraint firstItem="pk4-nb-eOf" firstAttribute="top" secondItem="lf3-we-wIu" secondAttribute="top" id="hCa-2v-fJs"/>
+                            <constraint firstItem="SQK-2i-2Ed" firstAttribute="centerX" secondItem="fI6-4R-ztw" secondAttribute="centerX" id="ize-Mf-Ytm"/>
                             <constraint firstItem="6i5-ln-VOo" firstAttribute="leading" secondItem="TqG-cP-VLY" secondAttribute="trailing" constant="2" id="pJU-1X-pMY"/>
                             <constraint firstAttribute="trailing" secondItem="6i5-ln-VOo" secondAttribute="trailing" constant="10" id="qI3-mv-TDR"/>
                             <constraint firstItem="pk4-nb-eOf" firstAttribute="leading" secondItem="lf3-we-wIu" secondAttribute="leading" id="wPF-xG-ulL"/>
@@ -422,6 +427,7 @@
                         <outlet property="messageTextViewButtomConstraint" destination="gN6-nV-kaO" id="EYn-Af-459"/>
                         <outlet property="messageTextViewHeight" destination="OG1-gO-Slh" id="rey-LS-duV"/>
                         <outlet property="sendButton" destination="6i5-ln-VOo" id="fJF-Jj-s7e"/>
+                        <outlet property="spinner" destination="SQK-2i-2Ed" id="L7J-CJ-frj"/>
                         <outlet property="tableViewButtomConstraings" destination="FKH-eH-NvR" id="B9n-RO-ieo"/>
                         <outlet property="underLineTextView" destination="22L-6U-Nud" id="lbH-9E-CHq"/>
                     </connections>
