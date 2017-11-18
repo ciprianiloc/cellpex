@@ -9,19 +9,19 @@
 import UIKit
 import SwiftKeychainWrapper
 
-protocol LeftMenuProtocol : class {
-    func changeViewController(_ menu: LeftMenu)
-}
-
-class LeftMenuViewController: UIViewController, LeftMenuProtocol {
+class LeftMenuViewController: UIViewController {
 
     @IBOutlet weak var userLogo: UIImageView!
     @IBOutlet weak var companyLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var mainViewController: UIViewController!
-    var swiftViewController: UIViewController!
-    var javaViewController: UIViewController!
+    var numberOfUnreadMessages = 0 {
+        didSet(newNumber) {
+            numberOfUnreadMessages = newNumber
+            tableView.reloadData()
+        }
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -79,8 +79,8 @@ extension LeftMenuViewController : UITableViewDataSource {
             let menuModel = LeftMenuModel(leftMenu: menu)
             cell.menuLabel.text = menuModel.title
             cell.menuIcon.image = menuModel.icon
-            cell.messageCounterLabel.isHidden = (menuModel.hasMessageCounter == false)
-            cell.messageCounterLabel.text = "26"
+            cell.messageCounterLabel.isHidden = (menuModel.hasMessageCounter == false || (numberOfUnreadMessages == 0))
+            cell.messageCounterLabel.text = "\(numberOfUnreadMessages)"
             return cell
         }
         return UITableViewCell()

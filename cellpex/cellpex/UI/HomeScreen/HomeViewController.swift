@@ -10,6 +10,7 @@ import UIKit
 import SwiftKeychainWrapper
 
 class HomeViewController: ListOfProductsViewController {
+    private(set) var numberOfUnreadMessages = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,6 +34,7 @@ class HomeViewController: ListOfProductsViewController {
         super.viewWillAppear(animated)
         NetworkManager.getUnreadMessageCount { [weak self](numberOfMessage:Int) in
             DispatchQueue.main.async {
+                self?.numberOfUnreadMessages = numberOfMessage
                 self?.unreadMessagesLabel.text = (numberOfMessage > 0) ? "Unread messages \(numberOfMessage)" : "Messages"
             }
         }

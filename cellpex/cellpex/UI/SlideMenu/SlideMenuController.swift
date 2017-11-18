@@ -222,7 +222,9 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
         guard let _ = leftViewController else { // If leftViewController is nil, then return
             return
         }
-        
+        if let leftVC = leftViewController as? LeftMenuViewController, let homeVC = self.delegate as? HomeViewController {
+            leftVC.numberOfUnreadMessages = homeVC.numberOfUnreadMessages
+        }
         self.delegate?.leftWillOpen?()
         
         setOpenWindowLevel()

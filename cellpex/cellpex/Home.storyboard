@@ -123,6 +123,7 @@
                     </view>
                     <connections>
                         <outlet property="companyLabel" destination="uDg-9o-bkf" id="dr2-tf-4iW"/>
+                        <outlet property="tableView" destination="VOd-pb-bXC" id="MCp-Jl-9yC"/>
                         <outlet property="userLabel" destination="RX5-dA-rMm" id="pGW-N6-jvb"/>
                         <outlet property="userLogo" destination="5RO-o6-Cay" id="NUW-Ez-mHN"/>
                     </connections>

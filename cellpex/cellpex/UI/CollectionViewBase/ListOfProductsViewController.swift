@@ -135,8 +135,6 @@ extension ListOfProductsViewController: UICollectionViewDataSource {
             }
             let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
             let userID = SessionManager.manager.userModel?.id ?? ""
-            let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
-            let userIDBase64 = userID.data(using: .utf8)?.base64EncodedString() ?? ""
             let redirectURL = URLConstant.redirectURL + "&deviceId=\(deviceId)&redirectTo=user&id=\(userID)"
             if let url = URL(string: redirectURL) {
                 let svc = SFSafariViewController(url: url)
