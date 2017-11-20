@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CCBottomRefreshControl
 
 class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var fromLabel: UILabel!
@@ -33,6 +34,16 @@ class MessagesViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.title = "Messages"
         spinner.startAnimating()
+        let bottomRefreash = UIRefreshControl()
+        bottomRefreash.triggerVerticalOffset = 100
+        bottomRefreash.attributedTitle = NSAttributedString.init(string: "pull to load more")
+        bottomRefreash.addTarget(self, action: #selector(refreshBottom), for: .valueChanged)
+        messagesTableView.bottomRefreshControl = bottomRefreash
+        
+        let topRefresh = UIRefreshControl()
+        topRefresh.attributedTitle = NSAttributedString.init(string: "pull to reload")
+        topRefresh.addTarget(self, action: #selector(refreshTop), for: .valueChanged)
+        messagesTableView.refreshControl = topRefresh
         messagesManager.reloadInboxMessages {
             DispatchQueue.main.async { [weak self] in
                 self?.messagesTableView.reloadData()
@@ -44,6 +55,13 @@ class MessagesViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func refreshBottom() {
+        
+    }
+    @objc func refreshTop() {
+        
     }
 
     @IBAction func selectorValueHasChanged(_ sender: Any) {
