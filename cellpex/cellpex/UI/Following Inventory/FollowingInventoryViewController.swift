@@ -12,8 +12,8 @@ class FollowingInventoryViewController: ListOfProductsViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        filterLabel.text = "Following Inv"
-        valueForNoFilter = "Following Inv"
+        filterLabel.text = "Following Inventory"
+        valueForNoFilter = "Following Inventory"
         unreadMessagesLabel.text = ""
         unreadMessagesLabel.isHidden = true
         self.productManager.originalEndPoint = WebServices.getFollowingMemebers

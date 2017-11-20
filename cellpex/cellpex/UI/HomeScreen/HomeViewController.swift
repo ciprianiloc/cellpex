@@ -20,7 +20,7 @@ class HomeViewController: ListOfProductsViewController {
         unreadMessagesLabel.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.unreadMessagesLabelTap))
         unreadMessagesLabel.addGestureRecognizer(gesture)
-        self.unreadMessagesLabel.text = "Messages"
+        self.unreadMessagesLabel.text = ""
         self.productManager.requestFirstTimeProducts { [weak self] in
             self?.productsReceived()
         }
@@ -35,7 +35,7 @@ class HomeViewController: ListOfProductsViewController {
         NetworkManager.getUnreadMessageCount { [weak self](numberOfMessage:Int) in
             DispatchQueue.main.async {
                 self?.numberOfUnreadMessages = numberOfMessage
-                self?.unreadMessagesLabel.text = (numberOfMessage > 0) ? "Unread messages \(numberOfMessage)" : "Messages"
+                self?.unreadMessagesLabel.text = (numberOfMessage > 0) ? "Unread messages \(numberOfMessage)" : ""
             }
         }
     }

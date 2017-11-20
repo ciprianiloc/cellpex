@@ -147,7 +147,7 @@
                                 </constraints>
                                 <segments>
                                     <segment title="Inbox"/>
-                                    <segment title="Send"/>
+                                    <segment title="Sent"/>
                                 </segments>
                                 <connections>
                                     <action selector="selectorValueHasChanged:" destination="Rcf-TX-6Et" eventType="valueChanged" id="3a6-rm-fhJ"/>
@@ -1115,7 +1115,7 @@
                                                     <rect key="frame" x="18" y="18" width="334" height="30"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BsK-Qs-iXP">
-                                                            <rect key="frame" x="0.0" y="4.5" width="292" height="21"/>
+                                                            <rect key="frame" x="10" y="4.5" width="282" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="hdV-0B-l7A"/>
                                                             </constraints>
@@ -1131,10 +1131,10 @@
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
-                                                        <constraint firstItem="BsK-Qs-iXP" firstAttribute="leading" secondItem="MdG-sH-Ys6" secondAttribute="leading" id="22i-K4-Eqz"/>
+                                                        <constraint firstItem="BsK-Qs-iXP" firstAttribute="leading" secondItem="MdG-sH-Ys6" secondAttribute="leading" constant="10" id="22i-K4-Eqz"/>
                                                         <constraint firstItem="mec-uU-roa" firstAttribute="centerY" secondItem="MdG-sH-Ys6" secondAttribute="centerY" id="34O-Un-hww"/>
                                                         <constraint firstAttribute="height" constant="30" id="AUV-RD-1wb"/>
                                                         <constraint firstItem="BsK-Qs-iXP" firstAttribute="centerY" secondItem="MdG-sH-Ys6" secondAttribute="centerY" id="a3v-QG-UDR"/>
@@ -1145,17 +1145,8 @@
                                                         <outletCollection property="gestureRecognizers" destination="Nnn-wh-cLE" appends="YES" id="0d2-es-T8z"/>
                                                     </connections>
                                                 </view>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="24s-xD-L1P">
-                                                    <rect key="frame" x="18" y="58" width="334" height="140"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="140" id="VIs-su-IQ8"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WfE-y6-2X8">
-                                                    <rect key="frame" x="10" y="198" width="350" height="1"/>
+                                                    <rect key="frame" x="18" y="198" width="334" height="1"/>
                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="URR-Xe-9fc"/>
@@ -1192,12 +1183,21 @@
                                                         <action selector="sendButtonAction:" destination="MN3-qc-L7K" eventType="touchUpInside" id="k8p-Pa-msY"/>
                                                     </connections>
                                                 </button>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="24s-xD-L1P">
+                                                    <rect key="frame" x="18" y="58" width="334" height="140"/>
+                                                    <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="140" id="VIs-su-IQ8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="24s-xD-L1P" firstAttribute="top" secondItem="MdG-sH-Ys6" secondAttribute="bottom" constant="10" id="FTw-Ot-sBc"/>
-                                            <constraint firstItem="WfE-y6-2X8" firstAttribute="leading" secondItem="UE7-gt-RBk" secondAttribute="leading" constant="10" id="KBj-6S-zyh"/>
+                                            <constraint firstItem="WfE-y6-2X8" firstAttribute="leading" secondItem="UE7-gt-RBk" secondAttribute="leadingMargin" constant="10" id="KBj-6S-zyh"/>
                                             <constraint firstItem="EU3-r2-hBT" firstAttribute="top" secondItem="WfE-y6-2X8" secondAttribute="bottom" constant="15" id="MFl-v5-BxH"/>
                                             <constraint firstItem="WfE-y6-2X8" firstAttribute="top" secondItem="24s-xD-L1P" secondAttribute="bottom" id="ONy-Zm-WKZ"/>
                                             <constraint firstItem="24s-xD-L1P" firstAttribute="leading" secondItem="UE7-gt-RBk" secondAttribute="leadingMargin" constant="10" id="OYc-Ha-pIH"/>
@@ -1205,7 +1205,7 @@
                                             <constraint firstItem="Eg2-wi-3S3" firstAttribute="top" secondItem="WfE-y6-2X8" secondAttribute="bottom" constant="15" id="cSM-im-duf"/>
                                             <constraint firstItem="MdG-sH-Ys6" firstAttribute="top" secondItem="UE7-gt-RBk" secondAttribute="topMargin" constant="10" id="dGj-iS-DjS"/>
                                             <constraint firstItem="MdG-sH-Ys6" firstAttribute="leading" secondItem="UE7-gt-RBk" secondAttribute="leadingMargin" constant="10" id="def-n0-YKs"/>
-                                            <constraint firstAttribute="trailing" secondItem="WfE-y6-2X8" secondAttribute="trailing" constant="10" id="ed4-J5-M2g"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="WfE-y6-2X8" secondAttribute="trailing" constant="10" id="ed4-J5-M2g"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="MdG-sH-Ys6" secondAttribute="trailing" constant="10" id="lYs-Zq-a48"/>
                                             <constraint firstItem="EU3-r2-hBT" firstAttribute="leading" secondItem="UE7-gt-RBk" secondAttribute="leadingMargin" constant="10" id="sxw-9Q-0hs"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="24s-xD-L1P" secondAttribute="trailing" constant="10" id="zpv-Y3-qBm"/>
@@ -1216,6 +1216,7 @@
                                             <outlet property="messageOptionArrowImage" destination="mec-uU-roa" id="KQH-PV-acj"/>
                                             <outlet property="messageOptionLabel" destination="BsK-Qs-iXP" id="4QI-Z6-g5d"/>
                                             <outlet property="messageTextView" destination="24s-xD-L1P" id="AN7-jc-fV6"/>
+                                            <outlet property="selectSubjectView" destination="MdG-sH-Ys6" id="ytQ-Tw-vrK"/>
                                             <outlet property="sendMessageButton" destination="Eg2-wi-3S3" id="fde-hR-qsT"/>
                                         </connections>
                                     </collectionViewCell>

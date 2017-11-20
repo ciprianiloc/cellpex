@@ -43,6 +43,7 @@ class SendMessageCell: UICollectionViewCell {
     @IBOutlet weak var sendMessageButton: UIButton!
     @IBOutlet weak var goToOrderButton: UIButton!
     @IBOutlet weak var messageOptionArrowImage: UIImageView!
+    @IBOutlet weak var selectSubjectView: UIView!
     
     let placeholderLabel = UILabel()
     override func awakeFromNib() {
@@ -59,6 +60,13 @@ class SendMessageCell: UICollectionViewCell {
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
         NotificationCenter.default.addObserver(self, selector: #selector(self.textViewHasChanged), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
+        selectSubjectView.layer.shadowColor = UIColor.lightGray.cgColor
+        selectSubjectView.layer.shadowRadius = 2
+        selectSubjectView.layer.shadowOpacity = 0.5
+        
+        messageTextView.layer.shadowColor = UIColor.lightGray.cgColor
+        messageTextView.layer.shadowOpacity = 0.3
+        messageTextView.layer.shadowRadius = 1
     }
     
     @objc func textViewHasChanged() {
@@ -314,6 +322,9 @@ extension ProductDetailsViewController : ProductDetailsLayoutDelegate {
         } else if indexPath.section == 1 {
             return 30
         } else if indexPath.section == 2 {
+            if (self.productDetailsModel?.details?.isEmpty ?? true) {
+                return 0
+            }
             return 100
         } else if indexPath.section == 3 {
             return 90
