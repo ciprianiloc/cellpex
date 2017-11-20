@@ -97,6 +97,19 @@ class ListOfProductsViewController: UIViewController {
     @objc func keyboardWillHide(sender: NSNotification){
         collectionViewButtomConstraint.constant = 0
     }
+    
+    @IBAction func redirectToTheUserProfile(_ sender: UITapGestureRecognizer) {
+        let tag = sender.view?.tag ?? 0
+//        URL_DEVICE_REDIRECT+"&deviceId="+deviceId+"&redirectTo=user&id="+id
+//        URL_DEVICE_REDIRECT+"&deviceId="+deviceId+"&redirectTo=offer&id="+postId
+        let userPostId = productManager.products[tag].userId ?? ""
+        let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
+        let redirectURL = URLConstant.redirectURL + "&deviceId=\(deviceId)&redirectTo=user&id=\(userPostId)"
+        if let url = URL(string: redirectURL) {
+            let svc = SFSafariViewController(url: url)
+            self.present(svc, animated: true, completion: nil)
+        }
+    }
 }
 
 extension ListOfProductsViewController: UICollectionViewDataSource {
@@ -123,24 +136,12 @@ extension ListOfProductsViewController: UICollectionViewDataSource {
         }
         
         cell.productDateLabel.text = product.date
-        let redirectTitile = product.user
-        cell.productRedirectButton.setTitle(redirectTitile, for: .normal)
+        cell.userLabel.text = product.user
+        cell.userLabel.tag = indexPath.row
         cell.productSatusLabel.text = product.cond
         cell.productPriceLabel.text = product.price
         cell.productDescriptionLabel.text = product.name
         cell.productPropertiesLabel.text = product.nameExtra
-        cell.productRedirectAction = {[weak self] in
-            guard let `self` = self else {
-                return;
-            }
-            let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
-            let userID = SessionManager.manager.userModel?.id ?? ""
-            let redirectURL = URLConstant.redirectURL + "&deviceId=\(deviceId)&redirectTo=user&id=\(userID)"
-            if let url = URL(string: redirectURL) {
-                let svc = SFSafariViewController(url: url)
-                self.present(svc, animated: true, completion: nil)
-            }
-        }
         return cell;
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
