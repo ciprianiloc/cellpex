@@ -68,6 +68,13 @@ class MessagesViewController: UIViewController {
         }
     }
     
+    @IBAction func redirectToUser(_ sender: UITapGestureRecognizer)  {
+        let tag = sender.view?.tag ?? 0
+        let userId = (messageSelector.selectedSegmentIndex == 0) ? (messagesManager.inboxMessages[tag].senderId ?? "") :
+            (messagesManager.sentMessages[tag].receiverId ?? "")
+        NetworkManager.redirectToWeb(parentVC: self, endPoint: "user&id=\(userId)")
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if ("showMessage" == segue.identifier) {
             let messageVC = segue.destination as! MessageViewController
@@ -97,6 +104,7 @@ extension MessagesViewController : UITableViewDataSource {
         if messageSelector.selectedSegmentIndex == 0 {
             let message = messagesManager.inboxMessages[indexPath.row]
             cell.fromLabel.text = message.user
+            cell.fromLabel.tag = indexPath.row
             cell.subjectLabel.text = message.subject
             cell.dateLabel.text = message.date
             cell.messageLabel.text = message.shortMessage
@@ -108,6 +116,7 @@ extension MessagesViewController : UITableViewDataSource {
         } else {
             let message = messagesManager.sentMessages[indexPath.row]
             cell.fromLabel.text = message.user
+            cell.fromLabel.tag = indexPath.row
             cell.subjectLabel.text = message.subject
             cell.dateLabel.text = message.date
             cell.messageLabel.text = message.shortMessage
@@ -118,13 +127,6 @@ extension MessagesViewController : UITableViewDataSource {
             cell.unreadView.isHidden = isViewed
         }
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        ///let numberOfRow = (messageSelector.selectedSegmentIndex == 0) ? messagesManager.inboxMessages.count : messagesManager.sentMessages.count
-      ///  if indexPath.row > (numberOfRow - 1){
-            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, cell.bounds.size.width)
-      //  }
     }
 
 }
