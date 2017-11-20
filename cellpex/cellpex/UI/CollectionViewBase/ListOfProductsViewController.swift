@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SafariServices
 import SwiftKeychainWrapper
 
 class ListOfProductsViewController: UIViewController {
@@ -100,15 +99,8 @@ class ListOfProductsViewController: UIViewController {
     
     @IBAction func redirectToTheUserProfile(_ sender: UITapGestureRecognizer) {
         let tag = sender.view?.tag ?? 0
-//        URL_DEVICE_REDIRECT+"&deviceId="+deviceId+"&redirectTo=user&id="+id
-//        URL_DEVICE_REDIRECT+"&deviceId="+deviceId+"&redirectTo=offer&id="+postId
-        let userPostId = productManager.products[tag].userId ?? ""
-        let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
-        let redirectURL = URLConstant.redirectURL + "&deviceId=\(deviceId)&redirectTo=user&id=\(userPostId)"
-        if let url = URL(string: redirectURL) {
-            let svc = SFSafariViewController(url: url)
-            self.present(svc, animated: true, completion: nil)
-        }
+        let postUserId = productManager.products[tag].userId ?? ""
+        NetworkManager.redirectToWeb(parentVC: self, endPoint: "user&id=\(postUserId)")
     }
 }
 

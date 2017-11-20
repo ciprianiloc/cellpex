@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftKeychainWrapper
+import SafariServices
 
 class NetworkManager: NSObject {
     static func gedDeviceModel() -> String {
@@ -22,6 +23,15 @@ class NetworkManager: NSObject {
         }
         let modelInfo = modelCode ?? "unknow"
         return modelInfo
+    }
+    
+    static func redirectToWeb(parentVC: UIViewController, endPoint: String) {
+        let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
+        let redirectURL = URLConstant.redirectURL + "&deviceId=\(deviceId)&redirectTo=\(endPoint)"
+        if let url = URL(string: redirectURL) {
+            let svc = SFSafariViewController(url: url)
+            parentVC.present(svc, animated: true, completion: nil)
+        }
     }
     
     static func loginWithUserName(username: String, password:String, successHandler: @escaping ()->(), errorHandler: @escaping (_ errorMessage:String) ->()) {

@@ -1061,11 +1061,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Tg-16-Jzt">
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Tg-16-Jzt">
                                                     <rect key="frame" x="98" y="49.5" width="42" height="21"/>
+                                                    <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.98039215690000003" green="0.31372549020000001" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="J6H-8h-j6u" appends="YES" id="u30-Oz-0bW"/>
+                                                    </connections>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpN-y1-uQ7">
                                                     <rect key="frame" x="98" y="81" width="243" height="21"/>
@@ -1290,6 +1294,11 @@
                 <tapGestureRecognizer id="Nnn-wh-cLE">
                     <connections>
                         <action selector="selectSubject:" destination="MN3-qc-L7K" id="evE-pd-58H"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="J6H-8h-j6u">
+                    <connections>
+                        <action selector="redirectToUser:" destination="MN3-qc-L7K" id="nDa-pH-Mxj"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

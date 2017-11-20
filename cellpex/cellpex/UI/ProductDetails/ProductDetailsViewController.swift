@@ -175,6 +175,8 @@ class ProductDetailsViewController: UIViewController {
         collectionViewButtomConstraints.constant = 0
     }
     @IBAction func goToOrderAction(_ sender: Any) {
+        let postId = productDetailsModel?.id ?? ""
+        NetworkManager.redirectToWeb(parentVC: self, endPoint: "offer&id=\(postId)")
     }
     
     @IBAction func sendButtonAction(_ sender: Any) {
@@ -203,6 +205,10 @@ class ProductDetailsViewController: UIViewController {
             self.spinner.stopAnimating()
             self.view.isUserInteractionEnabled = true
         }
+    }
+    @IBAction func redirectToUser(_ sender: Any) {
+        let postUserId = productDetailsModel?.userId ?? ""
+        NetworkManager.redirectToWeb(parentVC: self, endPoint: "user&id=\(postUserId)")
     }
     
     @IBAction func selectSubject(_ sender: Any) {
