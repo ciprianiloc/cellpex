@@ -11,8 +11,6 @@
 		F622CA451FBDC447008920BC /* ProductsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F622CA441FBDC447008920BC /* ProductsManager.swift */; };
 		F6272DF41FBC814A007F0B22 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */; };
 		F629B8841FBF300200828F17 /* MessagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F629B8831FBF300200828F17 /* MessagesManager.swift */; };
-		F634100B1FA8F83800D46222 /* RefreshFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F63410091FA8F83800D46222 /* RefreshFooterView.xib */; };
-		F634100C1FA8F83800D46222 /* RefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634100A1FA8F83800D46222 /* RefreshFooterView.swift */; };
 		F634100F1FA9030900D46222 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634100E1FA9030900D46222 /* Constants.swift */; };
 		F63410111FA9135B00D46222 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63410101FA9135B00D46222 /* PaddedTextField.swift */; };
 		F63410131FAA54BF00D46222 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63410121FAA54BF00D46222 /* MessageViewController.swift */; };
@@ -53,8 +51,6 @@
 		F622CA441FBDC447008920BC /* ProductsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsManager.swift; sourceTree = "<group>"; };
 		F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		F629B8831FBF300200828F17 /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
-		F63410091FA8F83800D46222 /* RefreshFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshFooterView.xib; sourceTree = "<group>"; };
-		F634100A1FA8F83800D46222 /* RefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshFooterView.swift; sourceTree = "<group>"; };
 		F634100E1FA9030900D46222 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F63410101FA9135B00D46222 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 		F63410121FAA54BF00D46222 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
@@ -245,8 +241,6 @@
 		F68E615C1FA8B69C0046E5BC /* CollectionViewBase */ = {
 			isa = PBXGroup;
 			children = (
-				F634100A1FA8F83800D46222 /* RefreshFooterView.swift */,
-				F63410091FA8F83800D46222 /* RefreshFooterView.xib */,
 				F69EECEC1FA4557700F497F1 /* ProductCollectionViewCell.swift */,
 				F68E615D1FA8B6B70046E5BC /* ListOfProductsViewController.swift */,
 				F622CA441FBDC447008920BC /* ProductsManager.swift */,
@@ -350,7 +344,6 @@
 				F63F91CE1FA360C80083A4A8 /* LaunchScreen.storyboard in Resources */,
 				F63F91CB1FA360C80083A4A8 /* Assets.xcassets in Resources */,
 				F63F91C91FA360C80083A4A8 /* Main.storyboard in Resources */,
-				F634100B1FA8F83800D46222 /* RefreshFooterView.xib in Resources */,
 				F69EECEB1FA3B1DA00F497F1 /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -422,7 +415,6 @@
 				F6863C7A1FA752DB00A5F6D2 /* LeftMenuCell.swift in Sources */,
 				F658B9A31FBB823A00E92FCD /* UserModel.swift in Sources */,
 				F63F91C41FA360C80083A4A8 /* AppDelegate.swift in Sources */,
-				F634100C1FA8F83800D46222 /* RefreshFooterView.swift in Sources */,
 				F6863C751FA733A600A5F6D2 /* ExSlideMenuController.swift in Sources */,
 				F636A18F1FA7778900DCDCFA /* LeftMenuModel.swift in Sources */,
 				F69EECED1FA4557700F497F1 /* ProductCollectionViewCell.swift in Sources */,

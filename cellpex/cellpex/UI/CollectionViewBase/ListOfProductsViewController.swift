@@ -18,14 +18,11 @@ class ListOfProductsViewController: UIViewController {
     @IBOutlet weak var unreadMessagesLabel: UILabel!
 
     let refreshControl = UIRefreshControl()
-
-    var footerView:RefreshFooterView?
-    var isLoading:Bool = false
+    let bottomRefreshControl = UIRefreshControl()
     var selectedProductIndex = 0
     let productManager = ProductsManager(endPoint: WebServices.getProducts)
     var valueForNoFilter = "Wholesale Lots"
     
-    let footerViewReuseIdentifier = "RefreshFooterView"
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.addSubview(refreshControl)
@@ -37,9 +34,11 @@ class ListOfProductsViewController: UIViewController {
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
         self.addNavigationTitleViewImage(UIImage(named: "login_logo_image")!)
-        self.collectionView.register(UINib(nibName: "RefreshFooterView", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerViewReuseIdentifier)
         self.refreshControl.attributedTitle = NSAttributedString.init(string: "pull to refresh")
         self.refreshControl.addTarget(self, action: #selector(ListOfProductsViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        self.bottomRefreshControl.attributedTitle = NSAttributedString.init(string: "pull to load more")
+        self.bottomRefreshControl.addTarget(self, action: #selector(ListOfProductsViewController.bottomRefreshControl(refreshControl:)), for: UIControlEvents.valueChanged)
+        collectionView.bottomRefreshControl = bottomRefreshControl
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
     }
@@ -81,6 +80,12 @@ class ListOfProductsViewController: UIViewController {
                 self?.refreshControl.endRefreshing()
                 self?.filterLabel.text = self?.valueForNoFilter
             }
+            self?.productsReceived()
+        }
+    }
+    @objc func bottomRefreshControl(refreshControl: UIRefreshControl) {
+        self.productManager.requestNextPage {[weak self] in
+            self?.bottomRefreshControl.endRefreshing()
             self?.productsReceived()
         }
     }
@@ -136,35 +141,12 @@ extension ListOfProductsViewController: UICollectionViewDataSource {
         cell.productPropertiesLabel.text = product.nameExtra
         return cell;
     }
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionFooter {
-            let aFooterView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: footerViewReuseIdentifier, for: indexPath) as! RefreshFooterView
-            self.footerView = aFooterView
-            self.footerView?.backgroundColor = UIColor.clear
-            return aFooterView
-        } else {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: footerViewReuseIdentifier, for: indexPath)
-            return headerView
-        }
-    }
 }
 
 extension ListOfProductsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedProductIndex = indexPath.row
         self.performSegue(withIdentifier: "showProductDetails", sender: self)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        if elementKind == UICollectionElementKindSectionFooter {
-            self.footerView?.prepareInitialAnimation()
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
-        if elementKind == UICollectionElementKindSectionFooter {
-            self.footerView?.stopAnimate()
-        }
     }
 }
 
@@ -178,54 +160,6 @@ extension ListOfProductsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5;
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize.zero
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if isLoading || self.productManager.shoulShowRefreshFooter == false {
-            return CGSize.zero
-        }
-        return CGSize(width: collectionView.bounds.size.width, height: 55)
-    }
-}
-
-extension ListOfProductsViewController : UIScrollViewDelegate {
-    //compute the scroll value and play witht the threshold to get desired effect
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let threshold   = 100.0 ;
-        let contentOffset = scrollView.contentOffset.y;
-        let contentHeight = scrollView.contentSize.height;
-        let diffHeight = contentHeight - contentOffset;
-        let frameHeight = scrollView.bounds.size.height;
-        var triggerThreshold  = Float((diffHeight - frameHeight))/Float(threshold);
-        triggerThreshold   =  min(triggerThreshold, 0.0)
-        let pullRatio  = min(fabs(triggerThreshold),1.0);
-        self.footerView?.setTransform(inTransform: CGAffineTransform.identity, scaleFactor: CGFloat(pullRatio))
-        if pullRatio >= 1 {
-            self.footerView?.animateFinal()
-        }
-    }
-    
-    //compute the offset and call the load method
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let contentOffset = scrollView.contentOffset.y;
-        let contentHeight = scrollView.contentSize.height;
-        let diffHeight = contentHeight - contentOffset;
-        let frameHeight = scrollView.bounds.size.height;
-        let pullHeight  = fabs(diffHeight - frameHeight);
-        if pullHeight == 0.0
-        {
-            if let _ = self.footerView?.isAnimatingFinal, self.productManager.shoulShowRefreshFooter {
-                self.isLoading = true
-                self.footerView?.startAnimate()
-                self.productManager.requestNextPage {[weak self] in
-                    self?.productsReceived()
-                    self?.isLoading = false
-                }
-            }
-        }
     }
 }
 
