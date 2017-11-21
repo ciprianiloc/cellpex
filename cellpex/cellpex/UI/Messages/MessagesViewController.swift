@@ -27,6 +27,9 @@ class MessagesViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     let messagesManager = MessagesManager()
+    let topRefresh = UIRefreshControl()
+    let bottomRefreash = UIRefreshControl()
+    
     private var selectedIndex = 0
     
     override func viewDidLoad() {
@@ -34,13 +37,11 @@ class MessagesViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.title = "Messages"
         spinner.startAnimating()
-        let bottomRefreash = UIRefreshControl()
         bottomRefreash.triggerVerticalOffset = 100
         bottomRefreash.attributedTitle = NSAttributedString.init(string: "pull to load more")
         bottomRefreash.addTarget(self, action: #selector(refreshBottom), for: .valueChanged)
         messagesTableView.bottomRefreshControl = bottomRefreash
         
-        let topRefresh = UIRefreshControl()
         topRefresh.attributedTitle = NSAttributedString.init(string: "pull to reload")
         topRefresh.addTarget(self, action: #selector(refreshTop), for: .valueChanged)
         messagesTableView.refreshControl = topRefresh
@@ -58,21 +59,32 @@ class MessagesViewController: UIViewController {
     }
     
     @objc func refreshBottom() {
-        
+        if messageSelector.selectedSegmentIndex == 1 {
+            messagesManager.requestSentNextPage {
+                DispatchQueue.main.async { [weak self] in
+                    self?.messagesTableView.reloadData()
+                    self?.bottomRefreash.endRefreshing()
+                }
+            }
+        } else {
+            messagesManager.requestInboxNextPage {
+                DispatchQueue.main.async { [weak self] in
+                    self?.messagesTableView.reloadData()
+                    self?.bottomRefreash.endRefreshing()
+                }
+            }
+        }
     }
     @objc func refreshTop() {
-        
+        reloadMessages()
     }
-
-    @IBAction func selectorValueHasChanged(_ sender: Any) {
-        messagesManager.inboxMessages.removeAll()
-        messagesManager.sentMessages.removeAll()
-        messagesTableView.reloadData()
-        spinner.startAnimating()
+    
+    private func reloadMessages() {
         if messageSelector.selectedSegmentIndex == 1 {
             messagesManager.reloadSentMessages {
                 DispatchQueue.main.async { [weak self] in
                     self?.messagesTableView.reloadData()
+                    self?.topRefresh.endRefreshing()
                     self?.spinner.stopAnimating()
                 }
             }
@@ -80,10 +92,19 @@ class MessagesViewController: UIViewController {
             messagesManager.reloadInboxMessages {
                 DispatchQueue.main.async { [weak self] in
                     self?.messagesTableView.reloadData()
+                    self?.topRefresh.endRefreshing()
                     self?.spinner.stopAnimating()
                 }
             }
         }
+    }
+    
+    @IBAction func selectorValueHasChanged(_ sender: Any) {
+        messagesManager.inboxMessages.removeAll()
+        messagesManager.sentMessages.removeAll()
+        messagesTableView.reloadData()
+        self.spinner.startAnimating()
+        reloadMessages()
     }
     
     @IBAction func redirectToUser(_ sender: UITapGestureRecognizer)  {

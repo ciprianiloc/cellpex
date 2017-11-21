@@ -190,7 +190,7 @@ class ProductDetailsViewController: UIViewController {
             NetworkManager.sendMessage(postId: postId, subject: subject, message: message) { [weak self](message: String) in
                 let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-                    
+                    NotificationCenter.default.post(name: NSNotification.Name.UITextViewTextDidChange, object: nil)
                 }))
                 DispatchQueue.main.async {
                     self?.spinner.stopAnimating()
