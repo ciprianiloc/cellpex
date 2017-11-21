@@ -9,13 +9,15 @@
 import UIKit
 
 class FeedbackViewController: UIViewController {
-    @IBOutlet weak var subjectTextField: UITextField!
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var sendButtonButomConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollViewButtomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var subjectLabel: UILabel!
+    @IBOutlet weak var selectSubjectView: UIView!
     
-    let placeholderLabel = UILabel()
+    private var selectSubjectActionSheet: UIAlertController?
+    private let placeholderLabel = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -28,15 +30,36 @@ class FeedbackViewController: UIViewController {
         placeholderLabel.frame.origin = CGPoint(x: 5, y: (messageTextView.font?.pointSize)! / 2)
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateButtonState), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+        selectSubjectView.layer.shadowRadius = 2
+        selectSubjectView.layer.shadowColor = UIColor.lightGray.cgColor
+        selectSubjectView.layer.shadowOpacity = 0.5
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateButtonState), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
     }
-
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        selectSubjectActionSheet?.dismiss(animated: false, completion: nil)
+    }
+    
+    @IBAction func selectSubjectAction(_ sender: Any) {
+        selectSubjectActionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let subjectOptions = ["Report a bug", "Suggest Improvements", "Other"]
+        selectSubjectActionSheet?.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler:nil))
+        for subjectOption in subjectOptions {
+            selectSubjectActionSheet?.addAction(UIAlertAction.init(title: subjectOption, style: .default, handler: {[weak self] (action) in
+                DispatchQueue.main.async {
+                    self?.subjectLabel.text = subjectOption
+                }
+            }))
+        }
+        selectSubjectActionSheet?.popoverPresentationController?.sourceView = selectSubjectView;
+        selectSubjectActionSheet?.popoverPresentationController?.sourceRect = CGRect.init(x: 0, y: 0, width: 1, height: 1)
+        self.present(selectSubjectActionSheet!, animated: true)
+        
+    }
+    
     @IBAction func sendButtonAction(_ sender: Any) {
-        let subject = subjectTextField.text ?? ""
+        let subject = subjectLabel.text ?? ""
         let message = messageTextView.text ?? ""
         NetworkManager.sendFeedback(subject: subject, message: message) {[weak self] (messageReceived : String) in
             guard let `self` = self else {return}
@@ -52,7 +75,7 @@ class FeedbackViewController: UIViewController {
     
     @objc private func updateButtonState() {
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
-        let isButtonEnable = (subjectTextField.text?.isEmpty == false || messageTextView.text.isEmpty == false)
+        let isButtonEnable = (messageTextView.text.isEmpty == false)
         self.sendButton.isEnabled = isButtonEnable
         let buttonCollorName = isButtonEnable ? "button_enable_color" : "button_disabled_color"
         self.sendButton.backgroundColor = UIColor(named: buttonCollorName)
