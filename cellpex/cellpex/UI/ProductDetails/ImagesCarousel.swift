@@ -15,6 +15,7 @@ class ImagesCarousel: UIView {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    
     func addImages(images : [UIImage]) {
         postImages.append(contentsOf: images)
         self.loadImageCarousel()
@@ -22,6 +23,7 @@ class ImagesCarousel: UIView {
     
     private func loadImageCarousel(){
         var lastImageViewRight : NSLayoutXAxisAnchor?
+        scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(postImages.count)), height: scrollView.frame.size.height)
         for image in postImages {
             let imageView = UIImageView.init(image: image)
             imageView.contentMode = .scaleAspectFit
@@ -37,4 +39,12 @@ class ImagesCarousel: UIView {
             lastImageViewRight = imageView.rightAnchor
         }
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if postImages.count > 0 {
+        scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(postImages.count)), height: scrollView.frame.size.height)
+        }
+
+    }
+    
 }
