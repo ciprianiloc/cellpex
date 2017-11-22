@@ -8,12 +8,6 @@
 
 import UIKit
 
-class MessageHeader: UITableViewCell {
-    @IBOutlet weak var fromLabel: UILabel!
-    @IBOutlet weak var subjectLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var fromOrTo: UILabel!
-}
 
 class MessageCell: UITableViewCell {
     @IBOutlet weak var messageLabel: UILabel!
@@ -30,19 +24,23 @@ class MessageViewController: UIViewController {
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var underLineTextView: UIView!
     @IBOutlet weak var messageTableView: UITableView!
+    @IBOutlet weak var fromOrToLabel: UILabel!
+    @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var subjectToLabel: UILabel!
+    @IBOutlet weak var messageHeader: UIView!
+
+    
     let placeholderLabel = UILabel()
     var hasTextView = true
-    private var fromText = ""
-    private var dateText = ""
-    private var subjectText = ""
     private var messageText = ""
     private var messageID = ""
     private var senderId = ""
     private var shouldDisplayTheMessage = false
-    private var fromOrTo = "From:"
     override func viewDidLoad() {
         super.viewDidLoad()
         spinner.startAnimating()
+        messageHeader.isHidden = true
         if hasTextView {
             sendButton.isEnabled = (messageTextView.text.isEmpty == false)
             placeholderLabel.text = "Type your message..."
@@ -77,15 +75,18 @@ class MessageViewController: UIViewController {
         hasTextView = (mesageModel.system == "0")
         NetworkManager.getMessage(messageId: messageId, endPoint: WebServices.getInboxMessage, successHandler: { [weak self](messageDictionary: [String : Any?]?) in
             self?.shouldDisplayTheMessage = true
-            let model = InboxMessageModel.init(dictionary: messageDictionary)
-            self?.fromText = model.user ?? ""
-            self?.dateText = model.date ?? ""
-            self?.messageText = model.message ?? ""
-            self?.subjectText = model.subject ?? ""
-            self?.messageID = model.id ?? ""
-            self?.senderId = model.senderId ?? ""
-            self?.fromOrTo = "From:"
+            
             DispatchQueue.main.async {
+                let model = InboxMessageModel.init(dictionary: messageDictionary)
+                self?.messageText = model.message ?? ""
+                self?.messageID = model.id ?? ""
+                self?.senderId = model.senderId ?? ""
+                
+                self?.subjectToLabel.text = model.subject
+                self?.userLabel.text = model.user
+                self?.dateLabel.text = model.date
+                self?.fromOrToLabel.text = "From:"
+                self?.messageHeader.isHidden = false
                 self?.spinner.stopAnimating()
                 self?.messageTableView.reloadData()
             }
@@ -98,16 +99,17 @@ class MessageViewController: UIViewController {
         let messageId = mesageModel.id ?? ""
         hasTextView = false
         NetworkManager.getMessage(messageId: messageId, endPoint: WebServices.getSendMessage, successHandler: { [weak self](messageDictionary: [String : Any?]?) in
-            let model = SentMessageModel.init(dictionary: messageDictionary)
-            self?.fromText = model.user ?? ""
-            self?.dateText = model.date ?? ""
-            self?.messageText = model.message ?? ""
-            self?.subjectText = model.subject ?? ""
-            self?.shouldDisplayTheMessage = true
-            self?.messageID = model.id ?? ""
-            self?.senderId = model.receiverId ?? ""
-            self?.fromOrTo = "To:"
             DispatchQueue.main.async {
+                let model = SentMessageModel.init(dictionary: messageDictionary)
+                self?.messageText = model.message ?? ""
+                self?.messageID = model.id ?? ""
+                self?.senderId = model.receiverId ?? ""
+                
+                self?.subjectToLabel.text = model.subject
+                self?.userLabel.text = model.user
+                self?.dateLabel.text = model.date
+                self?.fromOrToLabel.text = "To:"
+                self?.messageHeader.isHidden = false
                 self?.spinner.stopAnimating()
                 self?.messageTableView.reloadData()
             }
@@ -161,6 +163,9 @@ class MessageViewController: UIViewController {
             }
         }
     }
+    @IBAction func redirectToUserOnWeb(_ sender: Any) {
+        NetworkManager.redirectToWeb(parentVC: self, endPoint: "user&id=\(senderId)")
+    }
     
     @objc func keyboardWillShow(sender: NSNotification) {
         let userInfo:NSDictionary = sender.userInfo! as NSDictionary
@@ -182,7 +187,7 @@ extension MessageViewController : UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -190,19 +195,10 @@ extension MessageViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageHeader") as! MessageHeader
-            cell.fromLabel.text = self.fromText
-            cell.dateLabel.text = self.dateText
-            cell.subjectLabel.text = self.subjectText
-            cell.fromOrTo.text = self.fromOrTo
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageCell
-           // cell.messageLabel.text = self.stringFromHTML(string: self.messageText)
-            cell.messageLabel.attributedText = self.stringFromHTML(string: self.messageText)
-            return cell
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageCell
+       // cell.messageLabel.text = self.stringFromHTML(string: self.messageText)
+        cell.messageLabel.attributedText = self.stringFromHTML(string: self.messageText)
+        return cell
     }
     
 }
