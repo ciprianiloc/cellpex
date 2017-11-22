@@ -75,7 +75,6 @@ class MessageViewController: UIViewController {
         hasTextView = (mesageModel.system == "0")
         NetworkManager.getMessage(messageId: messageId, endPoint: WebServices.getInboxMessage, successHandler: { [weak self](messageDictionary: [String : Any?]?) in
             self?.shouldDisplayTheMessage = true
-            
             DispatchQueue.main.async {
                 let model = InboxMessageModel.init(dictionary: messageDictionary)
                 self?.messageText = model.message ?? ""
@@ -99,6 +98,7 @@ class MessageViewController: UIViewController {
         let messageId = mesageModel.id ?? ""
         hasTextView = false
         NetworkManager.getMessage(messageId: messageId, endPoint: WebServices.getSendMessage, successHandler: { [weak self](messageDictionary: [String : Any?]?) in
+            self?.shouldDisplayTheMessage = true
             DispatchQueue.main.async {
                 let model = SentMessageModel.init(dictionary: messageDictionary)
                 self?.messageText = model.message ?? ""
@@ -117,18 +117,21 @@ class MessageViewController: UIViewController {
             
         }
     }
-    func stringFromHTML( string: String?) -> NSAttributedString?
-    {
-            do {
-                return try NSAttributedString(data: (string?.data(using: .utf8))!,
-                                              options: [
-                                                .documentType: NSAttributedString.DocumentType.html,
-                                                .characterEncoding: String.Encoding.utf8.rawValue
-                    ], documentAttributes: nil)
-            } catch {
-                print(error.localizedDescription)
-                return nil
-            }
+    func stringFromHTML( string: String?) -> NSAttributedString? {
+        guard let messageString = string else {
+            return nil
+        }
+        let message = messageString + "<style>body{font-family: \(dateLabel.font.fontName); font-size:16px;}</style>"
+        do {
+            return try NSAttributedString(data: (message.data(using: .utf8))!,
+                                          options: [
+                                            .documentType: NSAttributedString.DocumentType.html,
+                                            .characterEncoding: String.Encoding.utf8.rawValue
+                ], documentAttributes: nil)
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
     }
 
     @objc private func textViewHasChanged() {
