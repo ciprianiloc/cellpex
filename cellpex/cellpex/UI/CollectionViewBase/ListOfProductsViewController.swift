@@ -60,13 +60,7 @@ class ListOfProductsViewController: UIViewController {
             })
         }
     }
-    
-    private func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            completion(data, response, error)
-            }.resume()
-    }
-    
+
     func productsReceived() {
         DispatchQueue.main.async {[weak self] in
             self?.collectionView.reloadData()
@@ -122,7 +116,7 @@ extension ListOfProductsViewController: UICollectionViewDataSource {
             cell.productImageView.image = productImage
         } else {
             let imageUrl = product.imageUrl ?? ""
-            getDataFromUrl(url: URL(string: imageUrl)!) { data, response, error in
+            NetworkManager.getDataFromUrl(url: URL(string: imageUrl)!) { data, response, error in
                 guard let data = data, error == nil else { return }
                 DispatchQueue.main.async() {
                     let image = UIImage(data: data)

@@ -62,7 +62,7 @@ class ImagesCarousel: UIView {
                 containerView.frame.origin.x = x
                 x = x + containerView.frame.size.width
                 scrollView.addSubview(containerView)
-                getDataFromUrl(url: URL(string: imageURLString)!) { data, response, error in
+                NetworkManager.getDataFromUrl(url: URL(string: imageURLString)!) { data, response, error in
                     guard let data = data, error == nil else { return }
                     DispatchQueue.main.async() {
                         containerView.postImage.image = UIImage(data: data)
@@ -82,11 +82,4 @@ class ImagesCarousel: UIView {
             x = x + view.frame.size.width
         }
     }
-    
-    private func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            completion(data, response, error)
-            }.resume()
-    }
-    
 }

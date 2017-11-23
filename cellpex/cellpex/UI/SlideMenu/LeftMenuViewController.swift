@@ -39,7 +39,7 @@ class LeftMenuViewController: UIViewController {
         userLabel.text = "\(user) (\(feedbackScore))"
         companyLabel.text = SessionManager.manager.userModel?.company
         
-        getDataFromUrl(url: URL(string: companyLogoURL)!) { data, response, error in
+        NetworkManager.getDataFromUrl(url: URL(string: companyLogoURL)!) { data, response, error in
             guard let data = data, error == nil else { return }
             DispatchQueue.main.async() { [weak self] in
                 guard let `self` = self else { return }
@@ -59,11 +59,6 @@ class LeftMenuViewController: UIViewController {
     
     func changeViewController(_ menu: LeftMenu) {
         self.slideMenuController()?.changeMainViewController(self.mainViewController, close: true)
-    }
-    private func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            completion(data, response, error)
-            }.resume()
     }
 }
 

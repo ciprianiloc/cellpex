@@ -33,6 +33,11 @@ class NetworkManager: NSObject {
             parentVC.present(svc, animated: true, completion: nil)
         }
     }
+    static func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data, response, error)
+            }.resume()
+    }
     
     static func loginWithUserName(username: String, password:String, successHandler: @escaping ()->(), errorHandler: @escaping (_ errorMessage:String) ->()) {
         let loginURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.wsLogin

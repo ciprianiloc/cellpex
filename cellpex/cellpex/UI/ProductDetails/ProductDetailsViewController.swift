@@ -222,12 +222,6 @@ class ProductDetailsViewController: UIViewController {
         
         self.present(selectSubjectActionSheet!, animated: true)
     }
-    
-    private func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            completion(data, response, error)
-            }.resume()
-    }
 }
 
 extension ProductDetailsViewController: UICollectionViewDataSource {
@@ -278,7 +272,7 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
             cell.providerNumber.text = "(\(userFeedback))"
             cell.providerLocationLable.text = self.productDetailsModel?.providerAddress
             if let userLogo = self.productDetailsModel?.userCompanyLogoUrl {
-                getDataFromUrl(url: URL(string: userLogo)!) { data, response, error in
+                NetworkManager.getDataFromUrl(url: URL(string: userLogo)!) { data, response, error in
                     guard let data = data, error == nil else { return }
                     DispatchQueue.main.async() {
                         cell.providerImageView.image = UIImage(data: data)
