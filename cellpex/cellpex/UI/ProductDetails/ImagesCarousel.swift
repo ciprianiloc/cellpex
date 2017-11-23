@@ -10,10 +10,11 @@ import UIKit
 
 class ImagesCarousel: UIView {
     
-    private var postImages = [UIImage]()
+    private var postImagesURL = [String?]()
     
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var scrollView: UIScrollView!
+    var numberOfImages = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +33,7 @@ class ImagesCarousel: UIView {
     fileprivate func sharedInitialization() {
         if let nibName = nibName() {
             let containerView = Bundle.main.loadNibNamed(nibName, owner: self, options: nil)![0] as! UIView
-            containerView.translatesAutoresizingMaskIntoConstraints = true
+            containerView.translatesAutoresizingMaskIntoConstraints = false
             
             self.addSubview(containerView)
             let views = ["container":containerView]
@@ -45,35 +46,47 @@ class ImagesCarousel: UIView {
         }
     }
     
-    func addImages(images : [UIImage]) {
-        postImages.append(contentsOf: images)
+    func addImagesURL(imagesURL : [String?]) {
+        postImagesURL.removeAll()
+        postImagesURL.append(contentsOf: imagesURL)
         self.loadImageCarousel()
     }
     
     private func loadImageCarousel(){
-        var lastImageViewRight : NSLayoutXAxisAnchor?
-        scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(postImages.count)), height: scrollView.frame.size.height)
-        for image in postImages {
-            let imageView = UIImageView.init(image: image)
-            imageView.contentMode = .scaleAspectFit
-            scrollView.addSubview(imageView)
-            imageView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
-            imageView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-            
-            if let previosImageRight = lastImageViewRight {
-                imageView.leftAnchor.constraint(equalTo: previosImageRight)
-            } else {
-                imageView.leftAnchor.constraint(equalTo: scrollView.leftAnchor)
+        var x: CGFloat = 0.0
+        numberOfImages = 0
+        for imageURL in postImagesURL {
+            if let imageURLString = imageURL {
+                numberOfImages = numberOfImages + 1
+                let containerView = ImageContainerView.init(frame: scrollView.frame)
+                containerView.frame.origin.x = x
+                x = x + containerView.frame.size.width
+                scrollView.addSubview(containerView)
+                getDataFromUrl(url: URL(string: imageURLString)!) { data, response, error in
+                    guard let data = data, error == nil else { return }
+                    DispatchQueue.main.async() {
+                        containerView.postImage.image = UIImage(data: data)
+                    }
+                }
             }
-            lastImageViewRight = imageView.rightAnchor
+            scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(numberOfImages)), height: scrollView.frame.size.height)
         }
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        if postImages.count > 0 {
-        scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(postImages.count)), height: scrollView.frame.size.height)
+        scrollView.contentSize = CGSize(width: (self.frame.size.width * CGFloat(numberOfImages)), height: scrollView.frame.size.height)
+        var x : CGFloat = 0.0
+        for view in scrollView.subviews {
+            view.frame.size.width = self.frame.width
+            view.frame.origin.x = x
+            x = x + view.frame.size.width
         }
-
+    }
+    
+    private func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data, response, error)
+            }.resume()
     }
     
 }

@@ -247,25 +247,10 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
             if let productImages = productDetailsModel?.imagesUrl, productImages.count > 0{
-                if let imageURL = productImages[0] {
-                    getDataFromUrl(url: URL(string: imageURL)!) { data, response, error in
-                        guard let data = data, error == nil else { return }
-                        DispatchQueue.main.async() {
-                           // cell.productImageView.image = UIImage(data: data)
-                            
-                        }
-                    }
-                }
+                cell.imagesCarousel.addImagesURL(imagesURL: productImages)
             } else {
-                if let imageURL = self.productDetailsModel?.imageUrl {
-                    getDataFromUrl(url: URL(string: imageURL)!) { data, response, error in
-                        guard let data = data, error == nil else { return }
-                        DispatchQueue.main.async() {
-                           // cell.productImageView.image = UIImage(data: data)
-                            cell.imagesCarousel.addImages(images: [UIImage(data: data)!, UIImage(data: data)!])
-                        }
-                    }
-                }
+                cell.imagesCarousel.addImagesURL(imagesURL: [self.productDetailsModel?.imageUrl])
+              
             }
             return cell
         } else if indexPath.section == 1 {
