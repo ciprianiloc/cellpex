@@ -16,13 +16,7 @@ class CharacteristicCell: UICollectionViewCell {
 }
 
 class ProductImageCell: UICollectionViewCell {
-    @IBOutlet weak var productImageView: UIImageView!
-    
-    @IBOutlet weak var productPageController: UIPageControl!
-    
-    @IBAction func productPageHasChanged(_ sender: Any) {
-    }
-    
+    @IBOutlet weak var imagesCarousel: ImagesCarousel!
 }
 
 class ProviderInfoCell: UICollectionViewCell {
@@ -105,7 +99,7 @@ class ProductDetailsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         spinner.startAnimating()
-        self.productDetailsModel = nil
+        self.productDetailsModel = nil        
     }
     
     func handleErrorReceived(errorMessage: String) {
@@ -257,7 +251,8 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
                     getDataFromUrl(url: URL(string: imageURL)!) { data, response, error in
                         guard let data = data, error == nil else { return }
                         DispatchQueue.main.async() {
-                            cell.productImageView.image = UIImage(data: data)
+                           // cell.productImageView.image = UIImage(data: data)
+                            
                         }
                     }
                 }
@@ -266,7 +261,8 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
                     getDataFromUrl(url: URL(string: imageURL)!) { data, response, error in
                         guard let data = data, error == nil else { return }
                         DispatchQueue.main.async() {
-                            cell.productImageView.image = UIImage(data: data)
+                           // cell.productImageView.image = UIImage(data: data)
+                            cell.imagesCarousel.addImages(images: [UIImage(data: data)!, UIImage(data: data)!])
                         }
                     }
                 }

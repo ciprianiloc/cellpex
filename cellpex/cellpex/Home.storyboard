@@ -1048,34 +1048,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSH-9d-vgS" userLabel="Container View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9YQ-0s-jRW">
-                                                            <rect key="frame" x="-45" y="10" width="140" height="20"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="140" id="LXc-4k-1VN"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstItem="9YQ-0s-jRW" firstAttribute="top" secondItem="bSH-9d-vgS" secondAttribute="top" constant="10" id="7tQ-YC-b3C"/>
-                                                        <constraint firstItem="9YQ-0s-jRW" firstAttribute="centerX" secondItem="bSH-9d-vgS" secondAttribute="centerX" id="PxV-ob-aRS"/>
-                                                        <constraint firstAttribute="bottom" secondItem="9YQ-0s-jRW" secondAttribute="bottom" constant="20" id="xWi-YL-69b"/>
-                                                    </constraints>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wr5-67-jGl" customClass="ImagesCarousel" customModule="cellpex" customModuleProvider="target">
+                                                    <rect key="frame" x="-95.5" y="-39" width="240" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="bSH-9d-vgS" firstAttribute="top" secondItem="UCW-Pi-RSD" secondAttribute="top" id="9fB-vi-0Hp"/>
-                                            <constraint firstAttribute="trailing" secondItem="bSH-9d-vgS" secondAttribute="trailing" id="ITv-QE-Ig2"/>
-                                            <constraint firstAttribute="bottom" secondItem="bSH-9d-vgS" secondAttribute="bottom" id="mpo-mm-L8o"/>
-                                            <constraint firstItem="bSH-9d-vgS" firstAttribute="leading" secondItem="UCW-Pi-RSD" secondAttribute="leading" id="oWD-oo-MDr"/>
-                                        </constraints>
                                         <connections>
-                                            <outlet property="productImageView" destination="9YQ-0s-jRW" id="6MM-ZR-X3S"/>
+                                            <outlet property="imagesCarousel" destination="Wr5-67-jGl" id="q75-tz-0fH"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProviderInfoCell" id="RPH-mk-tgW" userLabel="ProviderInfoCell" customClass="ProviderInfoCell" customModule="cellpex" customModuleProvider="target">
