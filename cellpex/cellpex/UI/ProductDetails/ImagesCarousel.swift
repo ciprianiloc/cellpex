@@ -32,7 +32,7 @@ class ImagesCarousel: UIView {
     fileprivate func sharedInitialization() {
         if let nibName = nibName() {
             let containerView = Bundle.main.loadNibNamed(nibName, owner: self, options: nil)![0] as! UIView
-            containerView.translatesAutoresizingMaskIntoConstraints = false
+            containerView.translatesAutoresizingMaskIntoConstraints = true
             
             self.addSubview(containerView)
             let views = ["container":containerView]

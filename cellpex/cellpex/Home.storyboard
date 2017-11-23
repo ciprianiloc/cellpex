@@ -1048,14 +1048,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wr5-67-jGl" customClass="ImagesCarousel" customModule="cellpex" customModuleProvider="target">
-                                                    <rect key="frame" x="-95.5" y="-39" width="240" height="128"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wr5-67-jGl" customClass="ImagesCarousel" customModule="cellpex" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Wr5-67-jGl" secondAttribute="trailing" id="0ym-EQ-BIK"/>
+                                            <constraint firstAttribute="bottom" secondItem="Wr5-67-jGl" secondAttribute="bottom" id="58I-Az-x3J"/>
+                                            <constraint firstItem="Wr5-67-jGl" firstAttribute="top" secondItem="UCW-Pi-RSD" secondAttribute="top" id="jSh-hI-X8Z"/>
+                                            <constraint firstItem="Wr5-67-jGl" firstAttribute="leading" secondItem="UCW-Pi-RSD" secondAttribute="leading" id="k1f-L7-NAZ"/>
+                                            <constraint firstItem="Wr5-67-jGl" firstAttribute="centerY" secondItem="UCW-Pi-RSD" secondAttribute="centerY" id="sWC-o5-uws"/>
+                                            <constraint firstItem="Wr5-67-jGl" firstAttribute="centerX" secondItem="UCW-Pi-RSD" secondAttribute="centerX" id="sWn-vA-Dgx"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="imagesCarousel" destination="Wr5-67-jGl" id="q75-tz-0fH"/>
                                         </connections>
