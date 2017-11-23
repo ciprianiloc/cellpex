@@ -10,7 +10,7 @@ import UIKit
 
 class ImagesCarousel: UIView {
     
-    private var postImagesURL = [String?]()
+    private var postImages = [UIImage]()
     
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -46,32 +46,26 @@ class ImagesCarousel: UIView {
         }
     }
     
-    func addImagesURL(imagesURL : [String?]) {
-        postImagesURL.removeAll()
-        postImagesURL.append(contentsOf: imagesURL)
+    func addImages(images : [UIImage]) {
+        postImages.removeAll()
+        postImages.append(contentsOf: images)
         self.loadImageCarousel()
     }
     
     private func loadImageCarousel(){
         var x: CGFloat = 0.0
         numberOfImages = 0
-        for imageURL in postImagesURL {
-            if let imageURLString = imageURL {
-                numberOfImages = numberOfImages + 1
-                let containerView = ImageContainerView.init(frame: scrollView.frame)
-                containerView.frame.origin.x = x
-                x = x + containerView.frame.size.width
-                scrollView.addSubview(containerView)
-                NetworkManager.getDataFromUrl(url: URL(string: imageURLString)!) { data, response, error in
-                    guard let data = data, error == nil else { return }
-                    DispatchQueue.main.async() {
-                        containerView.postImage.image = UIImage(data: data)
-                    }
-                }
-            }
-            scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(numberOfImages)), height: scrollView.frame.size.height)
+        for image in postImages {
+            numberOfImages = numberOfImages + 1
+            let containerView = ImageContainerView.init(frame: scrollView.frame)
+            containerView.frame.origin.x = x
+            x = x + containerView.frame.size.width
+            scrollView.addSubview(containerView)
+            containerView.postImage.image = image
         }
+        scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(numberOfImages)), height: scrollView.frame.size.height)
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         scrollView.contentSize = CGSize(width: (self.frame.size.width * CGFloat(numberOfImages)), height: scrollView.frame.size.height)

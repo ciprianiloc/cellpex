@@ -88,6 +88,7 @@ class ProductDetailsViewController: UIViewController {
     private var characteristics = [(String, String)]()
     private var selectSubjectActionSheet: UIAlertController?
     private var shouldUseHeightZero = true
+    private var postImages = [UIImage]()
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     override func viewDidLoad() {
@@ -140,6 +141,40 @@ class ProductDetailsViewController: UIViewController {
             self?.shouldUseHeightZero = false
             self?.productDetailsCollectionView.reloadData()
         }
+        if let imagesUrls = self.productDetailsModel?.imagesUrl, imagesUrls.count > 0 {
+            let getImagesQueue = OperationQueue()
+            getImagesQueue.maxConcurrentOperationCount = 1
+            for imageURL in imagesUrls {
+                let getImageOperation = GetImageOperation(URLString: imageURL, networkOperationCompletionHandler: { [weak self](data:Data?, urlResponse: URLResponse?, error:Error?) in
+                    if let dataImage = data {
+                        if let image = UIImage(data: dataImage) {
+                            self?.postImages.append(image)
+                        }
+                    }
+                })
+                getImagesQueue.addOperation(getImageOperation)
+            }
+            getImagesQueue.waitUntilAllOperationsAreFinished()
+            DispatchQueue.main.async { [weak self] in
+                self?.productDetailsCollectionView.reloadData()
+            }
+        } else {
+            if let urlString = self.productDetailsModel?.imageUrl {
+                if let url = URL(string: urlString) {
+                NetworkManager.getDataFromUrl(url: url, completion: { [weak self](data:Data?, urlResponse: URLResponse?, error:Error?) in
+                    if let dataImage = data {
+                        if let image = UIImage(data: dataImage) {
+                            self?.postImages.append(image)
+                            DispatchQueue.main.async {
+                                self?.productDetailsCollectionView.reloadData()
+                            }
+                        }
+                    }
+                })
+                }
+            }
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -240,11 +275,8 @@ extension ProductDetailsViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
-            if let productImages = productDetailsModel?.imagesUrl, productImages.count > 0{
-                cell.imagesCarousel.addImagesURL(imagesURL: productImages)
-            } else {
-                cell.imagesCarousel.addImagesURL(imagesURL: [self.productDetailsModel?.imageUrl])
-              
+            if postImages.count > 0 {
+                cell.imagesCarousel.addImages(images: postImages)
             }
             return cell
         } else if indexPath.section == 1 {
