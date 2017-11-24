@@ -174,9 +174,6 @@
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <color key="textColor" red="0.98039215690000003" green="0.30588235289999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="G3O-GP-yLv" appends="YES" id="ifP-Gm-U37"/>
-                                                    </connections>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMl-Ap-eA0" userLabel="date">
                                                     <rect key="frame" x="72" y="16" width="293" height="20.5"/>
@@ -276,11 +273,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1b-IR-IfH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="G3O-GP-yLv">
-                    <connections>
-                        <action selector="redirectToUser:" destination="Rcf-TX-6Et" id="rsg-uj-nQF"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="128.80000000000001" y="454.72263868065971"/>
         </scene>
@@ -714,9 +706,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.98039215690000003" green="0.30588235294117649" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="o5K-k7-bmc" appends="YES" id="PQA-jy-mP0"/>
-                                                    </connections>
                                                 </label>
                                             </subviews>
                                         </view>
@@ -780,11 +769,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OYO-m7-fz3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="o5K-k7-bmc">
-                    <connections>
-                        <action selector="redirectToTheUserProfile:" destination="HvN-OJ-5fF" id="PDR-gE-94U"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="130" y="-1057"/>
         </scene>
@@ -903,9 +887,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.98039215690000003" green="0.30588235289999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="XJK-wy-dUw" appends="YES" id="bBQ-qz-AmP"/>
-                                                    </connections>
                                                 </label>
                                             </subviews>
                                         </view>
@@ -972,11 +953,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgI-Y4-JkP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="XJK-wy-dUw">
-                    <connections>
-                        <action selector="redirectToTheUserProfile:" destination="rJp-xL-IJJ" id="t6i-ML-GZ4"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-711.20000000000005" y="-189.3553223388306"/>
         </scene>

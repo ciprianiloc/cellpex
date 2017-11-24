@@ -16,5 +16,16 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productSatusLabel: UILabel!
     @IBOutlet weak var productPropertiesLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
+     var userTapAction: (()->())?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.userLabelTap))
+        userLabel.addGestureRecognizer(gesture)
+    }
+    
+    @objc func userLabelTap() {
+        self.userTapAction?()
+    }
     
 }

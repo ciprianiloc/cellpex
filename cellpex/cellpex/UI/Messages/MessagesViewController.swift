@@ -15,9 +15,18 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var subjectLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var unreadView: UIView!
+    var userTapAction: (()->())?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         unreadView.layer.cornerRadius = unreadView.frame.height / 2
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.userLabelTap))
+        fromLabel.addGestureRecognizer(gesture)
+    }
+    
+    
+    @objc func userLabelTap() {
+        self.userTapAction?()
     }
 }
 
@@ -107,13 +116,6 @@ class MessagesViewController: UIViewController {
         reloadMessages()
     }
     
-    @IBAction func redirectToUser(_ sender: UITapGestureRecognizer)  {
-        let tag = sender.view?.tag ?? 0
-        let userId = (messageSelector.selectedSegmentIndex == 0) ? (messagesManager.inboxMessages[tag].senderId ?? "") :
-            (messagesManager.sentMessages[tag].receiverId ?? "")
-        NetworkManager.redirectToWeb(parentVC: self, endPoint: "user&id=\(userId)")
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if ("showMessage" == segue.identifier) {
             let messageVC = segue.destination as! MessageViewController
@@ -152,6 +154,12 @@ extension MessagesViewController : UITableViewDataSource {
                 isViewed = true
             }
             cell.unreadView.isHidden = isViewed
+            cell.userTapAction = { [weak self] in
+                guard let `self` = self else { return }
+                if let userId = self.messagesManager.inboxMessages[indexPath.row].senderId {
+                    NetworkManager.redirectToWeb(parentVC: self, endPoint: "user&id=\(userId)")
+                }
+            }
         } else {
             let message = messagesManager.sentMessages[indexPath.row]
             cell.fromLabel.text = message.user
@@ -164,6 +172,12 @@ extension MessagesViewController : UITableViewDataSource {
                 isViewed = true
             }
             cell.unreadView.isHidden = isViewed
+            cell.userTapAction = { [weak self] in
+                guard let `self` = self else { return }
+                if let userId = self.messagesManager.sentMessages[indexPath.row].receiverId {
+                    NetworkManager.redirectToWeb(parentVC: self, endPoint: "user&id=\(userId)")
+                }
+            }
         }
         return cell
     }

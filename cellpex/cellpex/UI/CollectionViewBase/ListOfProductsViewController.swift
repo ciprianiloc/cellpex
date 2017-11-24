@@ -95,12 +95,6 @@ class ListOfProductsViewController: UIViewController {
     @objc func keyboardWillHide(sender: NSNotification){
         collectionViewButtomConstraint.constant = 0
     }
-    
-    @IBAction func redirectToTheUserProfile(_ sender: UITapGestureRecognizer) {
-        let tag = sender.view?.tag ?? 0
-        let postUserId = productManager.products[tag].userId ?? ""
-        NetworkManager.redirectToWeb(parentVC: self, endPoint: "user&id=\(postUserId)")
-    }
 }
 
 extension ListOfProductsViewController: UICollectionViewDataSource {
@@ -133,6 +127,12 @@ extension ListOfProductsViewController: UICollectionViewDataSource {
         cell.productPriceLabel.text = product.price
         cell.productDescriptionLabel.text = product.name
         cell.productPropertiesLabel.text = product.nameExtra
+        cell.userTapAction = { [weak self] in
+            guard let `self` = self else { return }
+            if let postUserId = self.productManager.products[indexPath.row].userId {
+                NetworkManager.redirectToWeb(parentVC: self, endPoint: "user&id=\(postUserId)")
+            }
+        }
         return cell;
     }
 }
