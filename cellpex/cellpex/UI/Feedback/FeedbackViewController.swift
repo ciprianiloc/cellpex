@@ -77,8 +77,8 @@ class FeedbackViewController: UIViewController {
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
         let isButtonEnable = (messageTextView.text.isEmpty == false)
         self.sendButton.isEnabled = isButtonEnable
-        let buttonCollorName = isButtonEnable ? "button_enable_color" : "button_disabled_color"
-        self.sendButton.backgroundColor = UIColor(named: buttonCollorName)
+        let sendButtonCollor = isButtonEnable ? UIColor.init(red: 25.0/255.0, green: 74.0/255.0, blue: 177.0/255.0, alpha: 1.0) : UIColor.init(white: 0.86, alpha: 1.0)
+        self.sendButton.backgroundColor = sendButtonCollor
     }
     
     @objc func keyboardWillShow(sender: NSNotification) {

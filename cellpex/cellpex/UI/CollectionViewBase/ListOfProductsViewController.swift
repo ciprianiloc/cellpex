@@ -31,7 +31,11 @@ class ListOfProductsViewController: UIViewController {
         searchController.searchBar.placeholder = "Type mode"
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
-        navigationItem.searchController = searchController
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+        } else {
+            // Fallback on earlier versions
+        }
         searchController.searchBar.delegate = self
         self.addNavigationTitleViewImage(UIImage(named: "login_logo_image")!)
         self.refreshControl.attributedTitle = NSAttributedString.init(string: "pull to refresh")

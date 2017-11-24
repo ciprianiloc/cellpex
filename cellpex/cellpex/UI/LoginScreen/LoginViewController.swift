@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         forgotButton.layer.borderWidth = 1.0
         forgotButton.layer.borderColor = UIColor.lightGray.cgColor
-        registerButton.backgroundColor = UIColor(named: "button_enable_color")
+        registerButton.backgroundColor = UIColor.init(red: 25.0/255.0, green: 74.0/255.0, blue: 177.0/255.0, alpha: 1.0)
         passwordTextField.rightViewMode = .always
         updateLoginButtonState()
         
@@ -100,8 +100,8 @@ class LoginViewController: UIViewController {
     @objc private func updateLoginButtonState() {
         let isLoginEnable = (usernameTextField.text?.isEmpty == false && passwordTextField.text?.isEmpty == false)
         self.loginButton.isEnabled = isLoginEnable
-        let loginButtonCollorName = isLoginEnable ? "button_enable_color" : "button_disabled_color"
-        self.loginButton.backgroundColor = UIColor(named: loginButtonCollorName)
+        let loginButtonCollor = isLoginEnable ? UIColor.init(red: 25.0/255.0, green: 74.0/255.0, blue: 177.0/255.0, alpha: 1.0) : UIColor.init(white: 0.86, alpha: 1.0)
+        self.loginButton.backgroundColor = loginButtonCollor
     }
     
     @objc fileprivate func passwordTextFieldRightButtonAction() {

@@ -43,8 +43,8 @@ class SendMessageCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         sendMessageButton.isEnabled = !messageTextView.text.isEmpty
-        let buttonCollorName = sendMessageButton.isEnabled ? "button_enable_color" : "button_disabled_color"
-        self.sendMessageButton.backgroundColor = UIColor(named: buttonCollorName)
+        let buttonCollor = sendMessageButton.isEnabled ? UIColor.init(red: 25.0/255.0, green: 74.0/255.0, blue: 177.0/255.0, alpha: 1.0) : UIColor.init(white: 0.86, alpha: 1.0)
+        self.sendMessageButton.backgroundColor = buttonCollor
         placeholderLabel.text = "Type your message..."
         
         placeholderLabel.font = UIFont.italicSystemFont(ofSize: (messageTextView.font?.pointSize)!)
@@ -66,8 +66,8 @@ class SendMessageCell: UICollectionViewCell {
     @objc func textViewHasChanged() {
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
         sendMessageButton.isEnabled = !messageTextView.text.isEmpty
-        let buttonCollorName = sendMessageButton.isEnabled ? "button_enable_color" : "button_disabled_color"
-        self.sendMessageButton.backgroundColor = UIColor(named: buttonCollorName)
+        let buttonCollor = sendMessageButton.isEnabled ? UIColor.init(red: 25.0/255.0, green: 74.0/255.0, blue: 177.0/255.0, alpha: 1.0) : UIColor.init(white: 0.86, alpha: 1.0)
+        self.sendMessageButton.backgroundColor = buttonCollor
     }
     
     
