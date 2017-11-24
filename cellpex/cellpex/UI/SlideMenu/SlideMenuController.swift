@@ -1056,6 +1056,11 @@ extension UIViewController {
     
     public func addNavigationTitleViewImage(_ titleImage: UIImage) {
         let navigationTitleView = UIImageView.init(image: titleImage)
+        if #available(iOS 11.0, *) {
+            
+        } else {
+            navigationTitleView.frame = self.navigationController?.navigationBar.frame ?? CGRect.zero
+        }
         navigationTitleView.contentMode = .scaleAspectFit
         navigationItem.titleView = navigationTitleView
     }
