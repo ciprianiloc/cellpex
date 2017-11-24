@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import SwiftKeychainWrapper
 import SafariServices
 
@@ -74,7 +73,7 @@ class NetworkManager: NSObject {
         }
         
         var request = URLRequest.init(url: URL.init(string: loginURLString)!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
@@ -125,7 +124,7 @@ class NetworkManager: NSObject {
         }
         
         var request = URLRequest.init(url: URL.init(string: logoutURLString)!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
@@ -159,7 +158,7 @@ class NetworkManager: NSObject {
         
         let getProductURLString = WebServices.devHostName + WebServices.apiToUse + endPoint
         var request = URLRequest.init(url: URL.init(string: getProductURLString)!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
@@ -200,7 +199,7 @@ class NetworkManager: NSObject {
         }
         
         var request = URLRequest.init(url: URL.init(string: getProductURLString)!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
@@ -236,7 +235,7 @@ class NetworkManager: NSObject {
         }
         
         var request = URLRequest.init(url: URL.init(string: getUnreadURLString)!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
@@ -281,7 +280,7 @@ class NetworkManager: NSObject {
         }
         
         var request = URLRequest.init(url: URL.init(string: getUnreadURLString)!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
@@ -325,7 +324,7 @@ class NetworkManager: NSObject {
         }
         
         var request = URLRequest.init(url: URL.init(string: getUnreadURLString)!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
@@ -364,7 +363,7 @@ class NetworkManager: NSObject {
         }
         
         var request = URLRequest.init(url: URL.init(string: getUnreadURLString)!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
@@ -402,7 +401,7 @@ class NetworkManager: NSObject {
         }
         
         var request = URLRequest.init(url: URL.init(string: getUnreadURLString)!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
@@ -447,7 +446,7 @@ class NetworkManager: NSObject {
         }
         
         var request = URLRequest.init(url: URL.init(string: getUnreadURLString)!)
-        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D70173C2750488ADCC4CB290 /* Pods_cellpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02D959E466398F5EF7834E2 /* Pods_cellpex.framework */; };
+		4020F59504424854CC578373 /* Pods_cellpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3DFACA02B3CDFA006D2A66 /* Pods_cellpex.framework */; };
 		F622CA451FBDC447008920BC /* ProductsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F622CA441FBDC447008920BC /* ProductsManager.swift */; };
 		F6272DF41FBC814A007F0B22 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */; };
 		F629B8841FBF300200828F17 /* MessagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F629B8831FBF300200828F17 /* MessagesManager.swift */; };
@@ -50,9 +50,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5D5CB441E4733E3FD3D3C44C /* Pods-cellpex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.debug.xcconfig"; sourceTree = "<group>"; };
-		9E95EA33004CC2B8BAC80ADA /* Pods-cellpex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.release.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.release.xcconfig"; sourceTree = "<group>"; };
-		B02D959E466398F5EF7834E2 /* Pods_cellpex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cellpex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		65C8B085E7A29E1E926DE631 /* Pods-cellpex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.debug.xcconfig"; sourceTree = "<group>"; };
+		9F3DFACA02B3CDFA006D2A66 /* Pods_cellpex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cellpex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFAEFFBFED024BD3D68F04B3 /* Pods-cellpex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.release.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.release.xcconfig"; sourceTree = "<group>"; };
 		F622CA441FBDC447008920BC /* ProductsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsManager.swift; sourceTree = "<group>"; };
 		F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		F629B8831FBF300200828F17 /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
@@ -101,28 +101,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D70173C2750488ADCC4CB290 /* Pods_cellpex.framework in Frameworks */,
+				4020F59504424854CC578373 /* Pods_cellpex.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1D5171B5AC269A8DA9E4258C /* Pods */ = {
+		6A73D1AECEBC2A40877D79D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5D5CB441E4733E3FD3D3C44C /* Pods-cellpex.debug.xcconfig */,
-				9E95EA33004CC2B8BAC80ADA /* Pods-cellpex.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		2D95BADABD15BB185DAF3547 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B02D959E466398F5EF7834E2 /* Pods_cellpex.framework */,
+				9F3DFACA02B3CDFA006D2A66 /* Pods_cellpex.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1C919D2D313DD1B8DBAF4E6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				65C8B085E7A29E1E926DE631 /* Pods-cellpex.debug.xcconfig */,
+				EFAEFFBFED024BD3D68F04B3 /* Pods-cellpex.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		F63410071FA8F7B800D46222 /* SlideMenu */ = {
@@ -164,8 +164,8 @@
 			children = (
 				F63F91C21FA360C80083A4A8 /* cellpex */,
 				F63F91C11FA360C80083A4A8 /* Products */,
-				1D5171B5AC269A8DA9E4258C /* Pods */,
-				2D95BADABD15BB185DAF3547 /* Frameworks */,
+				C1C919D2D313DD1B8DBAF4E6 /* Pods */,
+				6A73D1AECEBC2A40877D79D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -301,12 +301,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F63F91D21FA360C80083A4A8 /* Build configuration list for PBXNativeTarget "cellpex" */;
 			buildPhases = (
-				CAE3C887C7EAE9EE42F4D7D3 /* [CP] Check Pods Manifest.lock */,
+				F50535E1720346819262FFD5 /* [CP] Check Pods Manifest.lock */,
 				F63F91BC1FA360C80083A4A8 /* Sources */,
 				F63F91BD1FA360C80083A4A8 /* Frameworks */,
 				F63F91BE1FA360C80083A4A8 /* Resources */,
-				95175C5E00101F4EA3ACEBE4 /* [CP] Embed Pods Frameworks */,
-				10EC98E47DD59637E1028E89 /* [CP] Copy Pods Resources */,
+				940CA545D9E41DB9A2D4F3B4 /* [CP] Embed Pods Frameworks */,
+				A39DB5D757DB72494EFA52D5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -368,22 +368,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		10EC98E47DD59637E1028E89 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cellpex/Pods-cellpex-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		95175C5E00101F4EA3ACEBE4 /* [CP] Embed Pods Frameworks */ = {
+		940CA545D9E41DB9A2D4F3B4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -398,7 +383,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cellpex/Pods-cellpex-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CAE3C887C7EAE9EE42F4D7D3 /* [CP] Check Pods Manifest.lock */ = {
+		A39DB5D757DB72494EFA52D5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cellpex/Pods-cellpex-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F50535E1720346819262FFD5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -587,7 +587,7 @@
 		};
 		F63F91D31FA360C80083A4A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5D5CB441E4733E3FD3D3C44C /* Pods-cellpex.debug.xcconfig */;
+			baseConfigurationReference = 65C8B085E7A29E1E926DE631 /* Pods-cellpex.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -603,7 +603,7 @@
 		};
 		F63F91D41FA360C80083A4A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9E95EA33004CC2B8BAC80ADA /* Pods-cellpex.release.xcconfig */;
+			baseConfigurationReference = EFAEFFBFED024BD3D68F04B3 /* Pods-cellpex.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
