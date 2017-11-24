@@ -345,8 +345,10 @@ const CGFloat kMinRefershTime = 0.5;
 - (void)brc_didEndRefreshing {
     
     [self brc_checkRefreshingTimeAndPerformBlock:^{
-        [self.bottomRefreshControl brc_endRefreshing];
-        [self brc_stopRefresh];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.bottomRefreshControl brc_endRefreshing];
+            [self brc_stopRefresh];
+        });
     }];
 }
 
@@ -366,10 +368,7 @@ const CGFloat kMinRefershTime = 0.5;
     self.brc_context.wasTracking = self.tracking;
     
     if (!self.tracking && self.brc_adjustBottomInset) {
-     
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self brc_SetAdjustBottomInset:NO animated:YES];
-        });
+        [self brc_SetAdjustBottomInset:NO animated:YES];
     }
     
     self.brc_context.refreshed = self.tracking;
