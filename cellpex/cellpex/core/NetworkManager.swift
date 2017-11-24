@@ -130,19 +130,6 @@ class NetworkManager: NSObject {
         let sessionConfiguration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: sessionConfiguration)
         let sessionTask = session.dataTask(with: request) { (data: Data?, urlresponse: URLResponse?, error: Error?) in
-            
-            if data != nil{
-                do {
-                    let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
-                    
-                    let responseDictionary = parsedData as? [String : Any?]
-                    print("\(String(describing: responseDictionary))")
-                }
-                    //else throw an error detailing what went wrong
-                catch let error as NSError {
-                    print("Details of JSON parsing error:\n \(error)")
-                }
-            }
             KeychainWrapper.standard.removeObject(forKey: KeychainUserModel.id.rawValue)
             KeychainWrapper.standard.removeObject(forKey: KeychainUserModel.user.rawValue)
             KeychainWrapper.standard.removeObject(forKey: KeychainUserModel.email.rawValue)
@@ -185,7 +172,6 @@ class NetworkManager: NSObject {
                     let responseDictionary = parsedData as? [String : Any?]
                     let productsArray = responseDictionary?["data"] as? [[String: Any?]?]
                     successHandler(productsArray)
-                    print("\(String(describing: responseDictionary))")
                 }
                     //else throw an error detailing what went wrong
                 catch let error as NSError {
@@ -226,7 +212,6 @@ class NetworkManager: NSObject {
                     let responseDictionary = parsedData as? [String : Any?]
                     let productsArray = responseDictionary?["data"] as? [String: Any?]
                     successHandler(productsArray)
-                    print("\(String(describing: responseDictionary))")
                 }
                     //else throw an error detailing what went wrong
                 catch let error as NSError {

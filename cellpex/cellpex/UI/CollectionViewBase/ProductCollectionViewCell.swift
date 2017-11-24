@@ -17,7 +17,4 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var productPropertiesLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
     
-    @IBAction func redirectToUser(_ sender: UITapGestureRecognizer) {
-    }
-    
 }

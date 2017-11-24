@@ -15,6 +15,7 @@ class ImagesCarousel: UIView {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var scrollView: UIScrollView!
     var numberOfImages = 0
+    var pageNumber = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,16 +65,29 @@ class ImagesCarousel: UIView {
             containerView.postImage.image = image
         }
         scrollView.contentSize = CGSize(width: (scrollView.frame.size.width * CGFloat(numberOfImages)), height: scrollView.frame.size.height)
+        pageControl.numberOfPages = numberOfImages
+        pageControl.currentPage = pageNumber
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        scrollView.contentSize = CGSize(width: (self.frame.size.width * CGFloat(numberOfImages)), height: scrollView.frame.size.height)
+        let pageWidth = self.frame.size.width
+        scrollView.contentSize = CGSize(width: (pageWidth * CGFloat(numberOfImages)), height: scrollView.frame.size.height)
         var x : CGFloat = 0.0
+        scrollView.setContentOffset(CGPoint(x: CGFloat(pageNumber) * pageWidth, y: 0.0), animated: false)
+
         for view in scrollView.subviews {
-            view.frame.size.width = self.frame.width
+            view.frame.size.width = pageWidth
             view.frame.origin.x = x
-            x = x + view.frame.size.width
+            x = x + pageWidth
         }
+    }
+}
+
+extension ImagesCarousel: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageWidth = self.frame.size.width
+        pageNumber = Int((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0))
+        pageControl.currentPage = pageNumber
     }
 }
