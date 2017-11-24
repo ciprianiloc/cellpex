@@ -28,16 +28,19 @@ class ListOfProductsViewController: UIViewController {
         self.collectionView.addSubview(refreshControl)
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.addNavigationTitleViewImage(UIImage(named: "login_logo_image")!)
         searchController.searchBar.placeholder = "Type mode"
-        searchController.obscuresBackgroundDuringPresentation = false
+        if #available(iOS 9.1, *) {
+            searchController.obscuresBackgroundDuringPresentation = false
+        }
         searchController.hidesNavigationBarDuringPresentation = false
         if #available(iOS 11.0, *) {
             navigationItem.searchController = searchController
         } else {
-            // Fallback on earlier versions
+            navigationItem.titleView = searchController.searchBar
         }
         searchController.searchBar.delegate = self
-        self.addNavigationTitleViewImage(UIImage(named: "login_logo_image")!)
+
         self.refreshControl.attributedTitle = NSAttributedString.init(string: "pull to refresh")
         self.refreshControl.addTarget(self, action: #selector(ListOfProductsViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
         self.bottomRefreshControl.attributedTitle = NSAttributedString.init(string: "pull to load more")

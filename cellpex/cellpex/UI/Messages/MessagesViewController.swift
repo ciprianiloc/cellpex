@@ -53,7 +53,7 @@ class MessagesViewController: UIViewController {
         
         topRefresh.attributedTitle = NSAttributedString.init(string: "pull to reload")
         topRefresh.addTarget(self, action: #selector(refreshTop), for: .valueChanged)
-        messagesTableView.refreshControl = topRefresh
+        self.messagesTableView.addSubview(topRefresh)
         messagesManager.reloadInboxMessages {
             DispatchQueue.main.async { [weak self] in
                 self?.messagesTableView.reloadData()
