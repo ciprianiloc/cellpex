@@ -4,5 +4,7 @@ use_frameworks!
 pod 'SwiftKeychainWrapper'
 pod 'CCBottomRefreshControl'
 pod 'ReachabilitySwift'
+pod 'Firebase/Core'
+pod 'Firebase/Messaging'
 target 'cellpex'
 
