@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
-
+import Firebase
 class LeftMenuViewController: UIViewController {
 
     @IBOutlet weak var userLogo: UIImageView!
@@ -30,7 +30,7 @@ class LeftMenuViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let user = SessionManager.manager.userModel?.user ?? ""
@@ -50,6 +50,7 @@ class LeftMenuViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        Analytics.setScreenName("LeftSideMenu", screenClass: "LeftMenuViewController")
     }
     
     override func viewDidLayoutSubviews() {

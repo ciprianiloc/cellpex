@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class FollowingInventoryViewController: ListOfProductsViewController {
 
@@ -20,6 +21,10 @@ class FollowingInventoryViewController: ListOfProductsViewController {
         self.productManager.requestFirstTimeProducts { [weak self] in
             self?.productsReceived()
         }
-    }    
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.setScreenName("FollowingInventoryScreen", screenClass: "FollowingInventoryViewController")
+    }
 
 }

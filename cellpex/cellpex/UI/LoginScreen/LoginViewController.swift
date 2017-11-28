@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 import SwiftKeychainWrapper
-
+import Firebase
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var passwordTextField: PaddedTextField!
@@ -43,6 +43,10 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.setScreenName("LoginScreen", screenClass: "LoginViewController")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

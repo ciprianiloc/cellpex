@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
-
+import Firebase
 class HomeViewController: ListOfProductsViewController {
     private(set) var numberOfUnreadMessages = 0
     override func viewDidLoad() {
@@ -38,6 +38,10 @@ class HomeViewController: ListOfProductsViewController {
                 self?.unreadMessagesLabel.text = (numberOfMessage > 0) ? "Unread messages \(numberOfMessage)" : ""
             }
         }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.setScreenName("HomeScreen", screenClass: "HomeViewController")
     }
     
 }

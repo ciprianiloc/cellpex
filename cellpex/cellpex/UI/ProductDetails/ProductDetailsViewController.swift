@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import Firebase
 
 class CharacteristicCell: UICollectionViewCell {
     @IBOutlet weak var productInfoLabel: UILabel!
@@ -101,6 +102,11 @@ class ProductDetailsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         spinner.startAnimating()
         self.productDetailsModel = nil        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.setScreenName("PostDetailsScreen", screenClass: "ProductDetailsViewController")
     }
     
     func handleErrorReceived(errorMessage: String) {

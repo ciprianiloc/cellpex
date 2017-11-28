@@ -8,6 +8,7 @@
 
 import UIKit
 import CCBottomRefreshControl
+import Firebase
 
 class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var fromLabel: UILabel!
@@ -60,6 +61,12 @@ class MessagesViewController: UIViewController {
                 self?.spinner.stopAnimating()
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let screenType = (messageSelector.selectedSegmentIndex == 0) ? "Inbox" : "Sent"
+        Analytics.setScreenName("\(screenType)MessagesScreen", screenClass: "MessagesViewController")
     }
 
     override func didReceiveMemoryWarning() {

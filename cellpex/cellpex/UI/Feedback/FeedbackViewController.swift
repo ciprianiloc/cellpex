@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 class FeedbackViewController: UIViewController {
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
@@ -37,8 +37,14 @@ class FeedbackViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
     }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         selectSubjectActionSheet?.dismiss(animated: false, completion: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.setScreenName("FeedbackScreen", screenClass: "FeedbackViewController")
     }
     
     @IBAction func selectSubjectAction(_ sender: Any) {

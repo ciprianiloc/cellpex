@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 
 class MessageCell: UITableViewCell {
     @IBOutlet weak var messageLabel: UILabel!
@@ -37,6 +37,7 @@ class MessageViewController: UIViewController {
     private var messageID = ""
     private var senderId = ""
     private var shouldDisplayTheMessage = false
+    private var screenType = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         spinner.startAnimating()
@@ -70,8 +71,14 @@ class MessageViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.setScreenName("\(screenType)MessageScreen", screenClass: "MessageViewController")
+    }
+    
     func requestInboxMessageDetails(mesageModel : InboxMessagesModel) {
         let messageId = mesageModel.id ?? ""
+        screenType = "Inbox"
         hasTextView = (mesageModel.system == "0")
         NetworkManager.getMessage(messageId: messageId, endPoint: WebServices.getInboxMessage, successHandler: { [weak self](messageDictionary: [String : Any?]?) in
             self?.shouldDisplayTheMessage = true
@@ -97,6 +104,7 @@ class MessageViewController: UIViewController {
     func requestSentMessageDetails(mesageModel : SentMessagesModel) {
         let messageId = mesageModel.id ?? ""
         hasTextView = false
+        screenType = "Sent"
         NetworkManager.getMessage(messageId: messageId, endPoint: WebServices.getSendMessage, successHandler: { [weak self](messageDictionary: [String : Any?]?) in
             self?.shouldDisplayTheMessage = true
             DispatchQueue.main.async {
