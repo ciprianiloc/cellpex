@@ -46,6 +46,7 @@
 		F6A826101FC752B200385B7E /* ImageContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6A8260F1FC752B200385B7E /* ImageContainerView.xib */; };
 		F6A826121FC752C400385B7E /* ImageContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A826111FC752C400385B7E /* ImageContainerView.swift */; };
 		F6A826141FC774F200385B7E /* GetImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A826131FC774F200385B7E /* GetImageOperation.swift */; };
+		F6C08C071FCD6FD000274743 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6C08C061FCD6FCF00274743 /* GoogleService-Info.plist */; };
 		F6FAC25F1FB886A900D9F95B /* ProductDetailsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FAC25E1FB886A900D9F95B /* ProductDetailsLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +94,7 @@
 		F6A8260F1FC752B200385B7E /* ImageContainerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageContainerView.xib; sourceTree = "<group>"; };
 		F6A826111FC752C400385B7E /* ImageContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainerView.swift; sourceTree = "<group>"; };
 		F6A826131FC774F200385B7E /* GetImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageOperation.swift; sourceTree = "<group>"; };
+		F6C08C061FCD6FCF00274743 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F6FAC25E1FB886A900D9F95B /* ProductDetailsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +189,7 @@
 				F63F91C31FA360C80083A4A8 /* AppDelegate.swift */,
 				F63F91CA1FA360C80083A4A8 /* Assets.xcassets */,
 				F63F91CF1FA360C80083A4A8 /* Info.plist */,
+				F6C08C061FCD6FCF00274743 /* GoogleService-Info.plist */,
 				F63F91C71FA360C80083A4A8 /* Main.storyboard */,
 				F69EECEA1FA3B1DA00F497F1 /* Home.storyboard */,
 				F63F91CC1FA360C80083A4A8 /* LaunchScreen.storyboard */,
@@ -363,6 +366,7 @@
 				F650032D1FC59395007870B4 /* ImagesCarousel.xib in Resources */,
 				F63F91C91FA360C80083A4A8 /* Main.storyboard in Resources */,
 				F69EECEB1FA3B1DA00F497F1 /* Home.storyboard in Resources */,
+				F6C08C071FCD6FD000274743 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
