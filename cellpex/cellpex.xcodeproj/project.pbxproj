@@ -95,6 +95,7 @@
 		F6A826111FC752C400385B7E /* ImageContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainerView.swift; sourceTree = "<group>"; };
 		F6A826131FC774F200385B7E /* GetImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageOperation.swift; sourceTree = "<group>"; };
 		F6C08C061FCD6FCF00274743 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F6C69D211FCDD8040067C4D5 /* cellpex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cellpex.entitlements; sourceTree = "<group>"; };
 		F6FAC25E1FB886A900D9F95B /* ProductDetailsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +183,7 @@
 		F63F91C21FA360C80083A4A8 /* cellpex */ = {
 			isa = PBXGroup;
 			children = (
+				F6C69D211FCDD8040067C4D5 /* cellpex.entitlements */,
 				F6660A031FACC60C00116A8F /* core */,
 				F634100D1FA902EA00D46222 /* Utiles */,
 				F6863C761FA7341700A5F6D2 /* Extensions */,
@@ -333,7 +335,12 @@
 				TargetAttributes = {
 					F63F91BF1FA360C80083A4A8 = {
 						CreatedOnToolsVersion = 9.0.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -525,7 +532,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrei Majer (EK226SNVG7)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Andrei Majer (EK226SNVG7)";
+				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_STYLE[sdk=*]" = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -582,7 +592,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrei Majer (EK226SNVG7)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Andrei Majer (EK226SNVG7)";
+				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_STYLE[sdk=*]" = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -608,13 +621,19 @@
 			baseConfigurationReference = 65C8B085E7A29E1E926DE631 /* Pods-cellpex.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = cellpex/cellpex.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrei Majer (EK226SNVG7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andrei Majer (EK226SNVG7)";
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = YW35R3T84W;
 				INFOPLIST_FILE = cellpex/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cellpex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "4bf49806-c6e7-4a89-9656-387721ea4822";
+				PROVISIONING_PROFILE_SPECIFIER = CiprilocDev;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -625,12 +644,18 @@
 			baseConfigurationReference = EFAEFFBFED024BD3D68F04B3 /* Pods-cellpex.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = cellpex/cellpex.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Andrei Majer (EK226SNVG7)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Andrei Majer (EK226SNVG7)";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = YW35R3T84W;
 				INFOPLIST_FILE = cellpex/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cellpex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "4bf49806-c6e7-4a89-9656-387721ea4822";
+				PROVISIONING_PROFILE_SPECIFIER = CiprilocDev;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
