@@ -9,6 +9,7 @@
 import UIKit
 import SwiftKeychainWrapper
 import SafariServices
+import Crashlytics
 
 class NetworkManager: NSObject {
     static func gedDeviceModel() -> String {
@@ -90,6 +91,8 @@ class NetworkManager: NSObject {
                         let loadUserModelWithSuccess = SessionManager.manager.loadUserModel(dictinary: dataDictionary)
                         if loadUserModelWithSuccess {
                             successHandler()
+                            Crashlytics.sharedInstance().setUserName(SessionManager.manager.userModel?.id)
+                            Crashlytics.sharedInstance().setUserEmail(SessionManager.manager.userModel?.email)
                         } else {
                             errorHandler("Try again later!")
                         }

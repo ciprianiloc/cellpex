@@ -1,5 +1,8 @@
 PODS:
   - CCBottomRefreshControl (0.5.2)
+  - Crashlytics (3.9.3):
+    - Fabric (~> 1.7.2)
+  - Fabric (1.7.2)
   - Firebase/Core (4.5.0):
     - FirebaseAnalytics (= 4.0.4)
     - FirebaseCore (= 4.0.10)
@@ -37,6 +40,8 @@ PODS:
 
 DEPENDENCIES:
   - CCBottomRefreshControl
+  - Crashlytics
+  - Fabric
   - Firebase/Core
   - Firebase/Messaging
   - ReachabilitySwift
@@ -44,6 +49,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   CCBottomRefreshControl: 389780b4488321c91d18f66a6da5ef9606df6de5
+  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
+  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   Firebase: d83d287bdb6b1c78320561482706d1fcfc8ddfc1
   FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
   FirebaseCore: da5e8e372cb6046212739a4d81e42d32c22907cc
@@ -55,6 +62,6 @@ SPEC CHECKSUMS:
   ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
 
-PODFILE CHECKSUM: 04c465e85a16ac2e4f95348440e81a6354302899
+PODFILE CHECKSUM: 9ee489c4e6c026f5dcbaf462d813649ac38fc4c1
 
 COCOAPODS: 1.2.0

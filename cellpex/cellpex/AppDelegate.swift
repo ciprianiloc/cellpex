@@ -8,6 +8,8 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,10 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        Fabric.with([Crashlytics.self])
         if (KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) == nil) {
             KeychainWrapper.standard.set((UIDevice.current.identifierForVendor?.uuidString)!, forKey: KeychainConstant.deviceID)
-            
         }
+        
+        Crashlytics.sharedInstance().setUserIdentifier(KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID))
+        
         let loadUserModelWithSuccess = SessionManager.manager.loadUserModel(dictinary: nil)
         if loadUserModelWithSuccess == false {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -27,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.makeKeyAndVisible()
             return true
         }
+
+        Crashlytics.sharedInstance().setUserName(SessionManager.manager.userModel?.id)
+        Crashlytics.sharedInstance().setUserEmail(SessionManager.manager.userModel?.email)
         
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         
