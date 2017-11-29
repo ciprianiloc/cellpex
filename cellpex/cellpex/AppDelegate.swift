@@ -57,9 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Crashlytics.sharedInstance().setUserName(SessionManager.manager.userModel?.id)
         Crashlytics.sharedInstance().setUserEmail(SessionManager.manager.userModel?.email)
-        
+        let shouldPerformUpdate = UserDefaults.standard.object(forKey: UtilsConstant.shouldPerformUpdate) as? String
         let oldDeviceVersion = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceOSVersion)
-        if  UIDevice.current.systemVersion != oldDeviceVersion {
+        if  UIDevice.current.systemVersion != oldDeviceVersion || shouldPerformUpdate == "YES" {
             NetworkManager.updateDeviceInformation()
         }
         

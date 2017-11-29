@@ -52,5 +52,5 @@ struct KeychainConstant {
 }
 
 struct UtilsConstant {
-    static let UserIsLogIn = "UserIsLogIn"
+    static let shouldPerformUpdate = "ShouldPerformUpdate"
 }

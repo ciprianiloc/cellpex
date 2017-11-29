@@ -40,6 +40,7 @@ class NetworkManager: NSObject {
     }
     
     static func loginWithUserName(username: String, password:String, successHandler: @escaping ()->(), errorHandler: @escaping (_ errorMessage:String) ->()) {
+        UserDefaults.standard.set("NO", forKey: UtilsConstant.shouldPerformUpdate)
         let loginURLString = WebServices.hostName + WebServices.apiToUse + WebServices.wsLogin
         let usernamebase64 = username.data(using: .utf8)?.base64EncodedString() ?? ""
         let passwordbase64 = password.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -478,6 +479,10 @@ class NetworkManager: NSObject {
     
     
     static func updateDeviceInformation() {
+        UserDefaults.standard.set("YES", forKey: UtilsConstant.shouldPerformUpdate)
+        guard let userID = SessionManager.manager.userModel?.id else {
+            return;
+        }
         let loginURLString = WebServices.hostName + WebServices.apiToUse + WebServices.updateDevice
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let deviceIdbase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -494,7 +499,6 @@ class NetworkManager: NSObject {
         let height = (UIScreen.main.bounds.size.height * UIScreen.main.scale)
         let width = (UIScreen.main.bounds.size.width * UIScreen.main.scale)
         let screenResolution = "\(Int(width))x\(Int(height))".data(using: .utf8)?.base64EncodedString() ?? ""
-        let userID = SessionManager.manager.userModel?.id ?? ""
         let userIDBase64 = userID.data(using: .utf8)?.base64EncodedString() ?? ""
         
         
@@ -526,6 +530,12 @@ class NetworkManager: NSObject {
                     let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
                     
                     let responseDictionary = parsedData as? [String : Any?]
+                    let wasUpdated = responseDictionary?["data"] as? [String: Any?]
+                    if let updated = wasUpdated?["updated"] as? String, updated == "1" {
+                        UserDefaults.standard.set("NO", forKey: UtilsConstant.shouldPerformUpdate)
+                    } else {
+                        UserDefaults.standard.set("YES", forKey: UtilsConstant.shouldPerformUpdate)
+                    }
                     print("responseDictionary  \(String(describing: responseDictionary))")
                 }
                     //else throw an error detailing what went wrong
