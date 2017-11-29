@@ -40,27 +40,29 @@ class NetworkManager: NSObject {
     }
     
     static func loginWithUserName(username: String, password:String, successHandler: @escaping ()->(), errorHandler: @escaping (_ errorMessage:String) ->()) {
-        let loginURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.wsLogin
+        let loginURLString = WebServices.hostName + WebServices.apiToUse + WebServices.wsLogin
         let usernamebase64 = username.data(using: .utf8)?.base64EncodedString() ?? ""
         let passwordbase64 = password.data(using: .utf8)?.base64EncodedString() ?? ""
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let deviceIdbase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
-        let firebaseToken = "tokenfirebaseToken".data(using: .utf8)?.base64EncodedString() ?? ""
+        let firebaseToken = KeychainWrapper.standard.string(forKey: KeychainConstant.fcmToken) ?? "invalidFirebaseToken"
+        let firebaseToken64 = firebaseToken.data(using: .utf8)?.base64EncodedString() ?? "invalidFirebaseToken"
         let brand = "Apple".data(using: .utf8)?.base64EncodedString() ?? ""
         let model = NetworkManager.gedDeviceModel().data(using: .utf8)?.base64EncodedString() ?? ""
         let version = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0.0"
         let product = version.data(using: .utf8)?.base64EncodedString() ?? ""
         let os = "IOS".data(using: .utf8)?.base64EncodedString() ?? ""
         let release = UIDevice.current.systemVersion.data(using: .utf8)?.base64EncodedString() ?? ""
+        KeychainWrapper.standard.set(UIDevice.current.systemVersion, forKey: KeychainConstant.deviceOSVersion)
         let sdk = "iOS11".data(using: .utf8)?.base64EncodedString() ?? ""
         let height = (UIScreen.main.bounds.size.height * UIScreen.main.scale)
         let width = (UIScreen.main.bounds.size.width * UIScreen.main.scale)
-        let screenResolution = "\(width)x\(height)".data(using: .utf8)?.base64EncodedString() ?? ""
-        
+        let screenResolution = "\(Int(width))x\(Int(height))".data(using: .utf8)?.base64EncodedString() ?? ""
+
         let params = ["username": usernamebase64,
                       "password": passwordbase64,
                       "deviceId": deviceIdbase64,
-            "firebaseToken":firebaseToken,
+            "firebaseToken":firebaseToken64,
             "brand":brand,
             "model":model,
             "product":product,
@@ -114,7 +116,7 @@ class NetworkManager: NSObject {
     }
     
     static func logoutRequest() {
-        let logoutURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.wsLogout
+        let logoutURLString = WebServices.hostName + WebServices.apiToUse + WebServices.wsLogout
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
         let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -159,7 +161,7 @@ class NetworkManager: NSObject {
             postContetn = "\(postContetn)&\(element.key)=\(element.value)"
         }
         
-        let getProductURLString = WebServices.devHostName + WebServices.apiToUse + endPoint
+        let getProductURLString = WebServices.hostName + WebServices.apiToUse + endPoint
         var request = URLRequest.init(url: URL.init(string: getProductURLString)!)
         request.httpMethod = "POST"
         request.httpBody = postContetn.data(using: .utf8)
@@ -186,7 +188,7 @@ class NetworkManager: NSObject {
     
     static func getProductDetails(product: ProductModel, successHandler: @escaping (_ productDetails: [String: Any?]? )->(), errorHandler: @escaping (_ errorMessage:String) ->()) {
         
-        let getProductURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.getProductDetails
+        let getProductURLString = WebServices.hostName + WebServices.apiToUse + WebServices.getProductDetails
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
         let postId = product.id ?? ""
@@ -225,7 +227,7 @@ class NetworkManager: NSObject {
     }
     
     static func getUnreadMessageCount(updateNumberOfMessageHandler: @escaping (_ numberOfMessage:Int) ->()) {
-        let getUnreadURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.getUnreadMessageCounter
+        let getUnreadURLString = WebServices.hostName + WebServices.apiToUse + WebServices.getUnreadMessageCounter
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
         let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -263,7 +265,7 @@ class NetworkManager: NSObject {
     }
     
     static func sendMessage(postId: String, subject: String, message: String, sendMessageHandler: @escaping (_ message:String) ->()) {
-        let getUnreadURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.sendMessage
+        let getUnreadURLString = WebServices.hostName + WebServices.apiToUse + WebServices.sendMessage
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
         let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -309,7 +311,7 @@ class NetworkManager: NSObject {
     
     
     static func sendFeedback(subject: String, message: String, sendMessageHandler: @escaping (_ message:String) ->()) {
-        let getUnreadURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.sendFeedbackMessage
+        let getUnreadURLString = WebServices.hostName + WebServices.apiToUse + WebServices.sendFeedbackMessage
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
         let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -353,7 +355,7 @@ class NetworkManager: NSObject {
     }
     
     static func getMessages(endPoint:String, successHandler: @escaping (_ products: [[String: Any?]?]? )->(), errorHandler: @escaping (_ errorMessage:String) ->())  {
-        let getUnreadURLString = WebServices.devHostName + WebServices.apiToUse + endPoint
+        let getUnreadURLString = WebServices.hostName + WebServices.apiToUse + endPoint
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
         let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -389,7 +391,7 @@ class NetworkManager: NSObject {
     }
     
     static func getMessage(messageId: String, endPoint:String, successHandler: @escaping (_ message: [String: Any?]? )->(), errorHandler: @escaping (_ errorMessage:String) ->())  {
-        let getUnreadURLString = WebServices.devHostName + WebServices.apiToUse + endPoint
+        let getUnreadURLString = WebServices.hostName + WebServices.apiToUse + endPoint
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
         let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -429,7 +431,7 @@ class NetworkManager: NSObject {
     }
     
     static func sendReply(messageId: String, senderId: String, message: String, sendMessageHandler: @escaping (_ message:String) ->()) {
-        let getUnreadURLString = WebServices.devHostName + WebServices.apiToUse + WebServices.sendReplyMessage
+        let getUnreadURLString = WebServices.hostName + WebServices.apiToUse + WebServices.sendReplyMessage
         let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
         let userID = SessionManager.manager.userModel?.id ?? ""
         let deviceIDBase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
@@ -469,6 +471,68 @@ class NetworkManager: NSObject {
                     let dataString = String.init(data: data!, encoding: .utf8) ?? ""
                     print("Details of JSON parsing error:\n\(error) \n string = \(dataString)")
                 }
+            }
+        }
+        sessionTask.resume()
+    }
+    
+    
+    static func updateDeviceInformation() {
+        let loginURLString = WebServices.hostName + WebServices.apiToUse + WebServices.updateDevice
+        let deviceId = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceID) ?? ""
+        let deviceIdbase64 = deviceId.data(using: .utf8)?.base64EncodedString() ?? ""
+        let firebaseToken = KeychainWrapper.standard.string(forKey: KeychainConstant.fcmToken) ?? "invalidFirebaseToken"
+        let firebaseToken64 = firebaseToken.data(using: .utf8)?.base64EncodedString() ?? "invalidFirebaseToken"
+        let brand = "Apple".data(using: .utf8)?.base64EncodedString() ?? ""
+        let model = NetworkManager.gedDeviceModel().data(using: .utf8)?.base64EncodedString() ?? ""
+        let version = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0.0"
+        let product = version.data(using: .utf8)?.base64EncodedString() ?? ""
+        let os = "IOS".data(using: .utf8)?.base64EncodedString() ?? ""
+        let release = UIDevice.current.systemVersion.data(using: .utf8)?.base64EncodedString() ?? ""
+        KeychainWrapper.standard.set(UIDevice.current.systemVersion, forKey: KeychainConstant.deviceOSVersion)
+        let sdk = "iOS11".data(using: .utf8)?.base64EncodedString() ?? ""
+        let height = (UIScreen.main.bounds.size.height * UIScreen.main.scale)
+        let width = (UIScreen.main.bounds.size.width * UIScreen.main.scale)
+        let screenResolution = "\(Int(width))x\(Int(height))".data(using: .utf8)?.base64EncodedString() ?? ""
+        let userID = SessionManager.manager.userModel?.id ?? ""
+        let userIDBase64 = userID.data(using: .utf8)?.base64EncodedString() ?? ""
+        
+        
+        let params = ["oldDeviceId": deviceIdbase64,
+                      "deviceId": deviceIdbase64,
+                      "firebaseToken":firebaseToken64,
+                      "userId":userIDBase64,
+                      "brand":brand,
+                      "model":model,
+                      "product":product,
+                      "os":os,
+                      "release":release,
+                      "sdk":sdk,
+                      "screenResolution":screenResolution]
+        var postContetn = ""
+        for element in params {
+            postContetn = "\(postContetn)&\(element.key)=\(element.value)"
+        }
+        
+        var request = URLRequest.init(url: URL.init(string: loginURLString)!)
+        request.httpMethod = "POST"
+        request.httpBody = postContetn.data(using: .utf8)
+        let sessionConfiguration = URLSessionConfiguration.default
+        let session = URLSession.init(configuration: sessionConfiguration)
+        let sessionTask = session.dataTask(with: request) { (data: Data?, urlresponse: URLResponse?, error: Error?) in
+            
+            if data != nil{
+                do {
+                    let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                    
+                    let responseDictionary = parsedData as? [String : Any?]
+                    print("responseDictionary  \(String(describing: responseDictionary))")
+                }
+                    //else throw an error detailing what went wrong
+                catch let error as NSError {
+                    print("Details of JSON parsing error:\n \(error)")
+                }
+                
             }
         }
         sessionTask.resume()

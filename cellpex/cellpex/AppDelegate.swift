@@ -58,6 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Crashlytics.sharedInstance().setUserName(SessionManager.manager.userModel?.id)
         Crashlytics.sharedInstance().setUserEmail(SessionManager.manager.userModel?.email)
         
+        let oldDeviceVersion = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceOSVersion)
+        if  UIDevice.current.systemVersion != oldDeviceVersion {
+            NetworkManager.updateDeviceInformation()
+        }
+        
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         
         let mainViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
@@ -171,9 +176,12 @@ extension AppDelegate : MessagingDelegate {
     // [START refresh_token]
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token: \(fcmToken)")
+        let oldFCMToken = KeychainWrapper.standard.string(forKey: KeychainConstant.fcmToken)
+        KeychainWrapper.standard.set(fcmToken, forKey: KeychainConstant.fcmToken)
+        if fcmToken != oldFCMToken {
+            NetworkManager.updateDeviceInformation()
+        }
         
-        // TODO: If necessary send token to application server.
-        // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
     // [END refresh_token]
     // [START ios_10_data_message]
