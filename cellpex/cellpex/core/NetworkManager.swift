@@ -254,6 +254,7 @@ class NetworkManager: NSObject {
                     let responseDictionary = parsedData as? [String : Any?]
                     let responseData = responseDictionary?["data"] as? [String : Any?]
                     let number = responseData?["nr"] as? Int ?? 0
+                    UIApplication.shared.applicationIconBadgeNumber = number
                     updateNumberOfMessageHandler(number)
                 }
                     //else throw an error detailing what went wrong
