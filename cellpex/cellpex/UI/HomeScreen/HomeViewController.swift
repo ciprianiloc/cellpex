@@ -36,6 +36,7 @@ class HomeViewController: ListOfProductsViewController {
             DispatchQueue.main.async {
                 self?.numberOfUnreadMessages = numberOfMessage
                 self?.unreadMessagesLabel.text = (numberOfMessage > 0) ? "Unread messages \(numberOfMessage)" : ""
+                UIApplication.shared.applicationIconBadgeNumber = numberOfMessage
             }
         }
     }

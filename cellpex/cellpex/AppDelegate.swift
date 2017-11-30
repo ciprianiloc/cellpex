@@ -59,7 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Crashlytics.sharedInstance().setUserEmail(SessionManager.manager.userModel?.email)
         let shouldPerformUpdate = UserDefaults.standard.object(forKey: UtilsConstant.shouldPerformUpdate) as? String
         let oldDeviceVersion = KeychainWrapper.standard.string(forKey: KeychainConstant.deviceOSVersion)
-        if  UIDevice.current.systemVersion != oldDeviceVersion || shouldPerformUpdate == "YES" {
+        let oldAppVersion = UserDefaults.standard.object(forKey: UtilsConstant.LastAppVersionKey) as? String
+        let currentVersion = Bundle.main.object(forInfoDictionaryKey: UtilsConstant.appVersionKey) as? String
+        let shouldUpdate = UIDevice.current.systemVersion != oldDeviceVersion || shouldPerformUpdate == "YES" || currentVersion != oldAppVersion
+        if  shouldUpdate {
             NetworkManager.updateDeviceInformation()
         }
         

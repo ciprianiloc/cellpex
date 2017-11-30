@@ -55,6 +55,9 @@ class NetworkManager: NSObject {
         let os = "IOS".data(using: .utf8)?.base64EncodedString() ?? ""
         let release = UIDevice.current.systemVersion.data(using: .utf8)?.base64EncodedString() ?? ""
         KeychainWrapper.standard.set(UIDevice.current.systemVersion, forKey: KeychainConstant.deviceOSVersion)
+        let appVersion = Bundle.main.object(forInfoDictionaryKey: UtilsConstant.appVersionKey) as? String
+        UserDefaults.standard.set(appVersion, forKey: UtilsConstant.LastAppVersionKey)
+        let appVersion64 = appVersion?.data(using: .utf8)?.base64EncodedString() ?? "1.0.0"
         let sdk = "iOS11".data(using: .utf8)?.base64EncodedString() ?? ""
         let height = (UIScreen.main.bounds.size.height * UIScreen.main.scale)
         let width = (UIScreen.main.bounds.size.width * UIScreen.main.scale)
@@ -70,7 +73,8 @@ class NetworkManager: NSObject {
             "os":os,
             "release":release,
             "sdk":sdk,
-            "screenResolution":screenResolution]
+            "screenResolution":screenResolution,
+            "appVersion":appVersion64]
         var postContetn = ""
         for element in params {
             postContetn = "\(postContetn)&\(element.key)=\(element.value)"
@@ -254,7 +258,6 @@ class NetworkManager: NSObject {
                     let responseDictionary = parsedData as? [String : Any?]
                     let responseData = responseDictionary?["data"] as? [String : Any?]
                     let number = responseData?["nr"] as? Int ?? 0
-                    UIApplication.shared.applicationIconBadgeNumber = number
                     updateNumberOfMessageHandler(number)
                 }
                     //else throw an error detailing what went wrong
@@ -501,7 +504,9 @@ class NetworkManager: NSObject {
         let width = (UIScreen.main.bounds.size.width * UIScreen.main.scale)
         let screenResolution = "\(Int(width))x\(Int(height))".data(using: .utf8)?.base64EncodedString() ?? ""
         let userIDBase64 = userID.data(using: .utf8)?.base64EncodedString() ?? ""
-        
+        let appVersion = Bundle.main.object(forInfoDictionaryKey: UtilsConstant.appVersionKey) as? String
+        UserDefaults.standard.set(appVersion, forKey: UtilsConstant.LastAppVersionKey)
+        let appVersion64 = appVersion?.data(using: .utf8)?.base64EncodedString() ?? "1.0.0"
         
         let params = ["oldDeviceId": deviceIdbase64,
                       "deviceId": deviceIdbase64,
@@ -513,7 +518,8 @@ class NetworkManager: NSObject {
                       "os":os,
                       "release":release,
                       "sdk":sdk,
-                      "screenResolution":screenResolution]
+                      "screenResolution":screenResolution,
+                      "appVersion":appVersion64]
         var postContetn = ""
         for element in params {
             postContetn = "\(postContetn)&\(element.key)=\(element.value)"

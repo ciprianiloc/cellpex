@@ -53,4 +53,6 @@ struct KeychainConstant {
 
 struct UtilsConstant {
     static let shouldPerformUpdate = "ShouldPerformUpdate"
+    static let appVersionKey = "CFBundleShortVersionString"
+    static let LastAppVersionKey = "LastAppVersionKey"
 }
