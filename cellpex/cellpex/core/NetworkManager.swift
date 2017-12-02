@@ -11,6 +11,18 @@ import SwiftKeychainWrapper
 import SafariServices
 import Crashlytics
 
+struct ErrorMessage {
+    let errorTitle: String?
+    let errorMessage: String?
+    let errorCode: Int?
+    
+    init(title: String?, message: String?, code: Int?) {
+        errorTitle = title
+        errorMessage = message
+        errorCode = code
+    }
+}
+
 class NetworkManager: NSObject {
     static func gedDeviceModel() -> String {
         var systemInfo = utsname()
@@ -37,6 +49,35 @@ class NetworkManager: NSObject {
         URLSession.shared.dataTask(with: url) { data, response, error in
             completion(data, response, error)
             }.resume()
+    }
+    
+    static func serverRequest(urlString: String, postParameters: [String: String], completion: @escaping (_ responseJSON: [String : Any?]?, _ error: ErrorMessage?) -> ()){
+        var postContetn = ""
+        for element in postParameters {
+            postContetn = "\(postContetn)&\(element.key)=\(element.value)"
+        }
+        var request = URLRequest.init(url: URL.init(string: urlString)!)
+        request.httpMethod = "POST"
+        request.httpBody = postContetn.data(using: .utf8)
+        let sessionConfiguration = URLSessionConfiguration.default
+        let session = URLSession.init(configuration: sessionConfiguration)
+        let sessionTask = session.dataTask(with: request) { (data: Data?, urlresponse: URLResponse?, error: Error?) in
+            
+            if data != nil{
+                do {
+                    let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                    let responseDictionary = parsedData as? [String : Any?]
+                    completion(responseDictionary, nil)
+                }
+                    //else throw an error detailing what went wrong
+                catch let error as NSError {
+                    completion(nil, ErrorMessage.init(title: nil, message: "Unexpected data", code: nil))
+                    let dataString = String.init(data: data!, encoding: .utf8) ?? ""
+                    print("Details of JSON parsing error:\n\(error) \n string = \(dataString)")
+                }
+            }
+        }
+        sessionTask.resume()
     }
     
     static func loginWithUserName(username: String, password:String, successHandler: @escaping ()->(), errorHandler: @escaping (_ errorMessage:String) ->()) {
@@ -75,49 +116,24 @@ class NetworkManager: NSObject {
             "sdk":sdk,
             "screenResolution":screenResolution,
             "appVersion":appVersion64]
-        var postContetn = ""
-        for element in params {
-            postContetn = "\(postContetn)&\(element.key)=\(element.value)"
-        }
-        
-        var request = URLRequest.init(url: URL.init(string: loginURLString)!)
-        request.httpMethod = "POST"
-        request.httpBody = postContetn.data(using: .utf8)
-        let sessionConfiguration = URLSessionConfiguration.default
-        let session = URLSession.init(configuration: sessionConfiguration)
-        let sessionTask = session.dataTask(with: request) { (data: Data?, urlresponse: URLResponse?, error: Error?) in
-            
-            if data != nil{
-                do {
-                    let parsedData = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
-                    
-                    let responseDictionary = parsedData as? [String : Any?]
-                    let errorValue = responseDictionary?["error"] as! String
-                    if errorValue == "0" {
-                        let dataDictionary = responseDictionary?["data"] as? [String : Any?]
-                        let loadUserModelWithSuccess = SessionManager.manager.loadUserModel(dictinary: dataDictionary)
-                        if loadUserModelWithSuccess {
-                            successHandler()
-                            Crashlytics.sharedInstance().setUserName(SessionManager.manager.userModel?.id)
-                            Crashlytics.sharedInstance().setUserEmail(SessionManager.manager.userModel?.email)
-                        } else {
-                            errorHandler("Try again later!")
-                        }
-                    } else {
-                        let message = (responseDictionary?["message"] as? String) ?? "Try again later!"
-                        errorHandler(message)
-                    }
-                }
-                    //else throw an error detailing what went wrong
-                catch let error as NSError {
+        NetworkManager.serverRequest(urlString: loginURLString, postParameters: params) { (dataDictionary: [String : Any?]?, errorMessage: ErrorMessage? ) in
+            let errorValue = dataDictionary?["error"] as? String
+            if errorValue == "0" {
+                let dataDictionary = dataDictionary?["data"] as? [String : Any?]
+                let loadUserModelWithSuccess = SessionManager.manager.loadUserModel(dictinary: dataDictionary)
+                if loadUserModelWithSuccess {
+                    successHandler()
+                    Crashlytics.sharedInstance().setUserName(SessionManager.manager.userModel?.id)
+                    Crashlytics.sharedInstance().setUserEmail(SessionManager.manager.userModel?.email)
+                } else {
                     errorHandler("Try again later!")
-                    print("Details of JSON parsing error:\n \(error)")
                 }
-                
+            } else {
+                let message = (dataDictionary?["message"] as? String) ?? "Try again later!"
+                errorHandler(message)
             }
+            
         }
-        sessionTask.resume()
-        
     }
     
     static func logoutRequest() {
