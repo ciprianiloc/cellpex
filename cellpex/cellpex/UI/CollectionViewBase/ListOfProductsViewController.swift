@@ -9,7 +9,7 @@
 import UIKit
 import SwiftKeychainWrapper
 
-class ListOfProductsViewController: UIViewController {
+class ListOfProductsViewController: BaseViewController {
 
     let searchController = UISearchController(searchResultsController: nil)
     @IBOutlet weak var collectionView: UICollectionView!
@@ -75,6 +75,10 @@ class ListOfProductsViewController: UIViewController {
     }
     
     @objc func handleRefresh(refreshControl: UIRefreshControl) {
+        guard displayNoInternetConnectionAlertIfNeeded() == false else {
+            self.refreshControl.endRefreshing()
+            return
+        }
         searchController.searchBar.text = nil
         productManager.reloadProducts { [weak self] in
             DispatchQueue.main.async {
@@ -85,6 +89,10 @@ class ListOfProductsViewController: UIViewController {
         }
     }
     @objc func bottomRefreshControl(refreshControl: UIRefreshControl) {
+        guard displayNoInternetConnectionAlertIfNeeded() == false else {
+            self.bottomRefreshControl.endRefreshing()
+            return
+        }
         self.productManager.requestNextPage {[weak self] in
             self?.bottomRefreshControl.endRefreshing()
             self?.productsReceived()

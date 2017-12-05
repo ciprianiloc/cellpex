@@ -15,7 +15,7 @@ class MessageCell: UITableViewCell {
 }
 
 
-class MessageViewController: UIViewController {
+class MessageViewController: BaseViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var messageTextViewHeight: NSLayoutConstraint!
@@ -129,7 +129,7 @@ class MessageViewController: UIViewController {
         guard let messageString = string else {
             return nil
         }
-        let message = messageString + "<style>body{font-family: \(dateLabel.font.fontName); font-size:16px;}</style>"
+        let message = messageString + "<style>body{font-family: \(dateLabel.font.fontName); font-size:18px;}</style>"
         do {
             return try NSAttributedString(data: (message.data(using: .utf8))!,
                                           options: [

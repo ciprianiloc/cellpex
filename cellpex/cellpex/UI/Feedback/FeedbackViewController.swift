@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-class FeedbackViewController: UIViewController {
+class FeedbackViewController: BaseViewController {
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var sendButtonButomConstraint: NSLayoutConstraint!

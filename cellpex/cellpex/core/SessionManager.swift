@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Reachability
 
 final class SessionManager: NSObject {
     
     static let manager = SessionManager()
     var userModel : UserModel?
-    
+    let reachability = Reachability()
+
     override private init() {
         super.init()
     }

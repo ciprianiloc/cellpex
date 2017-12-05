@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 import SwiftKeychainWrapper
 import Firebase
-class LoginViewController: UIViewController {
+class LoginViewController: BaseViewController {
 
     @IBOutlet weak var passwordTextField: PaddedTextField!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -53,6 +53,9 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func signInButtonAction(_ sender: Any) {
+        guard displayNoInternetConnectionAlertIfNeeded() == false else {
+            return
+        }
         self.loginSpinner.startAnimating()
         NetworkManager.loginWithUserName(username: usernameTextField.text!, password: passwordTextField.text!, successHandler: { [weak self] in
             DispatchQueue.main.async {

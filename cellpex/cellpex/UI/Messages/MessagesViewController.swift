@@ -31,7 +31,7 @@ class MessageTableViewCell: UITableViewCell {
     }
 }
 
-class MessagesViewController: UIViewController {
+class MessagesViewController: BaseViewController {
     @IBOutlet weak var messageSelector: UISegmentedControl!
     @IBOutlet weak var messagesTableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!

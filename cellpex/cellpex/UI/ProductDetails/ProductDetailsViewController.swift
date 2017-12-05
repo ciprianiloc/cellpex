@@ -82,7 +82,7 @@ class AditionalDetailsCell: UICollectionViewCell {
 }
 
 
-class ProductDetailsViewController: UIViewController {
+class ProductDetailsViewController: BaseViewController {
     private var productDetailsModel : ProductDetailsModel?
     @IBOutlet weak var productDetailsCollectionView: UICollectionView!
     @IBOutlet weak var collectionViewButtomConstraints: NSLayoutConstraint!
