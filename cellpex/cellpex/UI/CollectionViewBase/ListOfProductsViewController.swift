@@ -55,6 +55,10 @@ class ListOfProductsViewController: BaseViewController {
         self.view.setNeedsDisplay()
     }
     
+    func infoLabel(hiddenStatus:Bool) {
+        
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if ("showProductDetails" == segue.identifier) {
             let productDetails = segue.destination as! ProductDetailsViewController
@@ -80,10 +84,13 @@ class ListOfProductsViewController: BaseViewController {
             return
         }
         searchController.searchBar.text = nil
+        self.infoLabel(hiddenStatus: false)
         productManager.reloadProducts { [weak self] in
             DispatchQueue.main.async {
                 self?.refreshControl.endRefreshing()
                 self?.filterLabel.text = self?.valueForNoFilter
+                let productCount = self?.productManager.products.count ?? 0
+                self?.infoLabel(hiddenStatus: (productCount > 0))
             }
             self?.productsReceived()
         }

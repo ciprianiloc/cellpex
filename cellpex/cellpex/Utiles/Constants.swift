@@ -18,7 +18,7 @@ struct URLConstant {
 }
 
 struct WebServices {
-    static let isForDevelopment = true
+    static let isForDevelopment = false
     static let productionHostName = "https://www.cellpex.com/"
     static let devHostName = "https://dev.cellpex.com/"
     static let apiToUse = "XXXapi/v1/"

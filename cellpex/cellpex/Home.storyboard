@@ -748,6 +748,15 @@
                                     <outlet property="delegate" destination="HvN-OJ-5fF" id="Fxf-1V-pzJ"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No following inventory, please use the search above." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLP-eV-8pu">
+                                <rect key="frame" x="20" y="80" width="335" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="x8G-0W-jqW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -755,9 +764,12 @@
                             <constraint firstItem="X2H-g5-RNo" firstAttribute="trailing" secondItem="TZy-XL-8ru" secondAttribute="trailing" id="374-dg-nem"/>
                             <constraint firstItem="c7A-C1-cer" firstAttribute="leading" secondItem="X2H-g5-RNo" secondAttribute="leading" id="Gll-2B-POE"/>
                             <constraint firstItem="c7A-C1-cer" firstAttribute="trailing" secondItem="X2H-g5-RNo" secondAttribute="trailing" id="JBi-ra-oI2"/>
+                            <constraint firstItem="hLP-eV-8pu" firstAttribute="leading" secondItem="X2H-g5-RNo" secondAttribute="leading" constant="20" id="Qda-y8-spX"/>
+                            <constraint firstItem="X2H-g5-RNo" firstAttribute="trailing" secondItem="hLP-eV-8pu" secondAttribute="trailing" constant="20" id="Xhb-xj-mzf"/>
                             <constraint firstItem="TZy-XL-8ru" firstAttribute="top" secondItem="X2H-g5-RNo" secondAttribute="top" id="cR8-B4-0Dq"/>
                             <constraint firstItem="TZy-XL-8ru" firstAttribute="leading" secondItem="X2H-g5-RNo" secondAttribute="leading" id="esD-p6-coQ"/>
                             <constraint firstItem="X2H-g5-RNo" firstAttribute="bottom" secondItem="c7A-C1-cer" secondAttribute="bottom" id="eyH-wx-jQJ"/>
+                            <constraint firstItem="hLP-eV-8pu" firstAttribute="top" secondItem="TZy-XL-8ru" secondAttribute="bottom" constant="30" id="swP-WD-VCf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="X2H-g5-RNo"/>
                     </view>
@@ -765,6 +777,7 @@
                         <outlet property="collectionView" destination="c7A-C1-cer" id="pbg-C2-cXm"/>
                         <outlet property="collectionViewButtomConstraint" destination="eyH-wx-jQJ" id="xVf-QF-VdW"/>
                         <outlet property="filterLabel" destination="k8B-PV-sFP" id="RhI-TI-IS9"/>
+                        <outlet property="noElementsLabel" destination="hLP-eV-8pu" id="2op-XG-IQq"/>
                         <outlet property="unreadMessagesLabel" destination="Cik-zN-rEA" id="iSc-1P-u1C"/>
                         <segue destination="MN3-qc-L7K" kind="show" identifier="showProductDetails" id="kDp-8W-fr3"/>
                     </connections>
