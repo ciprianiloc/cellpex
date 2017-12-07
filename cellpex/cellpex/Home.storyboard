@@ -280,7 +280,7 @@
         <!--Message View Controller-->
         <scene sceneID="uSC-Um-cIK">
             <objects>
-                <viewController id="xjn-ll-gqq" customClass="MessageViewController" customModule="cellpex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MessageViewController" id="xjn-ll-gqq" customClass="MessageViewController" customModule="cellpex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fI6-4R-ztw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1326,6 +1326,6 @@
         <image name="send_message_enabled_icon" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kDp-8W-fr3"/>
+        <segue reference="Iwy-Ez-BS2"/>
     </inferredMetricsTieBreakers>
 </document>

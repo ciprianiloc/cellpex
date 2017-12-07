@@ -78,7 +78,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
         slideMenuController.delegate = mainViewController
-
+        //TODO handle redirect to message if user opens the app by tapping on a PN message
+//        if let messageViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController") as? MessageViewController {
+//            let mesageModel = InboxMessagesModel.init(dictionary: nil)
+//            messageViewController.requestInboxMessageDetails(mesageModel: mesageModel)
+//            nvc.viewControllers.append(messageViewController)
+//        }
+        
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
         
