@@ -40,11 +40,7 @@ class MessageViewController: BaseViewController {
     private var screenType = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        spinner.startAnimating()
-        messageHeader.isHidden = true
-        messageTextView.isHidden = true
-        sendButton.isHidden = true
-        underLineTextView.isHidden = true
+        self.beforeMessageIsLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,7 +48,15 @@ class MessageViewController: BaseViewController {
         Analytics.setScreenName("\(screenType)MessageScreen", screenClass: "MessageViewController")
     }
     
-    func updateSubviews(isSystem:Bool) {
+    func beforeMessageIsLoad() {
+        spinner.startAnimating()
+        messageHeader.isHidden = true
+        messageTextView.isHidden = true
+        sendButton.isHidden = true
+        underLineTextView.isHidden = true
+    }
+    
+    private func updateSubviews(isSystem:Bool) {
         hasTextView = !isSystem
         if isSystem {
             tableViewButtomConstraings.isActive = false

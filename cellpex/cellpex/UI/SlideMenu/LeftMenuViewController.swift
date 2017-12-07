@@ -46,6 +46,15 @@ class LeftMenuViewController: UIViewController {
                 self.userLogo.image = UIImage(data: data)
             }
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receiveNotification), name: NSNotification.Name(rawValue: "shouldOpenMessage"), object: nil)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "shouldOpenMessage"), object: nil)
+    }
+    
+    
+    @objc func receiveNotification(withNotification:Notification) {
+        self.toggleLeft()
     }
     
     override func viewDidAppear(_ animated: Bool) {

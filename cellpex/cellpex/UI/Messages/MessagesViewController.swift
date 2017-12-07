@@ -63,6 +63,13 @@ class MessagesViewController: BaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if messagesManager.inboxMessages.count > 0 || messagesManager.sentMessages.count > 0 {
+            messagesTableView.reloadData()
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let screenType = (messageSelector.selectedSegmentIndex == 0) ? "Inbox" : "Sent"
@@ -128,8 +135,10 @@ class MessagesViewController: BaseViewController {
             let messageVC = segue.destination as! MessageViewController
             if messageSelector.selectedSegmentIndex == 0 {
                 let message = messagesManager.inboxMessages[selectedIndex]
+                messagesManager.inboxMessages[selectedIndex].viewed = "yes"
                 messageVC.requestInboxMessageDetails(mesageID: message.id)
             } else {
+                messagesManager.sentMessages[selectedIndex].viewed = "yes"
                 let message = messagesManager.sentMessages[selectedIndex]
                 messageVC.requestSentMessageDetails(mesageID: message.id)
             }

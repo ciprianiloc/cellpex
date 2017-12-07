@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.makeKeyAndVisible()
             return true
         }
-
+        print("CELLPEEEXX : \(String(describing: launchOptions))")
         Crashlytics.sharedInstance().setUserName(SessionManager.manager.userModel?.id)
         Crashlytics.sharedInstance().setUserEmail(SessionManager.manager.userModel?.email)
         let shouldPerformUpdate = UserDefaults.standard.object(forKey: UtilsConstant.shouldPerformUpdate) as? String
@@ -78,12 +78,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let slideMenuController = ExSlideMenuController(mainViewController:nvc, leftMenuViewController: leftViewController)
         slideMenuController.delegate = mainViewController
-        //TODO handle redirect to message if user opens the app by tapping on a PN message
-//        if let messageViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController") as? MessageViewController {
-//            let mesageModel = InboxMessagesModel.init(dictionary: nil)
-//            messageViewController.requestInboxMessageDetails(mesageModel: mesageModel)
-//            nvc.viewControllers.append(messageViewController)
-//        }
+        
+        if launchOptions != nil {
+            let notificationObject = launchOptions![UIApplicationLaunchOptionsKey.remoteNotification] as? [String:Any?]
+            if let messageID = notificationObject?["gcm.notification.id"] as? String {
+                if let messageViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController") as? MessageViewController {
+                    messageViewController.requestInboxMessageDetails(mesageID: messageID)
+                    nvc.viewControllers.append(messageViewController)
+                }
+            }
+        }
+
         
         self.window?.rootViewController = slideMenuController
         self.window?.makeKeyAndVisible()
@@ -100,11 +105,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
+            print("Message 103 ID: \(messageID)")
         }
         
         // Print full message.
-        print(userInfo)
+        print("107:"); print(userInfo)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
@@ -116,11 +121,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
+            print("Message 119 ID: \(messageID)")
         }
         
         // Print full message.
-        print(userInfo)
+        print("123:");print(userInfo)
         
         completionHandler(UIBackgroundFetchResult.newData)
     }
@@ -154,11 +159,11 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
+            print("Message 157 ID: \(messageID)")
         }
         
-        // Print full message.
-        print(userInfo)
+        // Print full message. //get message when the app running
+        print("161:");print(userInfo)
         
         // Change this to your preferred presentation option
         completionHandler([])
@@ -168,14 +173,22 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        // Print message ID.
+        // Print message ID. tap on notifications
         if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
+            print("Message 173 ID: \(messageID)")
         }
         
         // Print full message.
-        print(userInfo)
-        
+        print("177:");print(userInfo)
+        if let messageID = userInfo["gcm.notification.id"] as? String {
+            if let controller = self.window?.rootViewController?.presentedViewController {
+                controller.dismiss(animated: false, completion: {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shouldOpenMessage"), object: messageID)
+                })
+            } else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "shouldOpenMessage"), object: messageID)
+            }
+        }
         completionHandler()
     }
 }

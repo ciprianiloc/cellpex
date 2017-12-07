@@ -43,6 +43,7 @@ class LoginViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "shouldOpenMessage"), object: nil)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
