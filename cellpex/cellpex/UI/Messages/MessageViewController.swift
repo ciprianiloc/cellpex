@@ -42,20 +42,19 @@ class MessageViewController: BaseViewController {
         super.viewDidLoad()
         spinner.startAnimating()
         messageHeader.isHidden = true
-        if hasTextView {
-            sendButton.isEnabled = (messageTextView.text.isEmpty == false)
-            placeholderLabel.text = "Type your message..."
-
-            placeholderLabel.font = UIFont.italicSystemFont(ofSize: (messageTextView.font?.pointSize)!)
-            placeholderLabel.sizeToFit()
-            messageTextView.addSubview(placeholderLabel)
-            placeholderLabel.frame.origin = CGPoint(x: 5, y: (messageTextView.font?.pointSize)! / 2)
-            placeholderLabel.textColor = UIColor.lightGray
-            placeholderLabel.isHidden = !messageTextView.text.isEmpty
-            NotificationCenter.default.addObserver(self, selector: #selector(self.textViewHasChanged), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
-        } else {
+        messageTextView.isHidden = true
+        sendButton.isHidden = true
+        underLineTextView.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Analytics.setScreenName("\(screenType)MessageScreen", screenClass: "MessageViewController")
+    }
+    
+    func updateSubviews(isSystem:Bool) {
+        hasTextView = !isSystem
+        if isSystem {
             tableViewButtomConstraings.isActive = false
             messageTextView.removeFromSuperview()
             sendButton.removeFromSuperview()
@@ -68,22 +67,34 @@ class MessageViewController: BaseViewController {
                 buttomConstraints = self.bottomLayoutGuide.bottomAnchor
             }
             messageTableView.bottomAnchor.constraint(equalTo: buttomConstraints).isActive = true
+        } else {
+            messageTextView.isHidden = false
+            sendButton.isHidden = false
+            underLineTextView.isHidden = false
+            sendButton.isEnabled = (messageTextView.text.isEmpty == false)
+            placeholderLabel.text = "Type your message..."
+            
+            placeholderLabel.font = UIFont.italicSystemFont(ofSize: (messageTextView.font?.pointSize)!)
+            placeholderLabel.sizeToFit()
+            messageTextView.addSubview(placeholderLabel)
+            placeholderLabel.frame.origin = CGPoint(x: 5, y: (messageTextView.font?.pointSize)! / 2)
+            placeholderLabel.textColor = UIColor.lightGray
+            placeholderLabel.isHidden = !messageTextView.text.isEmpty
+            NotificationCenter.default.addObserver(self, selector: #selector(self.textViewHasChanged), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        Analytics.setScreenName("\(screenType)MessageScreen", screenClass: "MessageViewController")
-    }
-    
-    func requestInboxMessageDetails(mesageModel : InboxMessagesModel) {
-        let messageId = mesageModel.id ?? ""
+    func requestInboxMessageDetails(mesageID : String?) {
+        let messageId = mesageID ?? ""
         screenType = "Inbox"
-        hasTextView = (mesageModel.system == "0")
         NetworkManager.getMessage(messageId: messageId, endPoint: WebServices.getInboxMessage, successHandler: { [weak self](messageDictionary: [String : Any?]?) in
             self?.shouldDisplayTheMessage = true
             DispatchQueue.main.async {
                 let model = InboxMessageModel.init(dictionary: messageDictionary)
+                let isSystem = (model.system == "1")
+                self?.updateSubviews(isSystem: isSystem)
                 self?.messageText = model.message ?? ""
                 self?.messageID = model.id ?? ""
                 self?.senderId = model.senderId ?? ""
@@ -101,8 +112,8 @@ class MessageViewController: BaseViewController {
         }
     }
     
-    func requestSentMessageDetails(mesageModel : SentMessagesModel) {
-        let messageId = mesageModel.id ?? ""
+    func requestSentMessageDetails(mesageID : String?) {
+        let messageId = mesageID ?? ""
         hasTextView = false
         screenType = "Sent"
         NetworkManager.getMessage(messageId: messageId, endPoint: WebServices.getSendMessage, successHandler: { [weak self](messageDictionary: [String : Any?]?) in
@@ -112,7 +123,7 @@ class MessageViewController: BaseViewController {
                 self?.messageText = model.message ?? ""
                 self?.messageID = model.id ?? ""
                 self?.senderId = model.receiverId ?? ""
-                
+                self?.updateSubviews(isSystem: true)
                 self?.subjectToLabel.text = model.subject
                 self?.userLabel.text = model.user
                 self?.dateLabel.text = model.date

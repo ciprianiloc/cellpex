@@ -128,10 +128,10 @@ class MessagesViewController: BaseViewController {
             let messageVC = segue.destination as! MessageViewController
             if messageSelector.selectedSegmentIndex == 0 {
                 let message = messagesManager.inboxMessages[selectedIndex]
-                messageVC.requestInboxMessageDetails(mesageModel: message)
+                messageVC.requestInboxMessageDetails(mesageID: message.id)
             } else {
                 let message = messagesManager.sentMessages[selectedIndex]
-                messageVC.requestSentMessageDetails(mesageModel: message)
+                messageVC.requestSentMessageDetails(mesageID: message.id)
             }
         }
     }
