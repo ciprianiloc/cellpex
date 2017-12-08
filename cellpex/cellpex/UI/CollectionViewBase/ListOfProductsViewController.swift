@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import SDWebImage
 
 class ListOfProductsViewController: BaseViewController {
 
@@ -128,19 +129,17 @@ extension ListOfProductsViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
         let product = productManager.products[indexPath.row]
-        if let productImage = product.image {
-            cell.productImageView.image = productImage
-        } else {
-            let imageUrl = product.imageUrl ?? ""
-            NetworkManager.getDataFromUrl(url: URL(string: imageUrl)!) { data, response, error in
-                guard let data = data, error == nil else { return }
-                DispatchQueue.main.async() {
-                    let image = UIImage(data: data)
-                    cell.productImageView.image = image
-                    self.productManager.products[indexPath.row].image = image
-                }
-            }
-        }
+
+        let imageUrl = product.imageUrl ?? ""
+        cell.productImageView.sd_setImage(with: URL(string: imageUrl), completed: nil)
+//            NetworkManager.getDataFromUrl(url: URL(string: imageUrl)!) { data, response, error in
+//                guard let data = data, error == nil else { return }
+//                DispatchQueue.main.async() {
+//                    let image = UIImage(data: data)
+//                    cell.productImageView.image = image
+//                    self.productManager.products[indexPath.row].image = image
+//                }
+//            }
         
         cell.productDateLabel.text = product.date
         cell.userLabel.text = product.user
