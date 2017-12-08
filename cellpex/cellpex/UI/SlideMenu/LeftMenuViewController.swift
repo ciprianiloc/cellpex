@@ -54,7 +54,9 @@ class LeftMenuViewController: UIViewController {
     
     
     @objc func receiveNotification(withNotification:Notification) {
-        self.toggleLeft()
+        if let _ = self.slideMenuController()?.isLeftOpen() {
+            self.slideMenuController()?.closeLeft()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
