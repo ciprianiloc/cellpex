@@ -32,6 +32,7 @@
 		F66CBF641FD6C9E40002D757 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66CBF631FD6C9E40002D757 /* BaseViewController.swift */; };
 		F66D648F1FB326AF0070775F /* InboxMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66D648E1FB326AF0070775F /* InboxMessageModel.swift */; };
 		F67183751FBC40DA005A053D /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67183741FBC40DA005A053D /* ProductModel.swift */; };
+		F679036D1FE285080024D4A0 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F679036C1FE285080024D4A0 /* RegisterViewController.swift */; };
 		F6863C681FA7163200A5F6D2 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6863C671FA7163200A5F6D2 /* LeftMenuViewController.swift */; };
 		F6863C6A1FA717AF00A5F6D2 /* SlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6863C691FA717AF00A5F6D2 /* SlideMenuController.swift */; };
 		F6863C751FA733A600A5F6D2 /* ExSlideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6863C741FA733A600A5F6D2 /* ExSlideMenuController.swift */; };
@@ -81,6 +82,7 @@
 		F66CBF631FD6C9E40002D757 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F66D648E1FB326AF0070775F /* InboxMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageModel.swift; sourceTree = "<group>"; };
 		F67183741FBC40DA005A053D /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
+		F679036C1FE285080024D4A0 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F6863C671FA7163200A5F6D2 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		F6863C691FA717AF00A5F6D2 /* SlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenuController.swift; sourceTree = "<group>"; };
 		F6863C741FA733A600A5F6D2 /* ExSlideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExSlideMenuController.swift; sourceTree = "<group>"; };
@@ -234,6 +236,14 @@
 			path = BaseClasses;
 			sourceTree = "<group>";
 		};
+		F679036B1FE284EE0024D4A0 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				F679036C1FE285080024D4A0 /* RegisterViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		F6863C761FA7341700A5F6D2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +291,7 @@
 		F69EECE51FA3B18700F497F1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				F679036B1FE284EE0024D4A0 /* Register */,
 				F66CBF621FD6C9C50002D757 /* BaseClasses */,
 				F63410071FA8F7B800D46222 /* SlideMenu */,
 				F68E615C1FA8B69C0046E5BC /* CollectionViewBase */,
@@ -488,6 +499,7 @@
 				F6863C751FA733A600A5F6D2 /* ExSlideMenuController.swift in Sources */,
 				F636A18F1FA7778900DCDCFA /* LeftMenuModel.swift in Sources */,
 				F69EECED1FA4557700F497F1 /* ProductCollectionViewCell.swift in Sources */,
+				F679036D1FE285080024D4A0 /* RegisterViewController.swift in Sources */,
 				F658B9A51FBB8CA800E92FCD /* SessionManager.swift in Sources */,
 				F622CA451FBDC447008920BC /* ProductsManager.swift in Sources */,
 				F6660A051FACC63400116A8F /* NetworkManager.swift in Sources */,
