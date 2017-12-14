@@ -8,6 +8,14 @@
 
 import UIKit
 
+class EnterInfoRegistrationCell: UITableViewCell {
+    @IBOutlet weak var titleInfoLabel: UILabel!
+    @IBOutlet weak var addInfoTextField: UITextField!
+    @IBOutlet weak var additionalInfoLabel: UILabel!
+    
+    
+}
+
 class RegisterViewController: BaseViewController {
 
     override func viewDidLoad() {
@@ -28,6 +36,25 @@ class RegisterViewController: BaseViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
+}
 
+extension RegisterViewController : UITableViewDelegate {
     
+}
+
+extension RegisterViewController : UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EnterInfoRegistrationCell") as! EnterInfoRegistrationCell
+        cell.titleInfoLabel.text = "TITLE"
+        cell.addInfoTextField.text = "additional"
+        return cell;
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
 }
