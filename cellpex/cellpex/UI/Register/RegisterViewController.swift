@@ -52,13 +52,19 @@ extension RegisterViewController : UITableViewDataSource {
         let registrationField = RegistrationField(rawValue: indexPath.row)
         cell.titleInfoLabel.text = registrationField?.title
         cell.additionalInfoLabel.text = registrationField?.additionalInfo
+        if let isMandatory = registrationField?.isMandatoryForBayer, isMandatory{
+            cell.titleInfoLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
+        } else {
+            cell.titleInfoLabel.font = UIFont.systemFont(ofSize: 17.0)
+        }
         return cell;
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 107
+        let registrationField = RegistrationField(rawValue: indexPath.row)
+        if let additionalInfo = registrationField?.additionalInfo, additionalInfo.count > 0 {
+            return  107
+        }
+        return 70
     }
 }
