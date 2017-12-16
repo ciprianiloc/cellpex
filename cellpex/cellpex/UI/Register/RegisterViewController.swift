@@ -44,13 +44,14 @@ extension RegisterViewController : UITableViewDelegate {
 
 extension RegisterViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return RegistrationField.DBDUNSNo.rawValue + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EnterInfoRegistrationCell") as! EnterInfoRegistrationCell
-        cell.titleInfoLabel.text = "TITLE"
-        cell.addInfoTextField.text = "additional"
+        let registrationField = RegistrationField(rawValue: indexPath.row)
+        cell.titleInfoLabel.text = registrationField?.title
+        cell.additionalInfoLabel.text = registrationField?.additionalInfo
         return cell;
     }
     

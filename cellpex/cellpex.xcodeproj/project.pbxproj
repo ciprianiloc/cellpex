@@ -49,6 +49,7 @@
 		F6A826121FC752C400385B7E /* ImageContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A826111FC752C400385B7E /* ImageContainerView.swift */; };
 		F6A826141FC774F200385B7E /* GetImageOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A826131FC774F200385B7E /* GetImageOperation.swift */; };
 		F6C08C071FCD6FD000274743 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6C08C061FCD6FCF00274743 /* GoogleService-Info.plist */; };
+		F6E138E71FE5628C00FBBF67 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E138E61FE5628C00FBBF67 /* RegisterModel.swift */; };
 		F6FAC25F1FB886A900D9F95B /* ProductDetailsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FAC25E1FB886A900D9F95B /* ProductDetailsLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,7 @@
 		F6A826131FC774F200385B7E /* GetImageOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageOperation.swift; sourceTree = "<group>"; };
 		F6C08C061FCD6FCF00274743 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F6C69D211FCDD8040067C4D5 /* cellpex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = cellpex.entitlements; sourceTree = "<group>"; };
+		F6E138E61FE5628C00FBBF67 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
 		F6FAC25E1FB886A900D9F95B /* ProductDetailsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				F679036C1FE285080024D4A0 /* RegisterViewController.swift */,
+				F6E138E61FE5628C00FBBF67 /* RegisterModel.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				F6863C781FA7341700A5F6D2 /* UIApplication.swift in Sources */,
 				F6863C811FA767A500A5F6D2 /* FeedbackViewController.swift in Sources */,
 				F66CBF641FD6C9E40002D757 /* BaseViewController.swift in Sources */,
+				F6E138E71FE5628C00FBBF67 /* RegisterModel.swift in Sources */,
 				F66BD6761FBF864F00062422 /* SentMessageModel.swift in Sources */,
 				F63F91C61FA360C80083A4A8 /* LoginViewController.swift in Sources */,
 				F6863C7A1FA752DB00A5F6D2 /* LeftMenuCell.swift in Sources */,
