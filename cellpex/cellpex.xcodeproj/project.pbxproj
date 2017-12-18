@@ -10,6 +10,10 @@
 		4020F59504424854CC578373 /* Pods_cellpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3DFACA02B3CDFA006D2A66 /* Pods_cellpex.framework */; };
 		F622CA451FBDC447008920BC /* ProductsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F622CA441FBDC447008920BC /* ProductsManager.swift */; };
 		F6272DF41FBC814A007F0B22 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */; };
+		F6294DF41FE8134700204A1B /* RegisterLoginDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6294DF31FE8134700204A1B /* RegisterLoginDetailsModel.swift */; };
+		F6294DF61FE8142800204A1B /* RegisterAccountDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6294DF51FE8142800204A1B /* RegisterAccountDetailsModel.swift */; };
+		F6294DF81FE8151700204A1B /* LoginDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6294DF71FE8151700204A1B /* LoginDetailsViewController.swift */; };
+		F6294DFA1FE8153000204A1B /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6294DF91FE8152F00204A1B /* AccountDetailsViewController.swift */; };
 		F629B8841FBF300200828F17 /* MessagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F629B8831FBF300200828F17 /* MessagesManager.swift */; };
 		F634100F1FA9030900D46222 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F634100E1FA9030900D46222 /* Constants.swift */; };
 		F63410111FA9135B00D46222 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63410101FA9135B00D46222 /* PaddedTextField.swift */; };
@@ -59,6 +63,10 @@
 		EFAEFFBFED024BD3D68F04B3 /* Pods-cellpex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.release.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.release.xcconfig"; sourceTree = "<group>"; };
 		F622CA441FBDC447008920BC /* ProductsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsManager.swift; sourceTree = "<group>"; };
 		F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
+		F6294DF31FE8134700204A1B /* RegisterLoginDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterLoginDetailsModel.swift; sourceTree = "<group>"; };
+		F6294DF51FE8142800204A1B /* RegisterAccountDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAccountDetailsModel.swift; sourceTree = "<group>"; };
+		F6294DF71FE8151700204A1B /* LoginDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDetailsViewController.swift; sourceTree = "<group>"; };
+		F6294DF91FE8152F00204A1B /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		F629B8831FBF300200828F17 /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
 		F634100E1FA9030900D46222 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F63410101FA9135B00D46222 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
@@ -243,6 +251,10 @@
 			children = (
 				F679036C1FE285080024D4A0 /* RegisterViewController.swift */,
 				F6E138E61FE5628C00FBBF67 /* RegisterModel.swift */,
+				F6294DF31FE8134700204A1B /* RegisterLoginDetailsModel.swift */,
+				F6294DF51FE8142800204A1B /* RegisterAccountDetailsModel.swift */,
+				F6294DF71FE8151700204A1B /* LoginDetailsViewController.swift */,
+				F6294DF91FE8152F00204A1B /* AccountDetailsViewController.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -489,6 +501,8 @@
 				F6FAC25F1FB886A900D9F95B /* ProductDetailsLayout.swift in Sources */,
 				F6863C7E1FA7629600A5F6D2 /* MessagesViewController.swift in Sources */,
 				F6272DF41FBC814A007F0B22 /* ProductDetailsModel.swift in Sources */,
+				F6294DFA1FE8153000204A1B /* AccountDetailsViewController.swift in Sources */,
+				F6294DF41FE8134700204A1B /* RegisterLoginDetailsModel.swift in Sources */,
 				F63410111FA9135B00D46222 /* PaddedTextField.swift in Sources */,
 				F634100F1FA9030900D46222 /* Constants.swift in Sources */,
 				F6863C781FA7341700A5F6D2 /* UIApplication.swift in Sources */,
@@ -514,6 +528,7 @@
 				F63410131FAA54BF00D46222 /* MessageViewController.swift in Sources */,
 				F650032F1FC593AD007870B4 /* ImagesCarousel.swift in Sources */,
 				F6A826141FC774F200385B7E /* GetImageOperation.swift in Sources */,
+				F6294DF61FE8142800204A1B /* RegisterAccountDetailsModel.swift in Sources */,
 				F67183751FBC40DA005A053D /* ProductModel.swift in Sources */,
 				F66BD6741FBF855000062422 /* SentMessagesModel.swift in Sources */,
 				F66D648F1FB326AF0070775F /* InboxMessageModel.swift in Sources */,
@@ -522,6 +537,7 @@
 				F6863C681FA7163200A5F6D2 /* LeftMenuViewController.swift in Sources */,
 				F6863C841FA767D900A5F6D2 /* FollowingInventoryViewController.swift in Sources */,
 				F629B8841FBF300200828F17 /* MessagesManager.swift in Sources */,
+				F6294DF81FE8151700204A1B /* LoginDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
