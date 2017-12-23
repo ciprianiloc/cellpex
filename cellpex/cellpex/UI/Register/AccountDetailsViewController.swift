@@ -43,6 +43,34 @@ extension AccountDetailsViewController : UITableViewDataSource {
         } else {
             cell.titleInfoLabel.font = UIFont.systemFont(ofSize: 17.0)
         }
+        if let isPhoneFormat = registrationField?.isPhoneFormat, isPhoneFormat {
+            let leftButton = UIButton.init(type: .custom)
+            leftButton.frame = CGRect.init(x: 0, y: 0, width: 60, height: cell.addInfoTextField.frame.size.height)
+            leftButton.titleLabel?.font = cell.addInfoTextField.font
+            leftButton.setTitle("+1", for: .normal)
+            leftButton.setTitleColor(.black, for: .normal)
+            leftButton.layer.borderWidth = 1.0
+            leftButton.layer.borderColor = UIColor.black.cgColor
+            leftButton.backgroundColor = UIColor.init(white: 0.9, alpha: 1.0)
+            cell.addInfoTextField.leftViewMode = .always
+            cell.addInfoTextField.leftView = leftButton
+        } else {
+            cell.addInfoTextField.leftViewMode = .never
+            cell.addInfoTextField.leftView = nil
+        }
+        if let isListFormat = registrationField?.isListFormat, isListFormat {
+            let image = UIImageView.init(image: UIImage.init(named: "selection_arrow_icon"))
+            image.frame = CGRect.init(x: 0, y: 0, width: 30, height: 20)
+            image.contentMode = .scaleAspectFit
+            cell.addInfoTextField.rightView = image
+            cell.addInfoTextField.rightViewMode = .always
+        } else {
+            cell.addInfoTextField.rightViewMode = .never
+            cell.addInfoTextField.rightView = nil
+        }
+
+
+        
         return cell;
     }
     

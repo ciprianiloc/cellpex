@@ -95,6 +95,24 @@ enum RegistrationAccountDetailsField: Int {
         default: return isMandatoryForBayer
         }
     }
+    
+    var isPhoneFormat: Bool {
+        switch self {
+        case .Phone: return true
+        case .MobilePhone: return true
+        case .Fax: return true
+        default: return false
+        }
+    }
+    
+    var isListFormat: Bool {
+        switch self {
+        case .Country: return true
+        case .Timezone: return true
+        case .HowDidYouHearAboutUs: return true
+        default: return false
+        }
+    }
 }
 
 class RegisterAccountDetailsModel: NSObject {
