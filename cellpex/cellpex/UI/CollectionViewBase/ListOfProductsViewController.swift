@@ -42,12 +42,12 @@ class ListOfProductsViewController: BaseViewController {
         searchController.searchBar.delegate = self
 
         self.refreshControl.attributedTitle = NSAttributedString.init(string: "pull to refresh")
-        self.refreshControl.addTarget(self, action: #selector(ListOfProductsViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged)
+        self.refreshControl.addTarget(self, action: #selector(ListOfProductsViewController.handleRefresh(refreshControl:)), for: UIControl.Event.valueChanged)
         self.bottomRefreshControl.attributedTitle = NSAttributedString.init(string: "pull to load more")
-        self.bottomRefreshControl.addTarget(self, action: #selector(ListOfProductsViewController.bottomRefreshControl(refreshControl:)), for: UIControlEvents.valueChanged)
+        self.bottomRefreshControl.addTarget(self, action: #selector(ListOfProductsViewController.bottomRefreshControl(refreshControl:)), for: UIControl.Event.valueChanged)
         collectionView.bottomRefreshControl = bottomRefreshControl
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:UIResponder.keyboardWillShowNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:UIResponder.keyboardWillHideNotification, object: nil);
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -108,7 +108,7 @@ class ListOfProductsViewController: BaseViewController {
     
     @objc func keyboardWillShow(sender: NSNotification) {
         let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardRectangle.height
         collectionViewButtomConstraint.constant = keyboardHeight

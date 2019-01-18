@@ -33,9 +33,9 @@ class FeedbackViewController: BaseViewController {
         selectSubjectView.layer.shadowRadius = 2
         selectSubjectView.layer.shadowColor = UIColor.lightGray.cgColor
         selectSubjectView.layer.shadowOpacity = 0.5
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateButtonState), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateButtonState), name: UITextView.textDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:UIResponder.keyboardWillShowNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:UIResponder.keyboardWillHideNotification, object: nil);
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -89,7 +89,7 @@ class FeedbackViewController: BaseViewController {
     
     @objc func keyboardWillShow(sender: NSNotification) {
         let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardRectangle.height
         scrollViewButtomConstraint.constant = keyboardHeight

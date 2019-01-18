@@ -84,9 +84,9 @@ class MessageViewController: BaseViewController {
             placeholderLabel.frame.origin = CGPoint(x: 5, y: (messageTextView.font?.pointSize)! / 2)
             placeholderLabel.textColor = UIColor.lightGray
             placeholderLabel.isHidden = !messageTextView.text.isEmpty
-            NotificationCenter.default.addObserver(self, selector: #selector(self.textViewHasChanged), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+            NotificationCenter.default.addObserver(self, selector: #selector(self.textViewHasChanged), name: UITextView.textDidChangeNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:UIResponder.keyboardWillShowNotification, object: nil);
+            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:UIResponder.keyboardWillHideNotification, object: nil);
         }
     }
     
@@ -195,7 +195,7 @@ class MessageViewController: BaseViewController {
     
     @objc func keyboardWillShow(sender: NSNotification) {
         let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardRectangle.height
         messageTextViewButtomConstraint.constant = keyboardHeight + 10

@@ -30,12 +30,12 @@ class LoginViewController: BaseViewController {
         updateLoginButtonState()
         
         passwordTextFieldRightButton.frame =  CGRect(x: 0, y: 0, width: passwordTextField.frame.height - 12, height: passwordTextField.frame.height - 12)
-        passwordTextFieldRightButton.contentMode = UIViewContentMode.center
+        passwordTextFieldRightButton.contentMode = UIView.ContentMode.center
         passwordTextField.rightView = passwordTextFieldRightButton
         passwordTextFieldRightButton.addTarget(self, action: #selector(self.passwordTextFieldRightButtonAction), for: .touchUpInside)
         let passwordTextFieldRightButtonImage = passwordTextFieldShoulBeSecure ? "eyes_icon_secure" : "eyes_icon_notsecure"
         passwordTextFieldRightButton.setImage(UIImage(named: passwordTextFieldRightButtonImage), for: .normal)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateLoginButtonState), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateLoginButtonState), name: UITextField.textDidChangeNotification, object: nil)
         passwordTextField.isSecureTextEntry = passwordTextFieldShoulBeSecure
     
     }

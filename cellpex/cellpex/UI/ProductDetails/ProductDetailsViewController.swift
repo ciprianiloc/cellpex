@@ -54,7 +54,7 @@ class SendMessageCell: UICollectionViewCell {
         placeholderLabel.frame.origin = CGPoint(x: 5, y: (messageTextView.font?.pointSize)! / 2)
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.isHidden = !messageTextView.text.isEmpty
-        NotificationCenter.default.addObserver(self, selector: #selector(self.textViewHasChanged), name: NSNotification.Name.UITextViewTextDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.textViewHasChanged), name: UITextView.textDidChangeNotification, object: nil)
         selectSubjectView.layer.shadowColor = UIColor.lightGray.cgColor
         selectSubjectView.layer.shadowRadius = 2
         selectSubjectView.layer.shadowOpacity = 0.5
@@ -98,8 +98,8 @@ class ProductDetailsViewController: BaseViewController {
         if let layout = productDetailsCollectionView?.collectionViewLayout as? ProductDetailsLayout {
             layout.delegate = self
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(sender:)), name:UIResponder.keyboardWillShowNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(sender:)), name:UIResponder.keyboardWillHideNotification, object: nil);
         spinner.startAnimating()
         self.productDetailsModel = nil        
     }
@@ -196,12 +196,12 @@ class ProductDetailsViewController: BaseViewController {
     
     @objc func keyboardWillShow(sender: NSNotification) {
         let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardRectangle.height
         collectionViewButtomConstraints.constant = keyboardHeight
         DispatchQueue.main.async {
-            self.productDetailsCollectionView.scrollToItem(at: IndexPath(row: 0, section: 4), at: UICollectionViewScrollPosition.bottom, animated: true)
+            self.productDetailsCollectionView.scrollToItem(at: IndexPath(row: 0, section: 4), at: UICollectionView.ScrollPosition.bottom, animated: true)
         }
     
     }
@@ -225,7 +225,7 @@ class ProductDetailsViewController: BaseViewController {
             NetworkManager.sendMessage(postId: postId, subject: subject, message: message) { [weak self](message: String) in
                 let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { _ in
-                    NotificationCenter.default.post(name: NSNotification.Name.UITextViewTextDidChange, object: nil)
+                    NotificationCenter.default.post(name: UITextView.textDidChangeNotification, object: nil)
                 }))
                 DispatchQueue.main.async {
                     self?.spinner.stopAnimating()

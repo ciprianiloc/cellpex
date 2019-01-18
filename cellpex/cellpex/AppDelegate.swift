@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Fabric.with([Crashlytics.self])
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         slideMenuController.delegate = mainViewController
         
         if launchOptions != nil {
-            let notificationObject = launchOptions![UIApplicationLaunchOptionsKey.remoteNotification] as? [String:Any?]
+            let notificationObject = launchOptions![UIApplication.LaunchOptionsKey.remoteNotification] as? [String:Any?]
             if let messageID = notificationObject?["gcm.notification.id"] as? String {
                 if let messageViewController = storyboard.instantiateViewController(withIdentifier: "MessageViewController") as? MessageViewController {
                     messageViewController.requestInboxMessageDetails(mesageID: messageID)

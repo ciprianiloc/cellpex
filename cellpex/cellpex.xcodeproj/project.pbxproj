@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4020F59504424854CC578373 /* Pods_cellpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3DFACA02B3CDFA006D2A66 /* Pods_cellpex.framework */; };
+		2A534CB3AE0C8CEE66DF01B4 /* Pods_cellpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288F34B35F2779E2DC6F8E6E /* Pods_cellpex.framework */; };
 		F622CA451FBDC447008920BC /* ProductsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F622CA441FBDC447008920BC /* ProductsManager.swift */; };
 		F6272DF41FBC814A007F0B22 /* ProductDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */; };
 		F629B8841FBF300200828F17 /* MessagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F629B8831FBF300200828F17 /* MessagesManager.swift */; };
@@ -54,9 +54,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		65C8B085E7A29E1E926DE631 /* Pods-cellpex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.debug.xcconfig"; sourceTree = "<group>"; };
-		9F3DFACA02B3CDFA006D2A66 /* Pods_cellpex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cellpex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EFAEFFBFED024BD3D68F04B3 /* Pods-cellpex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.release.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.release.xcconfig"; sourceTree = "<group>"; };
+		031456CE241F48038D6831E0 /* Pods-cellpex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.debug.xcconfig"; sourceTree = "<group>"; };
+		288F34B35F2779E2DC6F8E6E /* Pods_cellpex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cellpex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3891BDCB5E3D3382AA55F6EB /* Pods-cellpex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cellpex.release.xcconfig"; path = "Pods/Target Support Files/Pods-cellpex/Pods-cellpex.release.xcconfig"; sourceTree = "<group>"; };
 		F622CA441FBDC447008920BC /* ProductsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsManager.swift; sourceTree = "<group>"; };
 		F6272DF31FBC814A007F0B22 /* ProductDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsModel.swift; sourceTree = "<group>"; };
 		F629B8831FBF300200828F17 /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
@@ -110,26 +110,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4020F59504424854CC578373 /* Pods_cellpex.framework in Frameworks */,
+				2A534CB3AE0C8CEE66DF01B4 /* Pods_cellpex.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6A73D1AECEBC2A40877D79D2 /* Frameworks */ = {
+		0EB9BA30C048619C46CA5EF1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9F3DFACA02B3CDFA006D2A66 /* Pods_cellpex.framework */,
+				288F34B35F2779E2DC6F8E6E /* Pods_cellpex.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C1C919D2D313DD1B8DBAF4E6 /* Pods */ = {
+		26AEEE8052E8C7726A1FC215 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				65C8B085E7A29E1E926DE631 /* Pods-cellpex.debug.xcconfig */,
-				EFAEFFBFED024BD3D68F04B3 /* Pods-cellpex.release.xcconfig */,
+				031456CE241F48038D6831E0 /* Pods-cellpex.debug.xcconfig */,
+				3891BDCB5E3D3382AA55F6EB /* Pods-cellpex.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -173,8 +173,8 @@
 			children = (
 				F63F91C21FA360C80083A4A8 /* cellpex */,
 				F63F91C11FA360C80083A4A8 /* Products */,
-				C1C919D2D313DD1B8DBAF4E6 /* Pods */,
-				6A73D1AECEBC2A40877D79D2 /* Frameworks */,
+				26AEEE8052E8C7726A1FC215 /* Pods */,
+				0EB9BA30C048619C46CA5EF1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -331,13 +331,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F63F91D21FA360C80083A4A8 /* Build configuration list for PBXNativeTarget "cellpex" */;
 			buildPhases = (
-				F50535E1720346819262FFD5 /* [CP] Check Pods Manifest.lock */,
+				FB3CEF3FFBE227FED492431F /* [CP] Check Pods Manifest.lock */,
 				F63F91BC1FA360C80083A4A8 /* Sources */,
 				F63F91BD1FA360C80083A4A8 /* Frameworks */,
 				F63F91BE1FA360C80083A4A8 /* Resources */,
-				940CA545D9E41DB9A2D4F3B4 /* [CP] Embed Pods Frameworks */,
-				A39DB5D757DB72494EFA52D5 /* [CP] Copy Pods Resources */,
 				F6C08C051FCD6A0E00274743 /* ShellScript */,
+				B163DC7818D541FE1D65DF9B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -355,11 +354,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Ciprian Iloc";
 				TargetAttributes = {
 					F63F91BF1FA360C80083A4A8 = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -405,10 +405,12 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		940CA545D9E41DB9A2D4F3B4 /* [CP] Embed Pods Frameworks */ = {
+		B163DC7818D541FE1D65DF9B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-cellpex/Pods-cellpex-frameworks.sh",
@@ -420,6 +422,8 @@
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CCBottomRefreshControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
@@ -431,39 +435,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cellpex/Pods-cellpex-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A39DB5D757DB72494EFA52D5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cellpex/Pods-cellpex-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F50535E1720346819262FFD5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-cellpex-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F6C08C051FCD6A0E00274743 /* ShellScript */ = {
@@ -478,6 +449,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 1610404f11d7e1f95c2adf644d5065f23d9da93c 88c2fa697b26268be621327e7e4b1bb4a3e52c3a2040670b66ffb932159546ae";
+		};
+		FB3CEF3FFBE227FED492431F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-cellpex-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -561,6 +554,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -568,6 +562,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -621,6 +616,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -628,6 +624,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -662,7 +659,7 @@
 		};
 		F63F91D31FA360C80083A4A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65C8B085E7A29E1E926DE631 /* Pods-cellpex.debug.xcconfig */;
+			baseConfigurationReference = 031456CE241F48038D6831E0 /* Pods-cellpex.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = cellpex/cellpex.entitlements;
@@ -678,14 +675,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4bf49806-c6e7-4a89-9656-387721ea4822";
 				PROVISIONING_PROFILE_SPECIFIER = CiprilocDev;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		F63F91D41FA360C80083A4A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EFAEFFBFED024BD3D68F04B3 /* Pods-cellpex.release.xcconfig */;
+			baseConfigurationReference = 3891BDCB5E3D3382AA55F6EB /* Pods-cellpex.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = cellpex/cellpex.entitlements;
@@ -700,7 +697,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4bf49806-c6e7-4a89-9656-387721ea4822";
 				PROVISIONING_PROFILE_SPECIFIER = CiprilocDev;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
